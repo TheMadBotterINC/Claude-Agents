@@ -69,6 +69,13 @@ Layer by layer, look for:
 
 ## Phase 4 — Report
 
+**Where to save it (default):** write the report to `docs/audits/rails_code_quality_report.md`
+under the project root, creating `docs/audits/` if it doesn't exist (`mkdir -p
+docs/audits`, or rely on `Write` creating parent dirs). Add a scope/date suffix if a
+run would overwrite a prior report. When auditing a mounted engine / customer gem
+(source outside the host repo), save into the *host* app's `docs/audits/` with a
+`gem_`-prefixed filename. Always also return the findings in your final message.
+
 Group findings by area, ordered by **impact on maintainability**. For each:
 
 - **Location** — file:line and the construct involved.
