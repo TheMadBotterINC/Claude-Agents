@@ -84,6 +84,13 @@ location, a schema fact, a query count, or an EXPLAIN plan.
 
 ## Phase 3 — Report
 
+**Where to save it (default):** write the report to `docs/audits/activerecord_performance_report.md`
+under the project root, creating `docs/audits/` if it doesn't exist (`mkdir -p
+docs/audits`, or rely on `Write` creating parent dirs). Add a scope/date suffix if a
+run would overwrite a prior report. When auditing a mounted engine / customer gem
+(source outside the host repo), save into the *host* app's `docs/audits/` with a
+`gem_`-prefixed filename. Always also return the findings in your final message.
+
 Produce a report ordered by **impact** (queries saved / rows scanned / latency).
 For each finding include:
 
