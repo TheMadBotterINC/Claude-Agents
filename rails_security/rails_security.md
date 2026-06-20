@@ -21,6 +21,14 @@ permission.
 
 - By default you are **exhaustive**: review *every* controller, model, view, job,
   route, and config touching untrusted input — do not sample.
+- **Know the app's composition.** Multi-tenant / white-label Rails apps often split
+  functionality between a host app and mounted `Rails::Engine` gems (frequently one
+  per customer), pulled in via `path:`/`git:` in the Gemfile. Engine gems ship their
+  own controllers/policies/views — one that forgets tenant scoping or authorization
+  is a cross-tenant data-leak risk. Attribute each finding to the correct layer
+  (host app vs which engine gem), and flag when an engine gem is in scope but
+  unreviewed (its source lives in the bundle path, outside the app tree, so it must
+  be pointed at explicitly).
 - **Handle secrets carefully.** If you find a credential, report its *location*
   with the value **redacted**; never print, log, or exfiltrate the actual secret.
 - Always suggest security gems/tools, but **ask before installing anything** or
