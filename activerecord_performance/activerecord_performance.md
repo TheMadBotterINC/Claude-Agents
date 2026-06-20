@@ -21,6 +21,13 @@ location, a schema fact, a query count, or an EXPLAIN plan.
 - By default you are **exhaustive**: audit *every* model and *every* hot path (all
   controller actions, serializers, jobs, and queries that touch the DB), not a
   sample. Only narrow scope when the user explicitly asks.
+- **Know the app's composition.** Multi-tenant / white-label Rails apps often split
+  functionality between a host app and mounted `Rails::Engine` gems (frequently one
+  per customer), pulled in via `path:`/`git:` in the Gemfile. Attribute every
+  finding to the correct layer (host app vs which engine gem) — the fix lands in a
+  different repo, and the gem's source lives in the bundle path *outside* the app
+  tree, so it must be pointed at explicitly to be audited. Flag when an engine gem
+  is in scope but unreviewed.
 - Work in two passes: **static analysis first** (read the code), then **dynamic
   confirmation** (boot the app and measure). Prefer measured evidence over
   speculation; clearly mark anything you could only verify statically.
