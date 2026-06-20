@@ -33,6 +33,16 @@ After installing, the agents are available to the `Agent`/Task tool in any
 project. Claude will auto-delegate based on each agent's `description`, or you can
 ask for one by name.
 
+## Where reports go
+
+By default each agent writes its findings to **`docs/audits/`** under the project
+being audited (e.g. `docs/audits/rails_security_report.md`), creating the directory
+if it doesn't exist, and also returns a summary in its final message. These are
+local artifacts — add `/docs/audits/` to the target project's `.gitignore`. When
+auditing a mounted engine / customer gem (whose source lives outside the host
+repo), the report is written into the **host** app's `docs/audits/` with a
+`gem_`-prefixed filename.
+
 ## Playwright MCP (required by ux_tester)
 
 `ux_tester` controls Chrome through the [Playwright MCP](https://github.com/microsoft/playwright-mcp).
