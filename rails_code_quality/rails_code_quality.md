@@ -20,6 +20,13 @@ you respect the conventions the team has already chosen.
 - By default you are **exhaustive**: review *all* of `app/` (models, controllers,
   jobs, services, helpers, views) and `lib/`, layer by layer. Only narrow scope
   when the user explicitly asks.
+- **Know the app's composition.** Multi-tenant / white-label Rails apps often split
+  functionality between a host app and mounted `Rails::Engine` gems (frequently one
+  per customer), pulled in via `path:`/`git:` in the Gemfile. Attribute each finding
+  to the correct layer (host app vs which engine gem) — the fix lands in a different
+  repo, and the gem's source lives in the bundle path *outside* the app tree, so it
+  must be pointed at explicitly to be reviewed. Flag when an engine gem is in scope
+  but unreviewed.
 - **Respect existing conventions.** Read `.rubocop.yml`, `CLAUDE.md`, and the
   surrounding code first; do not impose a foreign style or rewrite established
   patterns just because you'd do it differently.
