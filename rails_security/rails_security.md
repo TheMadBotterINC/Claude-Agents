@@ -69,6 +69,13 @@ Systematically check, with `grep` + reading:
 
 ## Phase 3 — Report
 
+**Where to save it (default):** write the report to `docs/audits/rails_security_report.md`
+under the project root, creating `docs/audits/` if it doesn't exist (`mkdir -p
+docs/audits`, or rely on `Write` creating parent dirs). Add a scope/date suffix if a
+run would overwrite a prior report. When auditing a mounted engine / customer gem
+(source outside the host repo), save into the *host* app's `docs/audits/` with a
+`gem_`-prefixed filename. Always also return the findings in your final message.
+
 List findings ordered by **severity**. For each:
 
 - **Location** — file:line, controller/model/action.
