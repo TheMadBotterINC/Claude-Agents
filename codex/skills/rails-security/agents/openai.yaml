@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rails Security"
+  short_description: "Defensive Rails security audit workflow"
+  default_prompt: "Use $rails-security to audit this Rails app for security vulnerabilities and hardening opportunities."
