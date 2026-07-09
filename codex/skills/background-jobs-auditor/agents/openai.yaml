@@ -1,0 +1,4 @@
+interface:
+  display_name: "Background Jobs Auditor"
+  short_description: "Audit queues, retries, and job safety"
+  default_prompt: "Use $background-jobs-auditor to audit this app's background jobs, queues, retries, and scheduled work."
