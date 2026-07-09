@@ -1,13 +1,13 @@
 ---
 name: audit-orchestrator
-description: Orchestrates multiple local software-business audit skills into a sequential audit plan and consolidated report. Use when asked to run all audits, run a full app audit, coordinate UX/performance/security/code-quality/database audits, choose a subset of audit skills, summarize outputs from several audits, or manage sequential runs of $ux-tester, $web-performance, $rails-security, $activerecord-performance, and $rails-code-quality.
+description: Orchestrates multiple local software-business audit skills into isolated codex exec runs and a consolidated report. Use when asked to run all audits, run a full app audit, coordinate UX/performance/security/code-quality/database audits, choose a subset of audit skills, summarize outputs from several audits, or manage sequential runs of specialist audit skills.
 ---
 
 # Audit Orchestrator
 
 ## Overview
 
-Use this skill to coordinate the local audit suite, run the relevant subskills in a deliberate order, and produce a single high-signal summary that links back to the detailed reports. This skill manages scope, sequencing, deduplication, and final prioritization; the specialist skills own the deep audit work.
+Use this skill to coordinate the local audit suite, launch each selected specialist in an isolated `codex exec` run, and produce a single high-signal summary that links back to the detailed reports. This skill manages scope, sequencing, child-run artifact collection, deduplication, and final prioritization; the specialist skills own the deep audit work.
 
 ## Available Audit Skills
 
@@ -16,6 +16,20 @@ Use this skill to coordinate the local audit suite, run the relevant subskills i
 - `$rails-security`: defensive Rails security, auth/authz, IDOR, injection, XSS, CSRF, SSRF, secrets, dependency CVEs, sessions, headers.
 - `$activerecord-performance`: Rails database/query performance, N+1s, indexes, over-fetching, unbounded queries, EXPLAIN/query counts.
 - `$rails-code-quality`: maintainability, Rails conventions, architecture, RuboCop/Reek, fat models/controllers, callbacks, duplication, dead code.
+
+## Runner Script
+
+Prefer the bundled runner instead of running every specialist inside the parent context:
+
+```bash
+python codex/skills/audit-orchestrator/scripts/run_audit_suite.py \
+  --target /path/to/app \
+  --base-url http://localhost:3000 \
+  --skills ux-tester,web-performance,rails-security \
+  --sandbox workspace-write
+```
+
+The runner creates `docs/audits/.orchestrator-runs/<timestamp>/manifest.json` plus per-skill stdout, stderr, and final-message files. Use `--dry-run` to verify selected skills and generated `codex exec` commands without launching child runs. Use `--strict` only when the user wants the suite to stop after the first failed or blocked child run.
 
 ## Scope Selection
 
@@ -44,15 +58,15 @@ For subsets, preserve the relative order above. If browser skills are requested 
 
 ## Running The Audit
 
-For each selected skill:
+When running from a target app repo:
 
-1. Announce which skill is starting and what inputs it needs.
-2. Invoke or explicitly follow that skill's workflow by name, for example: "Use `$rails-security` to audit this Rails app..."
-3. Let the specialist skill produce its detailed report under `docs/audits/`.
-4. Record the report path, tool coverage, blockers, critical findings, and overlap with prior findings.
-5. Continue to the next selected skill unless a blocker makes later work unreliable.
+1. Infer or confirm the selected skills.
+2. Confirm the target directory. Confirm `--base-url` before selecting browser skills.
+3. Run the bundled script from this skill directory with the selected skills.
+4. Read the generated `manifest.json`, child final messages, and any specialist reports under `docs/audits/`.
+5. Continue summarization even if unrelated child runs failed; mark blocked/failed children clearly.
 
-Do not run specialist audits in parallel by default. Sequential runs produce cleaner context, avoid browser/tool contention, and make final deduplication easier. If the user explicitly asks for background or parallel work, recommend `codex exec` sessions, Codex app automations, or worktrees and explain the approval/sandbox tradeoffs before starting them.
+Do not run specialist audits in parallel by default. The runner is intentionally sequential to avoid browser/tool contention and make failures easier to diagnose. If the user explicitly asks for parallel work, explain that a later `--parallel` runner mode or separate worktrees would be safer than ad hoc backgrounding.
 
 ## Consolidated Output
 
