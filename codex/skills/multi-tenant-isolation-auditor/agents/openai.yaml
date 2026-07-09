@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi-Tenant Isolation Auditor"
+  short_description: "Audit tenant boundaries and data leaks"
+  default_prompt: "Use $multi-tenant-isolation-auditor to audit this app for tenant isolation and cross-tenant data leak risks."
