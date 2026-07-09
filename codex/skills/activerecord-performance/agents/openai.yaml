@@ -1,0 +1,4 @@
+interface:
+  display_name: "ActiveRecord Performance"
+  short_description: "Rails database and query performance auditor"
+  default_prompt: "Use $activerecord-performance to audit this Rails app for N+1 queries, indexing issues, and slow ActiveRecord usage."
