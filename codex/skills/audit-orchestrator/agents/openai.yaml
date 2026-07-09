@@ -1,0 +1,9 @@
+interface:
+  display_name: "Audit Orchestrator"
+  short_description: "Coordinate multiple Rails and UX audit skills"
+  default_prompt: "Use $audit-orchestrator to run the relevant audit skills in sequence and produce a consolidated report."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "playwright"
+      description: "Required when orchestrated scope includes UX or frontend performance browser audits."
