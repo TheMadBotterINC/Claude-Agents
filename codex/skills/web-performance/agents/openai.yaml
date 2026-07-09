@@ -1,0 +1,9 @@
+interface:
+  display_name: "Web Performance"
+  short_description: "Frontend performance audit with browser metrics"
+  default_prompt: "Use $web-performance to audit this app's Core Web Vitals, network weight, and frontend performance."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "playwright"
+      description: "Playwright MCP browser tools for navigation, performance APIs, screenshots, console logs, network requests, and viewport resizing."
