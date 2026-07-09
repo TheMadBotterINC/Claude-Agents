@@ -1,0 +1,4 @@
+interface:
+  display_name: "Observability Auditor"
+  short_description: "Audit logs, metrics, alerts, and diagnostics"
+  default_prompt: "Use $observability-auditor to audit this app's logging, metrics, alerts, and production diagnosability."
