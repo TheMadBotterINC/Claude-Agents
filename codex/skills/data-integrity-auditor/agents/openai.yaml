@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Integrity Auditor"
+  short_description: "Audit constraints, migrations, and consistency"
+  default_prompt: "Use $data-integrity-auditor to audit this Rails app's data integrity, constraints, and migration safety."
