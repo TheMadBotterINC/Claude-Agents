@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deployment Readiness"
+  short_description: "Audit production readiness and operations"
+  default_prompt: "Use $deployment-readiness to audit this app's production deployment readiness and operational risks."
