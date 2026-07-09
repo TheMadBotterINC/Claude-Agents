@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Coverage Auditor"
+  short_description: "Audit test coverage and suite health"
+  default_prompt: "Use $test-coverage-auditor to audit this app's test coverage, suite health, and missing regression tests."
