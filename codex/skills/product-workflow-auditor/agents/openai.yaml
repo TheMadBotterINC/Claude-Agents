@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Workflow Auditor"
+  short_description: "Audit SaaS workflows and product friction"
+  default_prompt: "Use $product-workflow-auditor to audit this app's core product workflows and user friction."
