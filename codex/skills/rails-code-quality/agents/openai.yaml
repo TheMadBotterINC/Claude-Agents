@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rails Code Quality"
+  short_description: "Rails maintainability and conventions reviewer"
+  default_prompt: "Use $rails-code-quality to review this Rails app for maintainability, conventions, and refactoring opportunities."
