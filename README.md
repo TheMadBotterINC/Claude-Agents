@@ -4,6 +4,8 @@ A small suite of authored [Claude Code subagents](https://docs.claude.com/en/doc
 for testing and tuning local web apps — primarily Ruby on Rails and Astro/JS
 front ends.
 
+**License:** Apache-2.0 (see [LICENSE](LICENSE)).
+
 Each agent lives in its own folder as `<agent>/<agent>.md` (the subagent prompt,
 with YAML frontmatter). `install.sh` links them into `~/.claude/agents/` so they
 are available in every project.
@@ -15,11 +17,11 @@ than spot-checks (ask them to narrow scope when you want a quick triage instead)
 
 | Agent | What it does |
 | --- | --- |
-| **ux_tester** | Detail-obsessed front-end UX tester. Drives Chrome via the Playwright MCP to find visual, layout, responsive, and interaction defects across desktop + mobile, screenshots every issue, and logs JS console errors. |
-| **activerecord_performance** | Rails ActiveRecord performance auditor. Finds N+1 queries, missing/redundant indexes, over-fetching, and unbounded queries — statically (code + schema) then dynamically (query logs, Bullet/Prosopite, `EXPLAIN ANALYZE`). |
-| **web_performance** | Front-end performance auditor (the client-side counterpart to activerecord_performance). Measures Core Web Vitals / Lighthouse, bundle & asset weight, render-blocking resources, image/font optimization, and Astro island hydration via Playwright MCP + build tooling. |
-| **rails_security** | Defensive Rails security auditor. Brakeman + bundler-audit plus manual review for injection, mass assignment, broken auth/authz & IDOR, CSRF, XSS, SSRF, unsafe deserialization, exposed secrets, and insecure session/header config. |
-| **rails_code_quality** | Rails code quality & conventions reviewer. RuboCop (+rails/-performance/-rspec) plus manual review for fat controllers/models, missing service objects, callback abuse, smells, duplication, and dead code — respecting existing style. |
+| **ux_tester** | Detail-obsessed front-end UX tester. Drives Chrome via the Playwright MCP to find visual, layout, responsive, and interaction defects across desktop + mobile, screenshots every issue, and writes a reproducible report. |
+| **activerecord_performance** | Rails ActiveRecord performance auditor. Finds N+1 queries, missing/redundant indexes, over-fetching, and unbounded queries — statically (code + schema) then dynamically with logs/EXPLAIN where available. |
+| **web_performance** | Front-end performance auditor (the client-side counterpart to activerecord_performance). Measures Core Web Vitals / Lighthouse, bundle & asset weight, render-blocking resources, cache policy, and image/font efficiency. |
+| **rails_security** | Defensive Rails security auditor. Brakeman + bundler-audit plus manual review for injection, mass assignment, broken auth/authz & IDOR, CSRF, XSS, SSRF, unsafe deserialization, and secrets handling. |
+| **rails_code_quality** | Rails code quality & conventions reviewer. RuboCop (+rails/-performance/-rspec) plus manual review for fat controllers/models, missing service objects, callback abuse, slim test coverage, and maintainability risks. |
 
 ## Install
 
