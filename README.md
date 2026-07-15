@@ -23,17 +23,27 @@ than spot-checks (ask them to narrow scope when you want a quick triage instead)
 | **rails_security** | Defensive Rails security auditor. Brakeman + bundler-audit plus manual review for injection, mass assignment, broken auth/authz & IDOR, CSRF, XSS, SSRF, unsafe deserialization, and secrets handling. |
 | **rails_code_quality** | Rails code quality & conventions reviewer. RuboCop (+rails/-performance/-rspec) plus manual review for fat controllers/models, missing service objects, callback abuse, slim test coverage, and maintainability risks. |
 
+## Skills
+
+Alongside the subagents, `skills/` holds [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills)
+that load into the main coding loop (a subagent can't change how the main agent
+writes code — a skill can).
+
+| Skill | What it does |
+| --- | --- |
+| **thought-thru-architecture** | Design-first coding discipline. Forces a design pass before the first edit (read for shape, pick the altitude, reuse before invention), bans the usual over-engineering moves while coding (defensive wrapping, compat shims, speculative knobs, grab-bag classes), and ends with a shrink pass over the diff. Includes before/after vignettes for larger features. |
+
 ## Install
 
 ```bash
-./install.sh          # symlink each agent into ~/.claude/agents (edits update live)
+./install.sh          # symlink Claude agents and skills
 ./install.sh --copy   # copy instead of symlink
 ./install.sh --list   # show what's installed from this repo
 ```
 
-After installing, the agents are available to the `Agent`/Task tool in any
-project. Claude will auto-delegate based on each agent's `description`, or you can
-ask for one by name.
+After installing, the Claude agents are available to the `Agent`/Task tool in
+any project. Claude will auto-delegate based on each agent's `description`, or
+you can ask for one by name.
 
 ## Where reports go
 

@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 #
-# Install agents from this repo into ~/.claude/agents/ (user-global), so they are
-# available in every project. Each agent lives in its own folder as
-# <agent>/<agent>.md; this script links (or copies) that file to
-# ~/.claude/agents/<agent>.md.
+# Install Claude agents and skills from this repo user-globally under ~/.claude,
+# so they are available in every project.
 #
 # Usage:
 #   ./install.sh            # symlink each agent (edits in the repo update live)
@@ -14,6 +12,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEST_DIR="${HOME}/.claude/agents"
+SKILLS_DEST_DIR="${HOME}/.claude/skills"
 MODE="link"
 
 case "${1:-}" in
@@ -59,8 +58,42 @@ for dir in "${REPO_DIR}"/*/; do
   esac
 done
 
+skills_installed=0
+if [ -d "${REPO_DIR}/skills" ]; then
+  mkdir -p "${SKILLS_DEST_DIR}"
+  for dir in "${REPO_DIR}"/skills/*/; do
+    name="$(basename "${dir}")"
+    [ -f "${dir}SKILL.md" ] || continue  # skip folders without a SKILL.md
+    dest="${SKILLS_DEST_DIR}/${name}"
+
+    case "${MODE}" in
+      list)
+        if [ -L "${dest}" ]; then
+          echo "${name}  ->  $(readlink "${dest}")"
+        elif [ -d "${dest}" ]; then
+          echo "${name}  (copied)"
+        else
+          echo "${name}  (not installed)"
+        fi
+        ;;
+      copy)
+        rm -rf "${dest}"
+        cp -R "${dir%/}" "${dest}"
+        echo "copied  ${name}  ->  ${dest}"
+        skills_installed=$((skills_installed + 1))
+        ;;
+      link)
+        [ -L "${dest}" ] || rm -rf "${dest}"
+        ln -sfn "${dir%/}" "${dest}"
+        echo "linked  ${name}  ->  ${dest}"
+        skills_installed=$((skills_installed + 1))
+        ;;
+    esac
+  done
+fi
+
 if [ "${MODE}" != "list" ]; then
   echo
-  echo "Installed ${installed} agent(s) into ${DEST_DIR}"
+  echo "Installed ${installed} Claude agent(s) and ${skills_installed} Claude skill(s)"
   echo "Note: ux_tester needs the Playwright MCP wherever you run it (see README)."
 fi
