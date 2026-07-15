@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paid Ads"
+  short_description: "Plan, target, and optimize paid ad campaigns"
+  default_prompt: "Use $ads to plan targeting, budget, and optimization for a paid campaign."

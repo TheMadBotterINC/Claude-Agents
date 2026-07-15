@@ -1,0 +1,4 @@
+interface:
+  display_name: "Community Marketing"
+  short_description: "Build engaged communities that support growth"
+  default_prompt: "Use $community-marketing to build a practical community growth strategy."

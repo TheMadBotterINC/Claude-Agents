@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conversion Rate Optimization"
+  short_description: "Diagnose and improve marketing-page conversion"
+  default_prompt: "Use $cro to audit this page and prioritize conversion improvements."

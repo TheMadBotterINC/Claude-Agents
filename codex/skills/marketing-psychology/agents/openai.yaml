@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marketing Psychology"
+  short_description: "Apply behavioral science to marketing decisions"
+  default_prompt: "Use $marketing-psychology to apply ethical behavioral principles to this challenge."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Customer Research"
+  short_description: "Gather and synthesize voice-of-customer insights"
+  default_prompt: "Use $customer-research to synthesize customer evidence into actionable insights."

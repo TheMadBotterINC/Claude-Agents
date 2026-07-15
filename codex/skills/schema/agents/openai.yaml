@@ -1,0 +1,4 @@
+interface:
+  display_name: "Schema Markup"
+  short_description: "Implement valid structured data for rich results"
+  default_prompt: "Use $schema to implement valid JSON-LD for this page type."

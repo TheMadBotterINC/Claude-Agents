@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analytics"
+  short_description: "Plan reliable analytics and conversion tracking"
+  default_prompt: "Use $analytics to create a tracking plan for my key marketing conversions."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Public Relations"
+  short_description: "Earn relevant media coverage through focused outreach"
+  default_prompt: "Use $public-relations to identify a credible media angle and outreach plan."

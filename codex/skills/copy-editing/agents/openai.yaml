@@ -1,0 +1,4 @@
+interface:
+  display_name: "Copy Editing"
+  short_description: "Polish existing marketing copy systematically"
+  default_prompt: "Use $copy-editing to polish this copy while preserving its message and voice."

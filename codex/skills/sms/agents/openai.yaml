@@ -1,0 +1,4 @@
+interface:
+  display_name: "SMS Marketing"
+  short_description: "Build compliant SMS campaigns and automated flows"
+  default_prompt: "Use $sms to design a compliant SMS flow with timing, copy, and measurement."

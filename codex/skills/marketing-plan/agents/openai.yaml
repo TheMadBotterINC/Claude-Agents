@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marketing Plan"
+  short_description: "Build an executable AARRR marketing roadmap"
+  default_prompt: "Use $marketing-plan to build an executable AARRR roadmap for this business."

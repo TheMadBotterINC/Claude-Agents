@@ -1,0 +1,4 @@
+interface:
+  display_name: "A/B Testing"
+  short_description: "Design rigorous tests and experimentation programs"
+  default_prompt: "Use $ab-testing to design a statistically sound A/B test for my conversion goal."

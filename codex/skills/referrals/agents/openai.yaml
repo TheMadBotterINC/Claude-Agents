@@ -1,0 +1,4 @@
+interface:
+  display_name: "Referral Programs"
+  short_description: "Design referral and affiliate growth programs"
+  default_prompt: "Use $referrals to design a measurable referral or affiliate program."

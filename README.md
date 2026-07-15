@@ -34,6 +34,9 @@ writes code — a skill can).
 | **thought-thru-architecture** | Design-first coding discipline. Forces a design pass before the first edit (read for shape, pick the altitude, reuse before invention), bans the usual over-engineering moves while coding (defensive wrapping, compat shims, speculative knobs, grab-bag classes), and ends with a shrink pass over the diff. Includes before/after vignettes for larger features. |
 
 Codex-native skills live under `codex/skills/` and include Codex interface metadata.
+The collection includes 47 MIT-licensed marketing skills adapted from
+[coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills);
+the pinned source revision and license are recorded in `codex/vendor/marketingskills/`.
 
 ## Install
 

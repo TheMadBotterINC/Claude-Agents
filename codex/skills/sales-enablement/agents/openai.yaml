@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sales Enablement"
+  short_description: "Create sales assets that help teams close deals"
+  default_prompt: "Use $sales-enablement to create the right sales asset for this deal stage."

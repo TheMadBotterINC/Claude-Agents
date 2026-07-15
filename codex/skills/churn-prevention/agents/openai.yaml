@@ -1,0 +1,4 @@
+interface:
+  display_name: "Churn Prevention"
+  short_description: "Reduce voluntary and payment-related churn"
+  default_prompt: "Use $churn-prevention to diagnose churn and design retention interventions."

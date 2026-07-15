@@ -1,0 +1,4 @@
+interface:
+  display_name: "Social Content"
+  short_description: "Create and optimize social content and engagement"
+  default_prompt: "Use $social to create a platform-specific social content and engagement plan."

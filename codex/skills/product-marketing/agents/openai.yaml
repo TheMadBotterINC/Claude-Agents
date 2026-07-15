@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Marketing Context"
+  short_description: "Capture reusable positioning, ICP, and voice context"
+  default_prompt: "Use $product-marketing to create reusable positioning, audience, and voice context."

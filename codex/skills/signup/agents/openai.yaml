@@ -1,0 +1,4 @@
+interface:
+  display_name: "Signup Optimization"
+  short_description: "Reduce registration friction and signup drop-off"
+  default_prompt: "Use $signup to reduce friction and drop-off in this registration flow."

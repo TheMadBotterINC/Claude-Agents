@@ -1,0 +1,4 @@
+interface:
+  display_name: "Offer Design"
+  short_description: "Strengthen value, proof, guarantees, and urgency"
+  default_prompt: "Use $offers to strengthen the value, proof, risk reversal, and urgency of this offer."

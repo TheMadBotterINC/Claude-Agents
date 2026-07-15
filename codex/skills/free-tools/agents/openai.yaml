@@ -1,0 +1,4 @@
+interface:
+  display_name: "Free Tool Strategy"
+  short_description: "Plan useful free tools that attract qualified leads"
+  default_prompt: "Use $free-tools to evaluate and scope a useful lead-generating tool."

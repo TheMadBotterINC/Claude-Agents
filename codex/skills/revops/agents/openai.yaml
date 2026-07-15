@@ -1,0 +1,4 @@
+interface:
+  display_name: "Revenue Operations"
+  short_description: "Connect marketing, sales, and customer success systems"
+  default_prompt: "Use $revops to define lifecycle stages, scoring, routing, and handoffs."

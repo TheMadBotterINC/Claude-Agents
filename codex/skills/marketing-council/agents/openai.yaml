@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marketing Council"
+  short_description: "Simulate grounded advice from marketing experts"
+  default_prompt: "Use $marketing-council to simulate grounded expert perspectives on this decision."
