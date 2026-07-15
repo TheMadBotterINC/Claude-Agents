@@ -33,16 +33,19 @@ writes code — a skill can).
 | --- | --- |
 | **thought-thru-architecture** | Design-first coding discipline. Forces a design pass before the first edit (read for shape, pick the altitude, reuse before invention), bans the usual over-engineering moves while coding (defensive wrapping, compat shims, speculative knobs, grab-bag classes), and ends with a shrink pass over the diff. Includes before/after vignettes for larger features. |
 
+Codex-native skills live under `codex/skills/` and include Codex interface metadata.
+
 ## Install
 
 ```bash
-./install.sh          # symlink Claude agents and skills
+./install.sh          # symlink Claude agents/skills and Codex skills
 ./install.sh --copy   # copy instead of symlink
 ./install.sh --list   # show what's installed from this repo
 ```
 
 After installing, the Claude agents are available to the `Agent`/Task tool in
-any project. Claude will auto-delegate based on each agent's `description`, or
+any project, and the Codex skills are discovered when the next Codex session or
+turn starts. Claude will auto-delegate based on each agent's `description`, or
 you can ask for one by name.
 
 ## Where reports go
