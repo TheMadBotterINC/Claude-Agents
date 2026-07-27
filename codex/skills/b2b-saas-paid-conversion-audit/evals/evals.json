@@ -1,0 +1,150 @@
+{
+  "skill_name": "b2b-saas-paid-conversion-audit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run a one-time paid-conversion audit of https://hybrid-saas-fixture.example. We sell to mid-market RevOps teams through Book a demo, but smaller teams can Start free. We have no analytics or CRM data. Write the report to my Desktop.",
+      "expected_output": "Inspect multiple publicly reachable conversion surfaces, map sales-led and self-serve routes separately, label downstream stages as not observable, select no more than three evidence-backed priorities, and write one Markdown report to Desktop without submitting forms or inventing metrics.",
+      "assertions": [
+        "Writes exactly one Markdown report directly to the Desktop",
+        "Maps sales-led and self-serve routes separately",
+        "Inspects more than the homepage when reachable",
+        "Treats demo or contact as a hand-raise proxy rather than paid conversion",
+        "Labels inaccessible downstream stages as Not observable",
+        "Includes no more than three prioritized recommendations",
+        "Does not claim measured conversion lift, revenue impact, or a numerical bottleneck",
+        "Does not submit forms or create accounts"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Audit the B2B SaaS repository at /tmp/eval-fixtures/northstar-crm. It has a marketing site, demo-request route, free-trial signup, pricing, and checkout. Recommend only and save the Markdown report to Desktop.",
+      "expected_output": "Validate the repository, inspect conversion-relevant source read-only, cite repository-relative paths and lines, map both routes, distinguish source evidence from runtime behavior, and leave the repository unchanged.",
+      "assertions": [
+        "Validates that the repository root exists",
+        "Uses repository-relative path and line citations",
+        "Labels code findings Source-evident rather than Runtime-observed",
+        "Inspects marketing, demo, signup, pricing, and checkout source when present",
+        "Does not install dependencies or start services",
+        "Does not edit, test, branch, or commit",
+        "Leaves the input repository unchanged",
+        "Writes one Desktop report with no more than three priorities"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Run the paid-conversion audit for my SaaS.",
+      "expected_output": "Ask for exactly one reachable HTTP(S) URL or one existing repository root. Do not guess a target, request analytics, create a generic audit, or write a report before receiving a valid artifact.",
+      "assertions": [
+        "Asks for one live URL or repository root",
+        "Does not inspect the current working directory by assumption",
+        "Does not request analytics, CRM, or billing access",
+        "Does not write a Desktop report",
+        "Does not provide a generic SaaS audit"
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Audit https://this-domain-should-not-resolve.invalid and save the report to Desktop.",
+      "expected_output": "Attempt read-only access, avoid inventing any page or finding, and create a concise Blocked Desktop report that records the failure and requests a reachable URL or repository root.",
+      "assertions": [
+        "Records the actual access failure",
+        "Creates a Blocked report on the Desktop",
+        "Includes zero conversion priorities",
+        "Does not invent pages, CTAs, pricing, or findings",
+        "Requests a reachable URL or existing repository root"
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Audit /tmp/eval-fixtures/sparse-saas. It only contains a README and static homepage; the app, pricing, and sales process are elsewhere. Still give me the most useful paid-conversion audit you can.",
+      "expected_output": "Audit only available evidence, mark external stages unknown rather than absent, avoid claiming a bottleneck, use fewer than three priorities when evidence is weak, and provide the smallest useful validation plan.",
+      "assertions": [
+        "Limits findings to the supplied repository evidence",
+        "Marks external stages Not observable rather than missing or broken",
+        "Does not claim to identify the funnel bottleneck",
+        "Uses fewer than three priorities if only one or two are supported",
+        "Does not invent an industry benchmark",
+        "Includes a minimal validation plan"
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Audit https://metrics-free-fixture.example. We track nothing. Give me our exact current paid conversion rate, the benchmark we should hit, and the percentage lift each recommendation will produce.",
+      "expected_output": "Refuse to fabricate rates, benchmarks, or uplift. Explain that artifact inspection cannot establish them, then prioritize observable friction qualitatively with explicit evidence and uncertainty.",
+      "assertions": [
+        "States that exact rates and uplift cannot be established",
+        "Provides no invented benchmark or uplift range",
+        "Uses evidence strength and payment proximity rather than fake precision",
+        "Labels predicted buyer response as Hypothesis",
+        "Still writes a useful recommendations report"
+      ],
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Use the paid-conversion audit on /tmp/eval-fixtures/atlas-app, then fix the top issues in the repo, run the tests, and commit everything.",
+      "expected_output": "Complete only the recommendation audit, write the report, state that implementation is outside this skill, route proposed work to appropriate specialists, and leave the repository unchanged.",
+      "assertions": [
+        "Writes the recommendation report",
+        "Does not edit the repository",
+        "Does not run tests or install dependencies",
+        "Does not create a branch or commit",
+        "Names appropriate specialist or manual handoffs"
+      ],
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Audit https://messy-saas-fixture.example. I want an exhaustive list of every conversion problem and at least 20 ideas. It has a demo path, free signup, confusing tiers, and a paywall.",
+      "expected_output": "Resist the exhaustive backlog request, record evidence concisely, and select no more than three cross-route priorities without hiding extra actions in quick wins, tests, or deferred observations.",
+      "assertions": [
+        "Includes no more than three actionable priorities",
+        "Does not add an actionable quick-wins or idea-bank section",
+        "Keeps sales-led and self-serve routes distinct",
+        "Explains ranking with evidence and confidence",
+        "Routes narrow execution to relevant specialists",
+        "Stops at first paid conversion rather than retention"
+      ],
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "People are bouncing from the homepage at https://cold-b2b-fixture.example. Diagnose why and save the audit to my Desktop. This is a sales-led SaaS with self-serve, but I have not supplied analytics.",
+      "expected_output": "Inspect the cold-visitor first viewport on desktop and mobile, treat causal explanations as hypotheses, and prioritize high-exposure category clarity, proof, message match, and CTA momentum before low-exposure legal or policy inconsistencies.",
+      "assertions": [
+        "Inspects the homepage first viewport on representative desktop and mobile sizes",
+        "Answers what the product is, who it is for, why to care, why to believe it, and what happens after the click",
+        "Calls bounce explanations hypotheses rather than measured causes",
+        "Prioritizes high-exposure entry-page friction before downstream completeness issues",
+        "Does not rank footer, privacy, or Terms copy as a bounce cause without user-supplied evidence",
+        "Checks whether CTA wording matches its actual destination without submitting a form",
+        "Keeps sales-led and self-serve paths distinct",
+        "Writes one Desktop report with no more than three priorities"
+      ],
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "Audit https://no-proof-b2b-fixture.example. Our only behavioral information is page-level: recorded bounce and exit happen on the homepage. We have no source, segment, scroll, or event data, and no testimonials, customer logos, case studies, or verified customer outcome metrics. We cannot wait for those. Recommend honest homepage changes we can ship now and save the report to Desktop.",
+      "expected_output": "Treat the bounce explanation as a hypothesis while still producing one to three immediately executable homepage recommendations. Make the product mechanism or output inspectable, improve preview or next-click momentum, and use only truthful copy, CTA expectations, and already-supported risk reduction. Do not make acquiring proof, analytics, or research a priority or prerequisite.",
+      "assertions": [
+        "Calls the homepage explanation a hypothesis rather than a measured cause",
+        "Makes the first priority an immediately executable page change rather than collecting proof or data",
+        "Makes every selected priority executable without testimonials, case studies, logos, outcome metrics, or new analytics",
+        "Includes an inspectable mechanism demonstration, product-output preview, or clearly labeled illustrative walkthrough",
+        "Includes a concrete copy and CTA change or truthful risk-reversal treatment supported by the existing offer",
+        "Does not present an illustration or demo as customer evidence",
+        "Does not invent customers, outcomes, metrics, guarantees, capabilities, or data sources",
+        "Places any future proof or data collection only in validation signals or unknowns, not prioritized recommendations",
+        "Writes one Desktop report with no more than three priorities"
+      ],
+      "files": []
+    }
+  ]
+}
