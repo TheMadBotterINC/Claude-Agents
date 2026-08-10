@@ -70,7 +70,9 @@ repeating the rules inline.
 
 `ux_tester` controls Chrome through the [Playwright MCP](https://github.com/microsoft/playwright-mcp).
 This repo includes a project-scoped `.mcp.json`, so it works out of the box when
-you run Claude Code **from this repo**.
+you run Claude Code **from this repo**. It passes `--caps=devtools` so `ux_tester`
+can highlight the flagged element before each screenshot — drop that flag and
+those two tools just won't be available.
 
 Because the agents install **globally** but the MCP config here is **project
 scoped**, `ux_tester` will only see the browser tools in a project that also has
@@ -78,7 +80,7 @@ the Playwright MCP configured. To use it against an app elsewhere, do one of:
 
 - **Make it global (recommended for everyday use):**
   ```bash
-  claude mcp add --scope user playwright -- npx @playwright/mcp@latest
+  claude mcp add --scope user playwright -- npx @playwright/mcp@latest --caps=devtools
   ```
 - **Or add it to the target app** by copying `.mcp.json` into that repo's root.
 
