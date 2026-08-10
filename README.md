@@ -22,6 +22,7 @@ than spot-checks (ask them to narrow scope when you want a quick triage instead)
 | **web_performance** | Front-end performance auditor (the client-side counterpart to activerecord_performance). Measures Core Web Vitals / Lighthouse, bundle & asset weight, render-blocking resources, cache policy, and image/font efficiency. |
 | **rails_security** | Defensive Rails security auditor. Brakeman + bundler-audit plus manual review for injection, mass assignment, broken auth/authz & IDOR, CSRF, XSS, SSRF, unsafe deserialization, and secrets handling. |
 | **rails_code_quality** | Rails code quality & conventions reviewer. RuboCop (+rails/-performance/-rspec) plus manual review for fat controllers/models, missing service objects, callback abuse, slim test coverage, and maintainability risks. |
+| **demo_recorder** | Records a narrated product demo video from a written scene-by-scene script (numbered UI steps + quoted narration, e.g. a `DEMO_SCRIPT.md`). Drives Chrome via the Playwright MCP, captions each scene as an on-screen chapter card (it can't voice narration), and writes a timing sheet for optional voiceover dubbing. |
 
 ## Skills
 
@@ -66,17 +67,21 @@ The full location/collision/mounted-engine rules live once in
 links to `~/.claude/audit-conventions.md` — each audit agent reads it rather than
 repeating the rules inline.
 
-## Playwright MCP (required by ux_tester)
+`demo_recorder` isn't an audit agent, so it doesn't use those conventions — it
+writes its video and timing-sheet report to **`docs/demos/`** instead. Add that
+to the target project's `.gitignore` too.
 
-`ux_tester` controls Chrome through the [Playwright MCP](https://github.com/microsoft/playwright-mcp).
+## Playwright MCP (required by ux_tester and demo_recorder)
+
+`ux_tester` and `demo_recorder` control Chrome through the [Playwright MCP](https://github.com/microsoft/playwright-mcp).
 This repo includes a project-scoped `.mcp.json`, so it works out of the box when
 you run Claude Code **from this repo**. It passes `--caps=devtools` so `ux_tester`
-can highlight the flagged element before each screenshot — drop that flag and
-those two tools just won't be available.
+can highlight the flagged element before each screenshot, and `demo_recorder` can
+record/chapter video — drop that flag and those tools just won't be available.
 
 Because the agents install **globally** but the MCP config here is **project
-scoped**, `ux_tester` will only see the browser tools in a project that also has
-the Playwright MCP configured. To use it against an app elsewhere, do one of:
+scoped**, these agents will only see the browser tools in a project that also has
+the Playwright MCP configured. To use them against an app elsewhere, do one of:
 
 - **Make it global (recommended for everyday use):**
   ```bash
