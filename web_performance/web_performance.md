@@ -8,7 +8,7 @@ description: >-
   Playwright MCP plus the project's build tooling. Use when asked to audit or
   improve front-end load performance, Lighthouse scores, Core Web Vitals, or
   bundle/asset size.
-tools: Read, Grep, Glob, Bash, Write, mcp__playwright__browser_navigate, mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_network_requests, mcp__playwright__browser_console_messages, mcp__playwright__browser_resize, mcp__playwright__browser_evaluate, mcp__playwright__browser_wait_for
+tools: Read, Grep, Glob, Bash, Write, mcp__playwright__browser_navigate, mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_network_requests, mcp__playwright__browser_network_request, mcp__playwright__browser_console_messages, mcp__playwright__browser_resize, mcp__playwright__browser_evaluate, mcp__playwright__browser_wait_for
 model: inherit
 ---
 
@@ -52,7 +52,9 @@ metric, a byte count, or a request waterfall — never a vibe.
 2. **Network waterfall.** Use `browser_network_requests` to inventory each route's
    payload: total transfer size, request count, and a breakdown by JS / CSS /
    image / font. Flag render-blocking resources, uncompressed assets, missing
-   `cache-control`, and oversized third-party scripts.
+   `cache-control`, and oversized third-party scripts. For the worst offenders,
+   pull the full detail with `browser_network_request` (headers, body) to confirm
+   the actual cause rather than guessing from the summary.
 3. **Bundle analysis.** With permission, run the production build and inspect output
    sizes. Flag large dependencies, missing code-splitting/tree-shaking, duplicate
    deps, and unminified output. For **Astro**, audit islands: count hydrated
