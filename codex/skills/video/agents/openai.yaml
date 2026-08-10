@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Production"
+  short_description: "Produce marketing videos with AI and code-based tools"
+  default_prompt: "Use $video to choose and build an efficient marketing video workflow."

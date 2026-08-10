@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prospecting"
+  short_description: "Find and qualify outreach-ready prospects"
+  default_prompt: "Use $prospecting to build a verified, qualified list of outreach targets."

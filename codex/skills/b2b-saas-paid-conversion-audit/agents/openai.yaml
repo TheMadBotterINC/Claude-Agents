@@ -1,0 +1,4 @@
+interface:
+  display_name: "B2B SaaS Paid Conversion Audit"
+  short_description: "Diagnose entry-page loss through paid conversion"
+  default_prompt: "Use $b2b-saas-paid-conversion-audit to diagnose why this B2B SaaS entry page may lose visitors, audit the path to first paid conversion, and save the prioritized report to my Desktop."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Strategy"
+  short_description: "Plan searchable and shareable content programs"
+  default_prompt: "Use $content-strategy to plan priority topics, pillars, and distribution."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Launch Strategy"
+  short_description: "Plan product launches and feature announcements"
+  default_prompt: "Use $launch to build a phased launch plan for this product or feature."

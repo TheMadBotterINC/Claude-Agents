@@ -1,0 +1,4 @@
+interface:
+  display_name: "Competitor Pages"
+  short_description: "Create honest comparison and alternative pages"
+  default_prompt: "Use $competitors to create an honest, conversion-focused comparison page."

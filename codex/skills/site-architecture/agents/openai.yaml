@@ -1,0 +1,4 @@
+interface:
+  display_name: "Site Architecture"
+  short_description: "Map page hierarchy, navigation, URLs, and links"
+  default_prompt: "Use $site-architecture to map pages, navigation, URLs, and internal links."

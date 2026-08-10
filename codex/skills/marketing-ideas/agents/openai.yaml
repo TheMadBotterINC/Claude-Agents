@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marketing Ideas"
+  short_description: "Find practical marketing tactics for your stage"
+  default_prompt: "Use $marketing-ideas to suggest practical growth tactics for my current stage."

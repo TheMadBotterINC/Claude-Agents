@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pricing Strategy"
+  short_description: "Structure pricing, packaging, and monetization"
+  default_prompt: "Use $pricing to recommend pricing, packaging, and a defensible value metric."

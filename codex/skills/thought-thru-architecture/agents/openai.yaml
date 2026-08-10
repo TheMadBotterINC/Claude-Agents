@@ -1,0 +1,4 @@
+interface:
+  display_name: "Thought-Thru Architecture"
+  short_description: "Design-first coding discipline for non-trivial changes"
+  default_prompt: "Use $thought-thru-architecture before implementing this: run the design pass first, follow the prohibitions while coding, and finish with the shrink pass over the diff."

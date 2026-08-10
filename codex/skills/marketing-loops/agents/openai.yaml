@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marketing Loops"
+  short_description: "Design safe recurring AI marketing workflows"
+  default_prompt: "Use $marketing-loops to design a recurring marketing workflow with guardrails."

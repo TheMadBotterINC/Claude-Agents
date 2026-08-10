@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ad Creative"
+  short_description: "Create and iterate performance ad creative"
+  default_prompt: "Use $ad-creative to generate platform-ready ad concepts and copy variations."

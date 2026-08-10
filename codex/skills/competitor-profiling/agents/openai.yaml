@@ -1,0 +1,4 @@
+interface:
+  display_name: "Competitor Profiling"
+  short_description: "Research competitors into structured profiles"
+  default_prompt: "Use $competitor-profiling to research these competitors and create structured profiles."

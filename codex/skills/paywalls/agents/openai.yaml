@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paywalls"
+  short_description: "Optimize in-product upgrade and conversion moments"
+  default_prompt: "Use $paywalls to improve this in-product upgrade moment without dark patterns."

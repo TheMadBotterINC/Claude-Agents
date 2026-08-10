@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marketing Images"
+  short_description: "Create and optimize marketing image assets"
+  default_prompt: "Use $image to create an on-brand marketing image for this placement."

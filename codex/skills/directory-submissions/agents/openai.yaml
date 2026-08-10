@@ -1,0 +1,4 @@
+interface:
+  display_name: "Directory Submissions"
+  short_description: "Plan directory listings for backlinks and discovery"
+  default_prompt: "Use $directory-submissions to plan and prioritize relevant product listings."

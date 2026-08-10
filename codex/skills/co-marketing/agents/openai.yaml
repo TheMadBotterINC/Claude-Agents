@@ -1,0 +1,4 @@
+interface:
+  display_name: "Co-Marketing"
+  short_description: "Find partners and plan joint marketing campaigns"
+  default_prompt: "Use $co-marketing to identify strong partners and propose a joint campaign."

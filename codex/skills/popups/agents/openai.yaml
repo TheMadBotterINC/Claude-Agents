@@ -1,0 +1,4 @@
+interface:
+  display_name: "Popups"
+  short_description: "Design respectful popups that improve conversion"
+  default_prompt: "Use $popups to design a relevant, respectful popup with clear triggers."
