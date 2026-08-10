@@ -14,6 +14,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEST_DIR="${HOME}/.claude/agents"
 SKILLS_DEST_DIR="${HOME}/.claude/skills"
+SHARED_DEST_DIR="${HOME}/.claude"
 CODEX_HOME_DIR="${CODEX_HOME:-${HOME}/.codex}"
 CODEX_SKILLS_DEST_DIR="${CODEX_HOME_DIR}/skills"
 MODE="link"
@@ -60,6 +61,38 @@ for dir in "${REPO_DIR}"/*/; do
       ;;
   esac
 done
+
+shared_installed=0
+if [ -d "${REPO_DIR}/shared" ]; then
+  mkdir -p "${SHARED_DEST_DIR}"
+  for src in "${REPO_DIR}"/shared/*.md; do
+    [ -f "${src}" ] || continue
+    name="$(basename "${src}")"
+    dest="${SHARED_DEST_DIR}/${name}"
+
+    case "${MODE}" in
+      list)
+        if [ -L "${dest}" ]; then
+          echo "shared:${name}  ->  $(readlink "${dest}")"
+        elif [ -f "${dest}" ]; then
+          echo "shared:${name}  (copied)"
+        else
+          echo "shared:${name}  (not installed)"
+        fi
+        ;;
+      copy)
+        cp "${src}" "${dest}"
+        echo "copied  shared:${name}  ->  ${dest}"
+        shared_installed=$((shared_installed + 1))
+        ;;
+      link)
+        ln -sf "${src}" "${dest}"
+        echo "linked  shared:${name}  ->  ${dest}"
+        shared_installed=$((shared_installed + 1))
+        ;;
+    esac
+  done
+fi
 
 skills_installed=0
 if [ -d "${REPO_DIR}/skills" ]; then
@@ -131,7 +164,7 @@ fi
 
 if [ "${MODE}" != "list" ]; then
   echo
-  echo "Installed ${installed} Claude agent(s), ${skills_installed} Claude skill(s), and ${codex_skills_installed} Codex skill(s)"
+  echo "Installed ${installed} Claude agent(s), ${skills_installed} Claude skill(s), ${shared_installed} shared doc(s), and ${codex_skills_installed} Codex skill(s)"
   echo "Codex skills destination: ${CODEX_SKILLS_DEST_DIR}"
   echo "Note: ux_tester needs the Playwright MCP wherever you run it (see README)."
 fi

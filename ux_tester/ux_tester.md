@@ -76,12 +76,10 @@ For each page/flow:
 
 ## Phase 3 — Report
 
-**Where to save it (default):** write the report to `docs/audits/ux_tester_report.md`
-under the project root, creating `docs/audits/` if it doesn't exist (`mkdir -p
-docs/audits`, or rely on `Write` creating parent dirs). Add a scope/date suffix if a
-run would overwrite a prior report. When auditing a mounted engine / customer gem
-(source outside the host repo), save into the *host* app's `docs/audits/` with a
-`gem_`-prefixed filename. Always also return the findings in your final message.
+**Where to save it:** read `~/.claude/audit-conventions.md` for the shared
+location/collision/mounted-engine rules. This agent's report filename is
+`docs/audits/ux_tester_report.md`. Always also return the findings in your final
+message.
 
 Produce a findings report grouped by **page/flow**, ordered by **severity**
 (Blocker → Major → Minor → Nitpick). For each finding include:

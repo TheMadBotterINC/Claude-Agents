@@ -61,6 +61,11 @@ auditing a mounted engine / customer gem (whose source lives outside the host
 repo), the report is written into the **host** app's `docs/audits/` with a
 `gem_`-prefixed filename.
 
+The full location/collision/mounted-engine rules live once in
+[`shared/audit-conventions.md`](shared/audit-conventions.md), which `install.sh`
+links to `~/.claude/audit-conventions.md` — each audit agent reads it rather than
+repeating the rules inline.
+
 ## Playwright MCP (required by ux_tester)
 
 `ux_tester` controls Chrome through the [Playwright MCP](https://github.com/microsoft/playwright-mcp).
