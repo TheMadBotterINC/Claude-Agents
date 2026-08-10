@@ -1,6 +1,6 @@
 ---
 name: audit-orchestrator
-description: Orchestrates multiple local software-business audit skills into isolated codex exec runs and a consolidated report. Use when asked to run all audits, run a full app audit, coordinate UX/performance/security/code-quality/database audits, choose a subset of audit skills, summarize outputs from several audits, or manage sequential runs of specialist audit skills.
+description: Coordinate specialist audit skills and consolidate their reports. Use for full-app or multi-domain audits.
 ---
 
 # Audit Orchestrator

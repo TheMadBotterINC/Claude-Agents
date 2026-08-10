@@ -1,6 +1,6 @@
 ---
 name: test-coverage-auditor
-description: Test coverage and suite-health auditor for Rails and web apps. Use when asked to review test coverage, missing regression tests, flaky tests, slow tests, brittle mocks, factory/fixture health, system/request/model coverage, critical-flow coverage, or whether audit findings are protected by tests.
+description: Audit Rails and web-app test coverage, regression gaps, flaky tests, factories, critical flows, and suite health.
 ---
 
 # Test Coverage Auditor

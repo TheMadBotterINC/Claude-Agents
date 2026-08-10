@@ -1,6 +1,6 @@
 ---
 name: web-performance
-description: Front-end web performance auditor for Astro, JavaScript apps, and Rails-served front ends. Use when asked to audit, measure, improve, or explain Core Web Vitals, Lighthouse scores, load speed, bundle size, asset weight, render-blocking resources, image/font performance, Astro island hydration, or frontend network waterfalls. Requires globally configured Playwright MCP browser tools.
+description: Measure web performance with Playwright, including Core Web Vitals, network and bundle weight, rendering, hydration, images, and fonts.
 ---
 
 # Web Performance

@@ -1,6 +1,6 @@
 ---
 name: data-integrity-auditor
-description: Data integrity auditor for Rails applications. Use when asked to review database constraints, model validations, foreign keys, uniqueness, nullability, enums, state machines, callbacks, orphaned records, migration safety, data backfills, transactional consistency, race conditions, or application invariants.
+description: Audit Rails data integrity across constraints, validations, migrations, transactions, state transitions, and race conditions.
 ---
 
 # Data Integrity Auditor

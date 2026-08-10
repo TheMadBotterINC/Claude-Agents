@@ -1,6 +1,6 @@
 ---
 name: rails-code-quality
-description: Rails code quality and conventions reviewer for maintainability-focused audits. Use when asked to review Rails code quality, conventions, architecture, refactoring opportunities, RuboCop/reek results, fat controllers/models, callback abuse, duplication, dead code, service/query/form object boundaries, helpers, views, or test organization.
+description: Review Rails maintainability and conventions across architecture, controllers, models, callbacks, duplication, analyzers, and test organization.
 ---
 
 # Rails Code Quality

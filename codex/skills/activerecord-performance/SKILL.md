@@ -1,6 +1,6 @@
 ---
 name: activerecord-performance
-description: Rails ActiveRecord performance auditor for database-backed Rails apps. Use when asked to audit, profile, speed up, or review Rails query performance, N+1 queries, missing or redundant indexes, over-fetching, unbounded queries, slow SQL, query counts, EXPLAIN plans, or database hot paths.
+description: Audit Rails ActiveRecord performance, including N+1 queries, indexes, slow SQL, over-fetching, and database hot paths.
 ---
 
 # ActiveRecord Performance

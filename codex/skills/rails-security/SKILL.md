@@ -1,6 +1,6 @@
 ---
 name: rails-security
-description: Defensive Rails security auditor for authorized review of the user's own Rails apps. Use when asked to security-review, audit, harden, threat-check, or investigate Rails vulnerabilities involving auth, authorization, IDOR, injection, XSS, CSRF, SSRF, mass assignment, unsafe deserialization, exposed secrets, dependency CVEs, sessions, cookies, headers, or logging.
+description: Defensively audit authorized Rails apps for authentication, authorization, injection, XSS, CSRF, SSRF, secrets, dependencies, and session risks.
 ---
 
 # Rails Security

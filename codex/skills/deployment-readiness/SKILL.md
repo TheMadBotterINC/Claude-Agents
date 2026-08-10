@@ -1,6 +1,6 @@
 ---
 name: deployment-readiness
-description: Production deployment readiness auditor for Rails and web apps. Use when asked to check launch readiness, deploy readiness, operations, runtime configuration, env vars, credentials, health checks, logging, background workers, migrations, rollback paths, storage, email, SSL, CDN/cache headers, release process, or runbooks.
+description: Audit Rails and web-app production readiness, including configuration, health checks, releases, rollbacks, workers, and operations.
 ---
 
 # Deployment Readiness

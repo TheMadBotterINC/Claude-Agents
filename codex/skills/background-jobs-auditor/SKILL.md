@@ -1,6 +1,6 @@
 ---
 name: background-jobs-auditor
-description: Background job and queue auditor for Rails apps using Sidekiq, GoodJob, DelayedJob, Solid Queue, Active Job, cron, or schedulers. Use when asked to review jobs, queues, retries, idempotency, locking, scheduled work, race conditions, job payloads, dead jobs, worker deployment, or async failure handling.
+description: Audit Rails background jobs and schedulers for queues, retries, idempotency, locking, payloads, and failure handling.
 ---
 
 # Background Jobs Auditor

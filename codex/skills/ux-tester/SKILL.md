@@ -1,6 +1,6 @@
 ---
 name: ux-tester
-description: Exhaustive front-end UX tester for running local web apps, especially Rails, Astro, and JavaScript apps. Use when asked to QA, test, review, audit, or polish a web app's UX, layout, responsiveness, visual design, interactions, console health, or front-end behavior across desktop, tablet, and mobile. Requires globally configured Playwright MCP browser tools.
+description: Audit a running web app's UX with Playwright across viewports, covering layout, responsiveness, interactions, console, and network issues.
 ---
 
 # UX Tester

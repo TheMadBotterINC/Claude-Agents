@@ -1,6 +1,6 @@
 ---
 name: multi-tenant-isolation-auditor
-description: Multi-tenant isolation auditor for Rails and white-label apps. Use when asked to review tenant boundaries, cross-tenant data leaks, account scoping, policy scopes, mounted customer engines, admin overrides, background job tenant context, exports, reports, search, IDs, or authorization in multi-tenant systems.
+description: Audit Rails multi-tenant isolation for scoping gaps, cross-tenant leaks, unsafe jobs, exports, search, and admin overrides.
 ---
 
 # Multi-Tenant Isolation Auditor

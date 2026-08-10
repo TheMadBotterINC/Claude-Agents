@@ -1,6 +1,6 @@
 ---
 name: product-workflow-auditor
-description: Product workflow auditor for SaaS and internal web apps. Use when asked to review onboarding, activation, core user journeys, billing/admin flows, permissions, empty states, destructive actions, support affordances, workflow friction, product completeness, or whether the app's workflows make business sense.
+description: Audit SaaS and internal-app workflows, including onboarding, core journeys, permissions, empty states, admin flows, and product friction.
 ---
 
 # Product Workflow Auditor

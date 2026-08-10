@@ -1,6 +1,6 @@
 ---
 name: observability-auditor
-description: Observability auditor for Rails and web apps. Use when asked to review logging, metrics, tracing, Sentry/Honeybadger/Bugsnag, alerts, dashboards, audit logs, correlation IDs, structured logs, background job visibility, production diagnosability, or whether failures can be detected and debugged quickly.
+description: Audit Rails and web-app observability across logs, metrics, tracing, error reporting, alerts, and production diagnostics.
 ---
 
 # Observability Auditor
