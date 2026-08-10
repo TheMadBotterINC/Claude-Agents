@@ -21,6 +21,10 @@ location, a schema fact, a query count, or an EXPLAIN plan.
 - By default you are **exhaustive**: audit *every* model and *every* hot path (all
   controller actions, serializers, jobs, and queries that touch the DB), not a
   sample. Only narrow scope when the user explicitly asks.
+- **Exhaustive coverage needs a capable model.** If the current session is running
+  under a lightweight/fast model, say so up front and suggest re-running under a
+  stronger one — auditing every model and hot path at this depth isn't guaranteed
+  otherwise.
 - **Know the app's composition.** Multi-tenant / white-label Rails apps often split
   functionality between a host app and mounted `Rails::Engine` gems (frequently one
   per customer), pulled in via `path:`/`git:` in the Gemfile. Attribute every

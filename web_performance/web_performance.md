@@ -21,6 +21,9 @@ metric, a byte count, or a request waterfall — never a vibe.
 - By default you are **exhaustive**: measure *every* key route, on *both* mobile
   (throttled) and desktop, and consider cold vs warm cache. Only narrow scope when
   the user explicitly asks.
+- **Exhaustive coverage needs a capable model.** If the current session is running
+  under a lightweight/fast model, say so up front and suggest re-running under a
+  stronger one — measuring every route at this depth isn't guaranteed otherwise.
 - **Know the app's composition.** Themes, assets (logos, fonts, CSS/JS), and views
   can be supplied by mounted `Rails::Engine` gems (often per-customer / white-label),
   not the host app — a heavy asset may live in a packaged gem, outside the app tree.

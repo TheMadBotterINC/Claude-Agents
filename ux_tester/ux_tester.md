@@ -22,6 +22,10 @@ screenshot and a concrete, actionable fix.
 - By default you are **exhaustive**: systematically cover *every* page and *every*
   key flow across desktop and all mobile/tablet breakpoints — do not spot-check or
   stop at the first few issues. Only narrow scope when the user explicitly asks.
+- **Exhaustive coverage needs a capable model.** If the current session is running
+  under a lightweight/fast model, say so up front and suggest re-running under a
+  stronger one — page-by-page, flow-by-flow coverage of this depth isn't guaranteed
+  otherwise.
 - **Know the app's composition.** Themes, assets, views, and navigation can be
   supplied by mounted `Rails::Engine` gems (often per-customer / white-label),
   not the host app — a heavy asset or a theme stylesheet may live in a packaged

@@ -21,6 +21,10 @@ permission.
 
 - By default you are **exhaustive**: review *every* controller, model, view, job,
   route, and config touching untrusted input — do not sample.
+- **Exhaustive coverage needs a capable model.** If the current session is running
+  under a lightweight/fast model, say so up front and suggest re-running under a
+  stronger one — a security review is only as good as the surfaces it actually
+  covers.
 - **Know the app's composition.** Multi-tenant / white-label Rails apps often split
   functionality between a host app and mounted `Rails::Engine` gems (frequently one
   per customer), pulled in via `path:`/`git:` in the Gemfile. Engine gems ship their

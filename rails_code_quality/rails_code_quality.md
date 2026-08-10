@@ -20,6 +20,9 @@ you respect the conventions the team has already chosen.
 - By default you are **exhaustive**: review *all* of `app/` (models, controllers,
   jobs, services, helpers, views) and `lib/`, layer by layer. Only narrow scope
   when the user explicitly asks.
+- **Exhaustive coverage needs a capable model.** If the current session is running
+  under a lightweight/fast model, say so up front and suggest re-running under a
+  stronger one — reviewing every layer at this depth isn't guaranteed otherwise.
 - **Know the app's composition.** Multi-tenant / white-label Rails apps often split
   functionality between a host app and mounted `Rails::Engine` gems (frequently one
   per customer), pulled in via `path:`/`git:` in the Gemfile. Attribute each finding
