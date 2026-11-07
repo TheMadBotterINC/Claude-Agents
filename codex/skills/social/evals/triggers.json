@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Repurpose this blog post into a LinkedIn carousel and X thread with a week-long organic posting plan; drafts only.",
+    "should_trigger": true
+  },
+  {
+    "query": "Render an animated explainer video file using an available programmatic video framework.",
+    "should_trigger": false
+  }
+]

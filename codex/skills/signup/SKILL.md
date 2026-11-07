@@ -1,6 +1,6 @@
 ---
 name: signup
-description: When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions "signup conversions," "registration friction," "signup form optimization," "free trial signup," "reduce signup dropoff," "account creation flow," "people aren't signing up," "signup abandonment," "trial conversion rate," "nobody completes registration," "too many steps to sign up," or "simplify our signup." Use this whenever the user has a signup or registration flow that isn't performing. For post-signup onboarding, see onboarding. For lead capture forms (not account creation), see cro.
+description: "Improve account creation, registration, and trial-signup completion by diagnosing steps, fields, and registration friction. Use before an account is created; route non-registration lead forms to cro, post-signup activation to onboarding, and trial-to-paid upgrade screens to paywalls."
 metadata:
   version: 2.0.0
 ---

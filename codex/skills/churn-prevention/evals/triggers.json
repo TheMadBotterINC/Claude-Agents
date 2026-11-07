@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Subscribers cancel because of low usage. Design an honest cancel flow and save-offer strategy without blocking cancellation.",
+    "should_trigger": true
+  },
+  {
+    "query": "Draft a four-email win-back sequence for customers who already cancelled last month.",
+    "should_trigger": false
+  }
+]

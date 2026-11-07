@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Evaluate whether anchoring and loss-aversion framing fit our annual subscription offer without deceptive urgency.",
+    "should_trigger": true
+  },
+  {
+    "query": "Calculate statistically valid sample size for an A/B test at 2% baseline conversion.",
+    "should_trigger": false
+  }
+]

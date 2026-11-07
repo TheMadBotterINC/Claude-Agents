@@ -1,0 +1,10 @@
+[
+  {
+    "query": "We ship our public beta in three weeks. Plan the announcement, waitlist activation and launch-day sequence for a two-person team.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a 12-month resourced marketing roadmap covering acquisition through retention.",
+    "should_trigger": false
+  }
+]

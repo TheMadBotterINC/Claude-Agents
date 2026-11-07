@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Plan an interactive payroll savings calculator that attracts qualified agency leads and can be embedded on our site.",
+    "should_trigger": true
+  },
+  {
+    "query": "Plan a downloadable payroll checklist PDF to exchange for an email address.",
+    "should_trigger": false
+  }
+]

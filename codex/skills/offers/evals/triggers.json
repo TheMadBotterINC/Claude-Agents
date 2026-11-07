@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Package our agency's onboarding service with deliverables, a truthful guarantee and payment structure; explain the economics.",
+    "should_trigger": true
+  },
+  {
+    "query": "Choose seat-based versus usage-based SaaS tiers and research willingness to pay.",
+    "should_trigger": false
+  }
+]

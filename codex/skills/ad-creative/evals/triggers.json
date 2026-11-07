@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Write 12 LinkedIn ad headline variants for our SOC2 tool, grouped by buyer pain and within platform limits.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our Google Ads CPA doubled. Review targeting, bidding and the $4k monthly budget allocation.",
+    "should_trigger": false
+  }
+]

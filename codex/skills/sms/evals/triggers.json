@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Plan an opt-in abandoned-cart SMS sequence, including consent requirements, segment costs and draft copy; no sends.",
+    "should_trigger": true
+  },
+  {
+    "query": "Implement passwordless login OTP rate limiting and secure token storage in our Rails app.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "query": "We have a $500 monthly budget and two founders selling a niche developer tool. Suggest and prioritize realistic promotion ideas.",
+    "should_trigger": true
+  },
+  {
+    "query": "Set up a bounded weekly review workflow with state, approval gates and an error stop condition.",
+    "should_trigger": false
+  }
+]

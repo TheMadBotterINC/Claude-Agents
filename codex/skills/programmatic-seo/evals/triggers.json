@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Plan 300 useful location pages from our verified branch data, with template quality rules, canonicalization and a small pilot.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write one public comparison page positioning our tool against Notion using these sourced notes.",
+    "should_trigger": false
+  }
+]

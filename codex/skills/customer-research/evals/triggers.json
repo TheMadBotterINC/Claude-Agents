@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Synthesize these 18 customer interview transcripts into jobs-to-be-done, purchase objections and verbatim language themes.",
+    "should_trigger": true
+  },
+  {
+    "query": "Rewrite our pricing page headline using the already-approved customer research summary.",
+    "should_trigger": false
+  }
+]

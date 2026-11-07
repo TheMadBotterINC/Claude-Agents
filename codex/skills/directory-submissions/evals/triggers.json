@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Build a shortlist of relevant SaaS directories for our appointment tool and draft listing text; do not submit anything.",
+    "should_trigger": true
+  },
+  {
+    "query": "Plan the complete launch campaign including positioning, email, press and release-day sequencing.",
+    "should_trigger": false
+  }
+]

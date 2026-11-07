@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Specify a weekly ad-fatigue review with available tools, a source ledger, human approval before spend changes and a kill switch.",
+    "should_trigger": true
+  },
+  {
+    "query": "I only need three one-off marketing ideas for our launch announcement, not automation.",
+    "should_trigger": false
+  }
+]

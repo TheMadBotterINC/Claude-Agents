@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Review this exported Google Ads campaign report and recommend whether to pause or scale; our allowable CAC is $250.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write 15 RSA headline variations for this existing offer; leave campaign strategy unchanged.",
+    "should_trigger": false
+  }
+]

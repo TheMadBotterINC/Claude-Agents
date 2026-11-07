@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Design an accessible, dismissible newsletter slide-in with timing rules for returning blog visitors.",
+    "should_trigger": true
+  },
+  {
+    "query": "Audit the account-settings modal for keyboard focus, responsive layout and broken interactions.",
+    "should_trigger": false
+  }
+]

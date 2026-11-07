@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Plan a practical onboarding checklist PDF for HR managers, including opt-in positioning and distribution channels.",
+    "should_trigger": true
+  },
+  {
+    "query": "Design a live interactive hiring-cost calculator to attract search traffic and leads.",
+    "should_trigger": false
+  }
+]

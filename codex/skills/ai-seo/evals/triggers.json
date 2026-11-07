@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Our comparison guides rank on Google but never appear in AI answers. Plan evidence-backed changes for AI citations.",
+    "should_trigger": true
+  },
+  {
+    "query": "Google stopped indexing our /guides URLs after a canonical migration. Diagnose technical SEO.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Build a qualified target-account shortlist of Midwest manufacturers hiring a CMO, using permitted public sources and confidence labels.",
+    "should_trigger": true
+  },
+  {
+    "query": "Draft follow-up emails for this prospect list we already qualified.",
+    "should_trigger": false
+  }
+]

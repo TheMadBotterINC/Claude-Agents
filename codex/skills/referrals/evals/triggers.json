@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Design a refer-a-friend reward program for our subscription app with fraud controls, payout economics and attribution.",
+    "should_trigger": true
+  },
+  {
+    "query": "Plan a joint webinar and newsletter swap with a complementary SaaS company.",
+    "should_trigger": false
+  }
+]

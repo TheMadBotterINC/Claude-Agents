@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Plan a quarter of blog topics and content pillars for a bootstrapped payroll SaaS targeting agency owners.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the complete homepage hero and feature sections from this approved messaging brief.",
+    "should_trigger": false
+  }
+]

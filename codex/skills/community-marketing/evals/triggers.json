@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Our developer Slack has 900 members but only staff post. Diagnose participation and design a community engagement plan.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write next week's five LinkedIn posts from this blog article.",
+    "should_trigger": false
+  }
+]

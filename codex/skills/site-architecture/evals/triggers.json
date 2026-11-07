@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Map our marketing site page hierarchy and navigation for three buyer audiences, with URL structure and internal links.",
+    "should_trigger": true
+  },
+  {
+    "query": "Validate our XML sitemap and investigate Google indexation errors.",
+    "should_trigger": false
+  }
+]

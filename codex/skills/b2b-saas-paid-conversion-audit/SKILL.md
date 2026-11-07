@@ -1,6 +1,6 @@
 ---
 name: b2b-saas-paid-conversion-audit
-description: One-time, read-only audit of the observable path to first paid conversion for an existing sales-led B2B SaaS with an optional self-serve route. Use when the user asks why a B2B SaaS homepage or entry page may be losing visitors, requests an end-to-end paid-conversion diagnosis, or supplies one reachable HTTP(S) URL or local repository root for a conversion audit. Prioritize cold-visitor comprehension, trust, and next-click momentum before lower-exposure downstream inconsistencies. Produce recommendations only in one Markdown report on the user's Desktop, with at most three priorities. Do not use for a broad GTM roadmap, launch plan, recurring growth work, analytics or CRM analysis, retention or expansion, implementation, or an isolated post-click form, onboarding, paywall, or price-setting request.
+description: "Audit the observable path to first paid conversion for an existing sales-led B2B SaaS, including homepage abandonment and optional self-serve routes. Requires one URL or repository; produces a read-only report with at most three priorities. Not isolated signup, onboarding, pricing, retention, implementation, or broad GTM planning."
 ---
 
 # B2B SaaS Paid Conversion Audit

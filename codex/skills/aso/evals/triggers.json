@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Review our Google Play listing screenshots and description for discoverability and install conversion using this export.",
+    "should_trigger": true
+  },
+  {
+    "query": "Audit onboarding inside the Android app after account creation; the listing already converts well.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Tighten the attached homepage draft, keeping the structure and positioning; flag unsupported claims and awkward sentences.",
+    "should_trigger": true
+  },
+  {
+    "query": "Start from this product brief and completely rewrite the homepage positioning and narrative from scratch.",
+    "should_trigger": false
+  }
+]

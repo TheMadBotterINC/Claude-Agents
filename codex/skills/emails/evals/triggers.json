@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Write a behavior-triggered welcome sequence for trial users who created an account but have not imported their first CSV.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write a cold prospecting email to CFOs who have never interacted with us.",
+    "should_trigger": false
+  }
+]

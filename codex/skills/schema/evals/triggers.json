@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Review this JSON-LD for our software product and produce truthful schema.org markup without inventing reviews.",
+    "should_trigger": true
+  },
+  {
+    "query": "Diagnose why our entire docs section is excluded from Google after the last migration.",
+    "should_trigger": false
+  }
+]

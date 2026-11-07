@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Review the in-app limit-reached upgrade screen after users export their third report; improve the value explanation and CTA.",
+    "should_trigger": true
+  },
+  {
+    "query": "Set the actual prices and feature bundles for our Starter and Pro tiers.",
+    "should_trigger": false
+  }
+]

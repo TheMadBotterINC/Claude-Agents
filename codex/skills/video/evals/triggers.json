@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Plan a 45-second product explainer video and produce it only if an available tool and approved cost permit; otherwise give a production handoff.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write three short-form social video hooks and a posting strategy, without rendering video.",
+    "should_trigger": false
+  }
+]

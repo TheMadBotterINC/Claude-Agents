@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Audit https://example.com for why cold visitors to our sales-led B2B SaaS leave before first paid conversion. Recommendations only.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our signup form has six required fields. Review only that form; do not inspect the rest of the funnel.",
+    "should_trigger": false
+  }
+]

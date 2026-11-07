@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Our pricing page gets 40k visits monthly at 3% conversion. Plan a headline A/B test with sample size and guardrails.",
+    "should_trigger": true
+  },
+  {
+    "query": "GA4 purchase events are firing twice after checkout. Diagnose the tracking implementation.",
+    "should_trigger": false
+  }
+]

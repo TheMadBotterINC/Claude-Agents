@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Find complementary integration partners for our invoicing SaaS and propose a joint webinar campaign.",
+    "should_trigger": true
+  },
+  {
+    "query": "Design rewards and attribution for customers who refer another paying customer.",
+    "should_trigger": false
+  }
+]

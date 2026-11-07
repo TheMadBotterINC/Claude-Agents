@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Users abandon account creation at the email-verification step. Review registration fields and flow through account creation.",
+    "should_trigger": true
+  },
+  {
+    "query": "Users already have accounts but never complete their first import; improve post-signup activation.",
+    "should_trigger": false
+  }
+]

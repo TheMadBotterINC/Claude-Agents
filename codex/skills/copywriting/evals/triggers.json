@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Write a new homepage narrative from this positioning brief: hero, benefits, proof placeholders, objections and CTA.",
+    "should_trigger": true
+  },
+  {
+    "query": "Proofread this finished landing-page draft for grammar and wordiness without changing its message or structure.",
+    "should_trigger": false
+  }
+]

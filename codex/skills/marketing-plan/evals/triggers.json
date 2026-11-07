@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Build a 90-day marketing plan for our $30k MRR SaaS with a $5k budget and one marketer, across acquisition through revenue.",
+    "should_trigger": true
+  },
+  {
+    "query": "Plan only the launch-day announcement and waitlist emails for next week's feature release.",
+    "should_trigger": false
+  }
+]

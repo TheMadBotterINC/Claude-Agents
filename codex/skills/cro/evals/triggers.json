@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Our webinar landing page converts 1% of paid visitors. Review the message, proof, CTA and non-registration form for conversion friction.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review https://example.com/dashboard for mobile overflow, keyboard navigation, broken dialogs and console errors.",
+    "should_trigger": false
+  }
+]

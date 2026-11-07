@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Create a brief and available-tool workflow for a branded blog hero graphic featuring our scheduling product.",
+    "should_trigger": true
+  },
+  {
+    "query": "Measure how much our oversized hero image contributes to LCP and propose delivery optimizations.",
+    "should_trigger": false
+  }
+]

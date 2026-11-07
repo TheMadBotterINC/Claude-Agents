@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Create an internal Notion battlecard with qualification questions, objection handling and a demo talk track from this research.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write a public Notion alternatives page optimized for buyer evaluation and search.",
+    "should_trigger": false
+  }
+]

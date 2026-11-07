@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Research the pricing and positioning of https://example.com and https://example.org. Use public evidence; return profiles here without files or paid data.",
+    "should_trigger": true
+  },
+  {
+    "query": "Turn our existing research into an internal battlecard for sales reps handling Notion objections.",
+    "should_trigger": false
+  }
+]

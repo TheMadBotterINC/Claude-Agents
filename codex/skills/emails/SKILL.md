@@ -1,6 +1,6 @@
 ---
 name: emails
-description: When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions "email sequence," "drip campaign," "nurture sequence," "onboarding emails," "welcome sequence," "re-engagement emails," "email automation," "lifecycle emails," "trigger-based emails," "email funnel," "email workflow," "what emails should I send," "welcome series," or "email cadence." Use this for any multi-email automated flow. For cold outreach emails, see cold-email. For in-app onboarding, see onboarding.
+description: "Draft and optimize warm lifecycle email sequences, nurture campaigns, and behavior-triggered email flows. Use for welcome, onboarding, reactivation, and customer email programs; route unsolicited sales outreach to cold-email and in-app activation design to onboarding."
 metadata:
   version: 2.0.0
 ---

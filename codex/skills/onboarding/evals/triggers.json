@@ -1,0 +1,10 @@
+[
+  {
+    "query": "New users register but never import their first project. Redesign the first-session flow around reaching that activation event.",
+    "should_trigger": true
+  },
+  {
+    "query": "Audit our complete workspace lifecycle including role permissions, admin recovery, exports and cross-team handoffs.",
+    "should_trigger": false
+  }
+]

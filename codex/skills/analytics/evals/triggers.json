@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Plan GA4 and server-side signup-to-payment events for our Rails SaaS, including deduplication and UTM attribution.",
+    "should_trigger": true
+  },
+  {
+    "query": "Given this completed A/B test dataset, calculate uncertainty and decide whether the variant won.",
+    "should_trigger": false
+  }
+]

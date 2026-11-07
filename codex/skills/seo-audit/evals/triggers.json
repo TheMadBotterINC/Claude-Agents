@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Organic traffic dropped after our URL migration. Audit redirects, indexation, canonical tags and on-page signals.",
+    "should_trigger": true
+  },
+  {
+    "query": "Profile JavaScript bundles, LCP and INP on our dashboard; I need measured web performance, not SEO analysis.",
+    "should_trigger": false
+  }
+]

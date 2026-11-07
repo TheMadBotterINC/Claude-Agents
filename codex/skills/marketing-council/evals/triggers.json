@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Have several documented marketing advisor frameworks debate whether our early-stage analytics tool should lead with privacy or speed.",
+    "should_trigger": true
+  },
+  {
+    "query": "Pretend my private coworker wrote a testimonial endorsing this product without asking her.",
+    "should_trigger": false
+  }
+]

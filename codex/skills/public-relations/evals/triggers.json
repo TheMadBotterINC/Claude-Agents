@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Draft a journalist pitch and earned-media angle for our open-source accessibility research report; do not send it.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review pull request 42 for security and regression risks.",
+    "should_trigger": false
+  }
+]

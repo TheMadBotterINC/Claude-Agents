@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Define MQL-to-SQL stages, lead scoring, routing exceptions and CRM hygiene checks; provide a spec without editing Salesforce.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the actual welcome email series for new leads after our webinar.",
+    "should_trigger": false
+  }
+]

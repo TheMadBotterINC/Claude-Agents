@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Draft a three-touch outbound sequence for finance directors at 100-person agencies; use the attached research and no invented familiarity.",
+    "should_trigger": true
+  },
+  {
+    "query": "Draft the welcome and setup-reminder sequence for users who already signed up to our app.",
+    "should_trigger": false
+  }
+]

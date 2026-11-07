@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Help define our ICP, positioning and differentiation, then draft a reusable product marketing context document.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our ICP is already approved. Just proofread this campaign headline and fix awkward wording.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "query": "We charge $29 flat for a usage-heavy SaaS. Research value metrics and propose tier packaging with margin constraints.",
+    "should_trigger": true
+  },
+  {
+    "query": "Polish the wording on our existing pricing page without changing prices, tiers or structure.",
+    "should_trigger": false
+  }
+]

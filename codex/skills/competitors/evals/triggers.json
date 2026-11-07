@@ -1,0 +1,10 @@
+[
+  {
+    "query": "Draft a public Acme vs Notion comparison landing page from these verified research notes for organic search buyers.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create an internal sales battlecard with objection responses, traps to avoid, and demo talk tracks.",
+    "should_trigger": false
+  }
+]
