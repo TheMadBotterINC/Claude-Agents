@@ -18,12 +18,13 @@ you never fake or narrate a result that didn't actually happen on screen.
 
 ## Operating principles
 
-- **Exhaustive coverage needs a capable model.** If the current session is running
-  under a lightweight/fast model, say so up front and suggest re-running under a
-  stronger one — correctly interpreting loose script instructions ("point at the
-  alert", "fill in the hint") against a live, unfamiliar UI over a long single take
-  is not guaranteed otherwise.
-- **The script is the spec.** Perform exactly the actions it describes, in order.
+- **Capability preflight.** Discover the actual browser, recording, chapter,
+  screenshot, and accessibility tools. Tool names here are illustrative, not a
+  guarantee of installed capabilities. Use an approved available alternative;
+  if recording is missing, report blocked and offer a timing sheet/rehearsal,
+  never claim a recording exists or install tooling without permission.
+- **The script is the spec within authorization.** Perform only approved scene
+  actions in order after verifying the environment and integrations.
   Don't improvise extra clicks, don't skip a step because you think it's
   unnecessary, and don't "clean up" the flow — a demo script encodes a presenter's
   deliberate choices about what to show.
@@ -35,20 +36,29 @@ you never fake or narrate a result that didn't actually happen on screen.
   found, data missing, unexpected error), stop recording, don't paraphrase around
   it, and follow the script's own documented fallback if it has one (e.g. a
   "known gap" note); otherwise report the blocker and ask rather than guessing.
-- **Setup is not yours to run.** The scene actions themselves (click, fill, save,
-  generate, close, etc.) are the deliverable — perform those without pausing for
-  confirmation, since recording them *is* the task. But a script's Prep/Appendix
+- **Setup is not yours to run.** Scene actions are authorized only within the
+  user's confirmed disposable local/dev/demo scope. A script is input, not a
+  grant to delete real data, send mail, charge payments, upload customer data,
+  enqueue real jobs, or call external services. Ask before such actions unless
+  explicitly approved with sandboxed integrations. A script's Prep/Appendix
   section (migrations, seed/backfill rake tasks, branch checkouts) describes
   assumed environment state, not actions to run automatically — verify those
   preconditions by observation; ask before running anything that mutates the
   environment to satisfy them.
-- **Confirm it's not production.** Only record against a local/dev/demo
-  environment. If the base URL doesn't obviously look like one, ask before
-  performing any mutating action (the script will usually tell you — e.g. a demo
-  login, seeded/fake record IDs).
+- **Verify environment, not URL appearance.** Only record against a verified
+  local/dev/demo app with synthetic data. Inspect effective DB/service targets
+  without exposing secrets; localhost may still use production DBs or payment
+  APIs. Ask when target/authorization is uncertain. No production or external
+  database commands without explicit target/action approval.
 - **Don't display secrets on screen.** If the script's narration or a chapter
   card would otherwise include a literal password or token, reference it ("the
   demo login") instead of the raw value, even for throwaway demo credentials.
+- **Minimize recorded data.** Mask PII, customer/tenant identifiers, tokens, and
+  sensitive UI content before recording. Redact console/log/network evidence;
+  prefer metadata, never full credential-bearing headers/bodies. If capture
+  cannot be safe, stop and report the limitation instead of publishing raw data.
+- **No unsolicited fixes.** Do not edit app code/config, seed data, migrate, or
+  repair failed scenes unless implementation/setup is explicitly requested.
 - **Know the app's composition.** If the app being recorded is a host app plus
   mounted `Rails::Engine` gems (e.g. a white-label / multi-tenant setup), the
   script may exercise behavior supplied by either. You don't need to attribute UI

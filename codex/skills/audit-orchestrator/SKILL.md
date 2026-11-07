@@ -11,9 +11,9 @@ Use this skill to coordinate the local audit suite, launch each selected special
 
 ## Available Audit Skills
 
-- `$ux-tester`: browser UX, responsiveness, visual polish, interactions, console/network issues. Requires a running app URL and Playwright MCP.
+- `$ux-tester`: browser UX, responsiveness, visual polish, interactions, console/network issues. Dynamic work requires a verified local/dev URL and available browser tools.
 - `$product-workflow-auditor`: onboarding, activation, core workflows, empty states, admin/billing/support flows, destructive actions, and product friction.
-- `$web-performance`: Core Web Vitals, Lighthouse-style metrics, network weight, assets, hydration, bundle/build output. Requires a running app URL and Playwright MCP.
+- `$web-performance`: lab versus field metrics, network weight, assets, hydration, bundle/build output. Dynamic work requires a verified local/dev URL and measurement capabilities.
 - `$rails-security`: defensive Rails security, auth/authz, IDOR, injection, XSS, CSRF, SSRF, secrets, dependency CVEs, sessions, headers.
 - `$multi-tenant-isolation-auditor`: tenant scoping, policy scopes, mounted engines, cross-tenant leaks, exports, search, jobs, and admin overrides.
 - `$data-integrity-auditor`: constraints, validations, foreign keys, uniqueness, nullability, enums, state transitions, migrations, and consistency.
@@ -28,15 +28,47 @@ Use this skill to coordinate the local audit suite, launch each selected special
 
 Prefer the bundled runner instead of running every specialist inside the parent context:
 
+From the installed `audit-orchestrator` skill directory (resolve its actual
+location rather than assuming the target app contains this repository):
+
 ```bash
-python codex/skills/audit-orchestrator/scripts/run_audit_suite.py \
+python3 scripts/run_audit_suite.py \
   --target /path/to/app \
   --base-url http://localhost:3000 \
   --skills ux-tester,web-performance,rails-security \
+  --scope standard \
+  --timeout 900 \
   --sandbox workspace-write
 ```
 
-The runner creates `docs/audits/.orchestrator-runs/<timestamp>/manifest.json` plus per-skill stdout, stderr, and final-message files. Use `--dry-run` to verify selected skills and generated `codex exec` commands without launching child runs. Use `--strict` only when the user wants the suite to stop after the first failed or blocked child run.
+The runner owns a unique `docs/audits/.orchestrator-runs/<run-id>/` directory.
+It durably records `manifest.json`, per-attempt stdout/stderr/final messages,
+and reports at `reports/<skill>.md` (retry reports use `<skill>-N.md`).
+Children receive exact absolute report/sidecar paths and completed prior reports.
+They must treat those prior reports as read-only context, preserve provenance,
+and verify reused claims; do not invent cross-child shared memory.
+
+Each attempt writes `<run_dir>/<skill>/attempt-N/result.json` with
+`status` (`completed`, `partial`, or `blocked`), `report_path` (the exact assigned
+absolute path), and `blockers` (an array of strings). `completed` requires a
+nonempty report, matching path, and no blockers. Process exit zero alone is not
+completion. Record incomplete coverage as `partial`, not a clean bill of health.
+The suite exits nonzero for blocked/partial outcomes; continue consolidation of
+usable reports unless `--strict` requests stopping after the first failure.
+
+`--timeout SECONDS` defaults to 900 per child. `--scope` selects
+`quick|standard|comprehensive`; it does not choose the specialist subset.
+`--resume PATH` resumes a prior run directory using its frozen target, skills,
+base URL, model, scope, timeout, and sandbox (only `--strict` may change).
+Preserve old attempts/reports and inspect the durable manifest before retrying.
+Do not relaunch completed work merely because an unrelated child was blocked.
+
+Use `--dry-run` before execution to validate the Codex CLI and installed selected
+skill locations and inspect its validation report/commands without launching
+audits. `--skills-dir PATH` provides an explicit lookup override. Dry-run does
+not prove browser connectivity, app readiness, safe DB targets, or model access.
+Read-only sandbox is rejected because reports need workspace writes; a writable
+sandbox is not authorization to modify application code or external systems.
 
 ## Scope Selection
 
@@ -58,6 +90,15 @@ Infer the subset from the user's language:
 
 If the requested scope is ambiguous and the choice materially affects runtime or required inputs, ask one concise clarification. Otherwise choose the conservative subset and state the assumption.
 
+Choose depth separately: quick reviews the named path plus its highest-risk
+adjacent boundary; standard inventories applicable layers/categories and reviews
+risk-prioritized representative paths; comprehensive expands across inventoried
+in-scope paths within an agreed concrete time/item budget. Default to standard.
+Keep a coverage ledger per skill (reviewed, sampled, deferred, blocked, not
+applicable), including tenant/role/engine boundaries. Stop when planned items are
+dispositioned or budget is exhausted and report why. No mode/model guarantees
+every defect found; sampled or deferred items prevent a claim of full coverage.
+
 ## Sequencing
 
 Default full-suite order:
@@ -75,7 +116,11 @@ Default full-suite order:
 11. `$deployment-readiness` eleventh, to evaluate whether the app can ship with the discovered operational constraints.
 12. `$rails-code-quality` last, so maintainability recommendations can account for security, data, performance, and operational findings without crowding them.
 
-For subsets, preserve the relative order above. If browser skills are requested but the app is not running or no URL is provided, ask for the URL or start command before beginning those skills.
+For subsets, preserve the relative order above. Missing URL blocks UX/performance
+dynamic work, not independent static audits; product-workflow can inspect code
+without a URL. Preflight actual browser/recording/screenshot capabilities and
+offer approved alternatives or static fallback. Never claim unavailable checks
+ran or silently configure/install tooling.
 
 ## Running The Audit
 
@@ -84,16 +129,20 @@ When running from a target app repo:
 1. Infer or confirm the selected skills.
 2. Confirm the target directory. Confirm `--base-url` before selecting browser skills.
 3. Run the bundled script from this skill directory with the selected skills.
-4. Read the generated `manifest.json`, child final messages, and any specialist reports under `docs/audits/`.
+4. Read `manifest.json`, exact per-attempt result sidecars, child final messages,
+   and the run's assigned reports, not stale similarly named reports elsewhere.
 5. Continue summarization even if unrelated child runs failed; mark blocked/failed children clearly.
 
 Do not run specialist audits in parallel by default. The runner is intentionally sequential to avoid browser/tool contention and make failures easier to diagnose. If the user explicitly asks for parallel work, explain that a later `--parallel` runner mode or separate worktrees would be safer than ad hoc backgrounding.
 
 ## Consolidated Output
 
-Save a final summary to `docs/audits/audit_orchestrator_report.md`, using a date or scope suffix if needed. Include:
+Save the consolidated summary inside the unique run directory as
+`reports/audit_orchestrator_report.md`, preserving any earlier summary on resume
+with a unique suffix. Include:
 
-- Scope: selected skills, skipped skills, assumptions, target URL, and target repo/app.
+- Scope: selected skills, depth/budget, ledger, skipped skills, assumptions,
+  redacted target URL, and target repo/app.
 - Execution log: run order, report paths, tools run, and blockers.
 - Top findings: one prioritized list across all audits, ordered by business/user risk.
 - Cross-cutting themes: duplicates or related findings across UX, performance, security, database, and code quality.
@@ -104,7 +153,15 @@ In the final response, include only the consolidated report path, selected skill
 
 ## Guardrails
 
-- Respect each specialist skill's safety rules, especially Playwright MCP requirements, secret redaction, DB mutation limits, and install approvals.
+- Verify effective local/dev app, DB, and integrations before any dynamic
+  execution; localhost does not imply sandboxed services. Production/external DB
+  commands, including SELECT/EXPLAIN, require explicit target/action approval.
+- EXPLAIN ANALYZE executes queries and may mutate data/call functions or hold
+  locks; prefer vetted plain plans, never label all DB inspection read-only.
+- Audit permission does not authorize form submissions, deletes, billing,
+  uploads, mail, jobs, webhooks, deploys, account mutations, or tool installs.
+- Redact secrets/PII/tenant identifiers in screenshots, traces, logs, SQL, and
+  network metadata before capture/save/share; avoid collecting full payloads.
 - Never modify application code during an audit unless the user explicitly asks for fixes.
 - If one audit discovers a blocker that invalidates later measurements, stop the affected later audits and report the dependency.
 - Keep Claude agent files untouched; use the Codex skills for orchestration.
