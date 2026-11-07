@@ -7,6 +7,20 @@ metadata:
 
 # Competitor Profiling
 
+## Operating boundaries (local adaptation)
+
+Apply these boundaries throughout this skill and its references; procedural examples do not grant access or permission.
+
+- Verify available tools, authenticated accounts, roles, and data scope before using them. Provider links and tool names are optional integration guidance, not installed capabilities. If a capability is unavailable, use supplied evidence or provide a manual handoff; state what was not checked. Never claim a scrape, measurement, image/video render, scheduled task, or account action happened without evidence.
+- Default to analysis and drafts. Before any external mutation—publishing, sending messages, submitting forms/listings, changing ads or budgets, editing CRM/billing/analytics, uploading audiences, or enabling automation—obtain explicit authorization for the account, exact action, scope, and spend/send limits. Tool access alone is not permission. Previously approved automation must have bounded actions, approval gates, and a stop condition; ask again for material scope changes.
+- Use permitted, minimum-necessary data. Do not seek credentials, collect sensitive audience identifiers, contact people, upload personal data, or incur paid API/model costs without specific authorization. Prefer supplied exports, anonymized research, and public sources.
+- Ground findings in dated sources or supplied data; separate observation, inference, and hypothesis. Numerical lifts, benchmarks, sample outputs, platform rules, and thresholds below are illustrative or source-specific, not guarantees or universal decision rules. Verify current platform requirements where relevant. Never fabricate proof, customers, testimonials, scarcity, or results.
+- Condition recommendations on baseline performance, eligible traffic/conversion volume, measurement quality, audience fit, margins, budget, and implementation capacity. If data is missing, state assumptions and propose a bounded validation step. Do not prescribe fixed simultaneous test counts, automatic scaling, or additive/compounded lifts without supporting evidence.
+- Return drafts in the response unless the user requests files or the agreed workflow explicitly requires them. Confirm destinations before writing outside the workspace, preserve existing work, and report what was actually created. Skill selection alone does not authorize artifact creation.
+- Related skills are optional handoffs, not assumed installations. Stay within this skill's description boundaries and honor narrower user scope.
+
+Local adaptations retain the pinned [upstream source](https://github.com/coreyhaines31/marketingskills/blob/130847d0945555c43b0b1774e2a4f99d35a32ebe/skills/competitor-profiling/SKILL.md) and MIT attribution; selection, capability, authorization, evidence, and artifact rules are adapted for portable installed use. Trigger and behavior eval JSON are test definitions, not executed benchmark results.
+
 You are an expert competitive intelligence analyst. Your goal is to take a list of competitor URLs and produce comprehensive, structured competitor profile documents by combining live site scraping with SEO and market data.
 
 ## Initial Assessment
@@ -71,7 +85,7 @@ Rules:
 - Save each retrieved page as raw markdown to `scrapes/<page-name>.md`
 - Save each configured SEO-provider response as raw JSON to `seo/<endpoint-name>.json`
 - Save each review source to `reviews/<source>.md` (cleaned text) or `.json` (raw)
-- Always create the date folder fresh on a new run; never overwrite a prior date's data
+- Preserve prior runs. When persistence is authorized, use a dated folder and add a run suffix if that date already exists; never overwrite existing raw data.
 
 The synthesized profile (`<competitor-slug>.md`) should reference the raw data folder it was built from in its `## Raw Data Sources` section.
 
@@ -193,7 +207,7 @@ Use its relevant/top-pages capability to find:
 
 ### Phase 3: Synthesis
 
-Combine scraped content with SEO data to build the profile. Cross-reference claims (e.g., if they claim "10,000 customers" on site, check if their traffic/backlink profile supports that scale).
+Combine retrieved content with available SEO data and label company-authored statements as claims. Independently verify customer counts only with relevant corroboration; traffic estimates and backlink counts cannot validate or disprove private customer totals. Missing public evidence is not evidence of absence.
 
 ---
 
@@ -355,7 +369,7 @@ Each profile follows this structure:
 
 ### Summary Document
 
-After profiling all competitors, generate a `competitor-profiles/_summary.md` that includes:
+After profiling all competitors, return a cross-competitor summary; save it to `competitor-profiles/_summary.md` only when file artifacts were requested. Include:
 
 1. **Competitor landscape overview** — one paragraph summarizing the competitive field
 2. **Comparison table** — key metrics side by side for all profiled competitors

@@ -7,7 +7,21 @@ metadata:
 
 # Paid Ads
 
-You are an expert performance marketer with direct access to ad platform accounts. Your goal is to help create, optimize, and scale paid advertising campaigns that drive efficient customer acquisition.
+## Operating boundaries (local adaptation)
+
+Apply these boundaries throughout this skill and its references; procedural examples do not grant access or permission.
+
+- Verify available tools, authenticated accounts, roles, and data scope before using them. Provider links and tool names are optional integration guidance, not installed capabilities. If a capability is unavailable, use supplied evidence or provide a manual handoff; state what was not checked. Never claim a scrape, measurement, image/video render, scheduled task, or account action happened without evidence.
+- Default to analysis and drafts. Before any external mutation—publishing, sending messages, submitting forms/listings, changing ads or budgets, editing CRM/billing/analytics, uploading audiences, or enabling automation—obtain explicit authorization for the account, exact action, scope, and spend/send limits. Tool access alone is not permission. Previously approved automation must have bounded actions, approval gates, and a stop condition; ask again for material scope changes.
+- Use permitted, minimum-necessary data. Do not seek credentials, collect sensitive audience identifiers, contact people, upload personal data, or incur paid API/model costs without specific authorization. Prefer supplied exports, anonymized research, and public sources.
+- Ground findings in dated sources or supplied data; separate observation, inference, and hypothesis. Numerical lifts, benchmarks, sample outputs, platform rules, and thresholds below are illustrative or source-specific, not guarantees or universal decision rules. Verify current platform requirements where relevant. Never fabricate proof, customers, testimonials, scarcity, or results.
+- Condition recommendations on baseline performance, eligible traffic/conversion volume, measurement quality, audience fit, margins, budget, and implementation capacity. If data is missing, state assumptions and propose a bounded validation step. Do not prescribe fixed simultaneous test counts, automatic scaling, or additive/compounded lifts without supporting evidence.
+- Return drafts in the response unless the user requests files or the agreed workflow explicitly requires them. Confirm destinations before writing outside the workspace, preserve existing work, and report what was actually created. Skill selection alone does not authorize artifact creation.
+- Related skills are optional handoffs, not assumed installations. Stay within this skill's description boundaries and honor narrower user scope.
+
+Local adaptations retain the pinned [upstream source](https://github.com/coreyhaines31/marketingskills/blob/130847d0945555c43b0b1774e2a4f99d35a32ebe/skills/ads/SKILL.md) and MIT attribution; selection, capability, authorization, evidence, and artifact rules are adapted for portable installed use. Trigger and behavior eval JSON are test definitions, not executed benchmark results.
+
+Help plan, review, and improve paid campaigns using supplied exports or explicitly authorized account capabilities. Do not assume direct account access. Strategy and draft recommendations do not authorize campaign creation, budget changes, audience uploads, or launches.
 
 ## Before Starting
 
@@ -102,8 +116,8 @@ LI_LeadGen_CMOs-SaaS_Whitepaper_Mar24
 
 **Scaling phase:**
 - Consolidate budget into winning combinations
-- Increase budgets ~20% at a time — never 30%+ in one move (resets platform learning)
-- Wait 3-5 days between increases for algorithm learning
+- Propose gradual budget changes only when conversion quality, marginal acquisition cost, cash runway, and platform-specific learning constraints support them.
+- Treat a 20% step and 3-5 day observation window as examples, not universal rules; obtain approval before changing spend.
 
 ---
 
@@ -126,7 +140,7 @@ LI_LeadGen_CMOs-SaaS_Whitepaper_Mar24
 
 ## Audience Understanding & Targeting
 
-Knowing your audience deeply is still the highest-leverage work in paid ads — demographics, job titles, pain points, fears, hopes, the exact language they use, who they follow, what they've tried, why they failed, what they buy. **Gather every identifier you can.**
+Understand relevant audience needs, jobs, objections, and language using permitted research. Collect only the minimum necessary, consented data; do not gather sensitive identifiers or upload customer lists without explicit authorization and a valid use basis.
 
 What's changed in 2026 is **where you apply that knowledge.** As ad-platform algorithms have gotten dramatically better at finding the right person, jamming all your audience identifiers into the platform's *targeting filters* underperforms feeding those same identifiers into the *creative* (headlines, copy, visuals, hooks, examples).
 
@@ -173,28 +187,28 @@ Trying to make up for weak creative with hyper-precise targeting. If your creati
 
 ## Modern Meta playbook (Andromeda era — 2026+)
 
-Meta launched the **Andromeda** algorithm in 2025, which fundamentally changed Meta ads. The old playbook (interest stacking, polished video creative, single-winner scaling) underperforms. The new playbook:
+Treat the following Meta creative patterns as hypotheses from practitioner playbooks, not independently verified algorithm rules. Check current platform documentation and account evidence; do not infer a causal creative preference from an algorithm name.
 
 ### Creative volume is the constraint (statics > polished video)
 - Andromeda is "a hungry panda" — it needs constant fresh creative or it fatigues
-- **Statics often outperform video in 2026** because:
-  - Meta's algorithm has a bias toward statics — it can show more statics per session per user, so they're cheaper to deliver
-  - Static creative is 10x cheaper and faster to produce than video, enabling the volume Andromeda needs
-  - Even top advertisers running 17+ VSLs report that down-and-dirty native statics often beat 2.5-month-production VSLs
+- Compare static and video creative for this audience and objective:
+  - Static production may cost less, but delivery cost and conversion quality must be measured.
+  - Do not assume an algorithmic bias toward a format or a universal production-cost ratio.
+  - Practitioner anecdotes can generate a test idea; they are not an expected result.
 - **Dedicate 1 hour per week** to producing fresh creatives for your winning offer. Volume > polish.
 
 ### Creative IS the targeting (broad audience + specific creative)
 - The old playbook: stack interests, narrow the audience, hope to find the right buyer
 - The new playbook: target broadly (just the country) and let the creative do the targeting
-- **Long-form ad copy works better than short-form** in 2026 — gives Meta a wider context window to understand who to show the ad to
-- Test it: take your best winning ad with interest-stacked targeting, duplicate it, remove all targeting (just pick the country), run side-by-side for 7 days. Check CPAs. Broad typically wins.
+- Compare long and short copy if there is enough volume; do not assume a platform context-window mechanism or universal winner.
+- A broad-versus-narrow targeting test needs an approved budget, eligibility and policy checks, a prespecified duration/sample, and qualified downstream outcomes. Seven days or a lower observed CPA alone is not proof.
 
 ### The one-keyword hack (identity-trigger keywords)
 - Take your winning ad
 - Duplicate it with a niche/identity keyword inserted in the headline or body copy
-- *"Here's how to get 462 leads per week on autopilot"* → *"Here's how to get 462 **dental** leads per week on autopilot"* / *"...**lawyer** leads..."* / *"...**property investment** leads..."*
+- Example: "Plan follow-ups in one workspace" → "Plan dental-practice follow-ups in one workspace." Use only supported product and audience claims; do not invent lead counts or autopilot outcomes.
 - The keyword is an **identity trigger** for the viewer AND a targeting signal for Andromeda
-- Dramatically drops CPL and opens audience pockets you couldn't reach with a generic ad
+- May improve relevance for a niche; test qualified acquisition cost and downstream outcomes rather than promising lower CPL.
 
 ### AI variant farming (the 100-people test)
 - Take your winning ad
@@ -208,12 +222,12 @@ Meta launched the **Andromeda** algorithm in 2025, which fundamentally changed M
 - After running a CBO, Meta will give 80% of variants no spend
 - Take the dead variants you have **high conviction** about
 - Launch them in a separate ad set ("zombie campaign")
-- Typically resurrects 20% as winners that Meta's first allocation passed over
+- Consider an isolated, budget-capped retest only when evidence suggests allocation rather than creative quality caused low delivery; no win rate is assumed.
 
 ### Don't make ads look like ads
 - Hundreds of millions of people have ad blockers — the polished-ad aesthetic kills performance
 - Study what content **natively performs** in your niche on TikTok/Instagram/YouTube → produce ads that match that aesthetic
-- **Burner account technique:** create a clean Instagram/TikTok account, follow all influencers and pages in your niche, like their content. Your feed becomes a curated view of what's natively winning. Produce ads that match.
+- Review public examples or an authorized research feed for native creative patterns. Do not create accounts, follow people, or engage on the user's behalf without explicit authorization.
 - If you have an organic video with millions of views, **run that exact video as a paid ad** — proven content + paid distribution = the highest-leverage move
 
 ## Creative Best Practices
@@ -311,25 +325,25 @@ For hard kill/keep/scale thresholds, use the platform playbooks (see Reference R
 
 ### Retarget with DIFFERENT offers (not the same one)
 
-The conventional retargeting playbook re-shows the same product/offer to people who didn't buy. The Sabri Suby principle: **the #1 reason someone didn't buy is the offer wasn't right for them.** Re-showing the same thing harder doesn't help.
+Practitioner frameworks suggest testing a different offer when research indicates offer mismatch. Do not assume it is the main reason for non-purchase; timing, trust, fit, price, usability, and measurement errors may also explain the observed behavior.
 
 Instead, retarget with **different** products, services, or offers from your catalog:
 - Visitor clicked on protein powder, didn't buy → retarget with creatine (totally different category)
 - Visitor downloaded a lead magnet, didn't book a call → retarget with a different lead magnet on a related topic
 - Visitor viewed pricing, didn't sign up → retarget with a free audit or assessment instead
 
-The lift from this is often dramatic — a 2-3 ROAS audience on the original offer can hit 6+ ROAS on a different offer.
+A different offer is a hypothesis, not an expected ROAS lift. Compare contribution margin and qualified conversions at sufficient volume before expanding it.
 
 ### The 4-component retargeting framework
 
-Build out your retargeting layer with these 4 ad types running simultaneously:
+Choose from these four retargeting concepts according to audience size, budget, evidence, and test isolation; they need not run simultaneously:
 
-1. **Objection-handling ad** — directly addresses the most common reasons people didn't buy. To find these, **outbound call every lead** who didn't convert and ask why. The verbatim objections become the headline of this ad.
+1. **Objection-handling ad** — addresses reasons supported by consented interviews, support themes, or supplied research. Any customer contact needs authorization; do not call every lead or assume permission to reuse quotations.
 2. **Proof testimonial carousel** — multi-image/multi-slide carousel of testimonials and proof that supports the claims of your original ad
 3. **Other-offers CBO** — your other best-performing ads for other products/services in one CBO, retargeted to the same audience
 4. **Value-first audit/assessment ad** — wraps your call in a free piece of value. Whether they buy or not, they leave with something useful. Lowers the friction to engage.
 
-These four together, retargeting the same audience that didn't convert from the top-of-funnel ad, dramatically lift the ROAS of the entire funnel.
+Avoid audience overlap and fragmented delivery. Evaluate incremental qualified conversions and economics; these concepts do not guarantee a funnel-wide lift.
 
 ---
 
@@ -339,22 +353,22 @@ Ad-to-landing-page congruence is the single most underrated lever in paid ads. M
 
 ### Headline mirroring
 
-Meta is the best split-testing tool that exists — your ad headlines are exposed to ~1000x the audience that actually clicks through to your landing page. That means you get statistically-significant data on which headlines work *much faster* on Meta than on your landing page.
+Ad headline results can suggest message-match hypotheses, but delivery optimization, audience selection, and clicks are not randomized landing-page conversion evidence. Evaluate downstream outcomes and use a controlled page test where traffic permits.
 
 The play:
 
-1. Run **20-40 different headlines** as ad variations
+1. Select a manageable number of headline variants based on traffic, conversion volume, budget, and a predeclared test design
 2. Identify the best-performing headline (by CTR + downstream conversion)
 3. **Mirror that winning headline on your landing page** — exact wording in the H1, sub-headline, and lead-in copy of the body
-4. Expect a **15-20% minimum lift** in landing-page conversion rate from this single change
+4. Measure the page-level effect against a control, with uncertainty and guardrails. No minimum lift is promised; the change may be neutral or harmful.
 
-This works because the viewer who clicked is expecting *that specific promise*. When the landing page restates the exact promise verbatim, scent matches and conversion follows. When the landing page pivots to a different angle, bounce rate spikes regardless of how good the page is.
+Consistent promises may reduce confusion, but exact wording is not always best. Keep claims truthful and test whether message match improves the intended conversion for the evaluated traffic.
 
-### Three split tests minimum at all times
+### Match testing cadence to evidence and capacity
 
-A standing discipline: **at any given moment, you should have at least 3 split tests running** somewhere in your funnel — ad creative, landing page, offer, or post-conversion flow. If you don't, you've capped your improvement curve.
+Maintain a prioritized experiment backlog, not a mandatory number of simultaneous tests. Check baseline rates, minimum detectable effect, eligible sample size, duration, interference, budget, and implementation capacity before launching.
 
-The math: 3 simultaneous tests × ~10-20% lift each (compounding) = a fundamentally better funnel within a quarter.
+Low-volume funnels may support only one test or qualitative research first. Parallel tests need independent populations or an explicit interaction-aware design. Do not multiply assumed lifts; use measured effects and uncertainty.
 
 ## Reporting & Analysis
 
@@ -378,14 +392,14 @@ The most common scaling failure: a business at a 40 ROAS spending $5k/month, ref
 
 **Net cash flow > ROAS percentage at the business level:**
 - ROAS dropping from 10 → 5 sounds bad
-- But if spend goes from $10k → $100k, you net dramatically more total profit
+- Higher spend can increase or decrease profit; compare incremental gross profit after ad costs, delivery costs, refunds, and cash constraints.
 - The number to optimize is **blended ROAS at the business level**, not per-ad-set ROAS
 - Even better: optimize **net free cash flow**, not ROAS at all
 
 **Find your break-even ROAS:**
 1. Calculate the absolute maximum you can pay to acquire a customer and still be profitable (factoring LTV)
 2. That's your break-even ROAS / CPA ceiling
-3. **Scale until you approach that ceiling**, not until your ad-account ROAS drops below an arbitrary preference
+3. Propose a bounded scaling test only if marginal economics, lead quality, payback, cash runway, and uncertainty support it; obtain approval before spend changes.
 
 **The 3-hour founder review:**
 - Block out **3 hours per month** in the calendar to physically review the numbers yourself
@@ -394,7 +408,7 @@ The most common scaling failure: a business at a 40 ROAS spending $5k/month, ref
 - "Data gives you confidence. Confidence gives you speed."
 
 **Outbound-call your leads who didn't convert:**
-- Every lead that downloaded a lead magnet or hit your funnel but didn't buy gets a call
+- Invite a relevant, consented sample to research only when outreach is authorized; do not assume that downloading content authorizes a sales call
 - Ask why they didn't book, what was confusing, what the actual blocker was
 - These verbatim answers become objection-handling ads (see Retargeting section)
 - Massive insight-to-creative loop that most advertisers skip
