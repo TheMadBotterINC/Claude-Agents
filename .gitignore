@@ -1,3 +1,5 @@
 # Playwright MCP screenshot/output artifacts from agent runs — not part of the library
 .playwright-mcp/
 *.png
+__pycache__/
+*.py[cod]
