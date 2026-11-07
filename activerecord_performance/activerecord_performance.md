@@ -18,60 +18,43 @@ location, a schema fact, a query count, or an EXPLAIN plan.
 
 ## Safety, scope, and evidence contract
 
-- **Audit, do not implement.** Do not edit application code/configuration, run
-  autocorrect, add dependencies, generate migrations on disk, or apply fixes
-  unless the user explicitly requests implementation. Suggested patches belong
-  in the report. Report/evidence artifacts are the only default writes.
-- **Verify the environment before execution.** Inspect start/test commands and
-  hooks, effective app environment, database target, tenant context, and external
-  integrations without exposing credentials. A localhost URL alone does not
-  prove local data or sandboxed services. Dynamic checks require a verified
-  local/dev/test target with synthetic data and isolated integrations. Ask for
-  explicit target/action approval before any production or external database
-  command, even SELECT or EXPLAIN; otherwise continue statically.
-- **No implicit side effects.** Audit permission is not permission to submit
-  forms, delete records, send mail, charge payments, upload data, enqueue jobs,
-  trigger webhooks, deploy, or mutate accounts. Use approved disposable fixtures
-  and stubbed services; ask before any action outside that authorization.
-  Do not install tools or update remote vulnerability databases silently.
-- **Database execution is not automatically read-only.** EXPLAIN ANALYZE executes
-  the query, including writes and called functions, and can create load/locks.
-  Even SELECT can invoke side-effecting functions. Prefer plain EXPLAIN after
-  inspecting the query; use ANALYZE only for vetted bounded reads on approved
-  disposable local/dev data with a timeout. Rollback is not protection from
-  external effects. Never run migrations/backfills as part of an audit.
-- **Minimize sensitive evidence.** Redact secrets, cookies, Authorization headers,
-  query-string tokens, request/response bodies, customer/tenant identifiers, PII,
-  SQL bind values, screenshots, traces, and logs before saving or sharing. Prefer
-  metadata to full payload capture. Use synthetic accounts and mask UI data
-  before capture; if safe redaction is unavailable, omit the artifact and report
-  the limitation. Never collect raw sensitive data just to redact it later.
-- **Choose a bounded scope.** Use `standard` unless the user/runner selects
-  `quick` or `comprehensive`. Quick covers the named path and highest-risk
-  adjacent boundary; standard inventories relevant layers and reviews each
-  applicable category with risk-prioritized representative paths; comprehensive
-  expands to all inventoried in-scope paths and boundaries within an agreed
-  time/tool budget. Agree a concrete time or item budget at preflight; runner
-  timeout is a ceiling, not a claim of coverage. No mode promises all defects
-  found, and none assumes a particular model tier.
-- **Keep a coverage ledger.** Record each in-scope path/layer/role/tenant/engine
-  and applicable category as reviewed, sampled, deferred, blocked, or not
-  applicable, with evidence and reasons. Preserve systematic category coverage
-  rather than silently skipping hard areas. Stop when every planned ledger item
-  is dispositioned or the agreed budget is reached; report remaining items and
-  the stopping reason. Expand only with a new explicit budget/scope.
-- **Report honestly.** Separate confirmed findings, static-only risks, and
-  hypotheses; include location, evidence, impact, and a proportionate remedy.
-  Check surrounding authorization, constraints, framework behavior, and actual
-  consumers before flagging a pattern. Missing tools/source are coverage gaps,
-  not findings. Finish with `completed` only when planned scope is reviewed;
-  use `partial` for incomplete coverage and `blocked` when prerequisites prevent
-  meaningful work. A clean sampled review is not proof of absence of defects.
-- **Portable output.** Honor a runner-provided report path before any default;
-  create only that run's report and evidence, never overwrite prior reports.
-  Without a runner, use the skill's default report path with a unique suffix.
-  Include scope, ledger, commands/tool failures, environment, stopping reason,
-  and status in the report and summarize findings in the final response.
+- **Audit only.** Do not edit app code/config, autocorrect, install dependencies,
+  generate migrations, or apply fixes without explicit implementation approval.
+  Default writes are report/evidence artifacts; propose changes in the report.
+- **Verify before execution.** Inspect effective app/test environment, hooks,
+  DB target, tenant context, and integrations without exposing credentials.
+  Localhost is not proof of isolation. Dynamic checks require verified local/dev/
+  test targets, synthetic data, and sandboxed services. Production/external DB
+  commands (even SELECT/EXPLAIN) require explicit target/action approval.
+  Do not submit forms, delete/upload data, charge, send mail, enqueue jobs,
+  trigger webhooks, deploy, mutate accounts, or update tools/advisories without
+  specific authorization; otherwise continue statically.
+- **DB caution.** EXPLAIN ANALYZE executes queries, including writes/functions;
+  SELECT can have effects too. Prefer vetted plain EXPLAIN. ANALYZE requires
+  bounded reads on approved disposable local/dev data and a timeout, never
+  audit-time migrations/backfills.
+- **Minimize/redact before capture or sharing.** Exclude secrets, cookies,
+  tokens, headers/bodies, SQL binds, tenant identifiers, and PII from screenshots,
+  network evidence, traces, and logs. Prefer metadata/synthetic UI; omit unsafe
+  artifacts rather than collecting raw sensitive data.
+- **Bound scope:** default `standard` inventories applicable categories/layers
+  and reviews risk-prioritized representative paths. `quick` covers the named
+  path plus its highest-risk adjacent boundary; `comprehensive` expands across
+  inventoried in-scope paths within an agreed concrete time/item budget. No
+  mode/model guarantees every defect found.
+- **Coverage ledger:** record paths/categories/roles/tenants/engines as reviewed,
+  sampled, deferred, blocked, or not applicable, with evidence/reasons. Stop when
+  planned items are dispositioned or budget expires; disclose gaps/stopping
+  reason. Expand only with a new budget/scope.
+- **Honest output:** check surrounding controls/consumers before flagging patterns.
+  Separate confirmed findings, static risks, and hypotheses; unavailable tools/
+  source are coverage gaps. Honor assigned report paths over unique standalone
+  defaults; preserve prior reports as context, not fresh evidence. Include
+  ledger, environment, commands/failures, evidence, remedy, and status. Write any
+  assigned JSON sidecar with `status` (`completed|partial|blocked`), exact absolute
+  `report_path`, and `blockers` array. Completed requires planned coverage,
+  nonempty matching report, no blockers; incomplete coverage is partial, and
+  missing prerequisites preventing meaningful work are blocked.
 
 ## Operating principles
 

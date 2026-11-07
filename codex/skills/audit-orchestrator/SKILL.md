@@ -74,10 +74,10 @@ sandbox is not authorization to modify application code or external systems.
 
 Infer the subset from the user's language:
 
-- "all", "full audit", "comprehensive", "everything", "launch readiness", or "app audit" -> all available skills.
+- Explicit "all skills", "full-app audit", or "everything" -> all applicable skills. "Comprehensive" selects depth, not all specialists; "launch readiness" selects deployment-readiness unless the user also requests a broad app review.
 - "frontend", "polish", "QA", "responsive", "browser", or "UX" -> `$ux-tester`; add `$product-workflow-auditor` for workflow friction and `$web-performance` when speed, metrics, assets, or Lighthouse are mentioned.
 - "performance" alone in a Rails app -> ask whether they mean frontend, database, or both unless the context clearly points one way.
-- "security", "hardening", "vulnerability", "auth", "tenant", "secrets", or "CVE" -> `$rails-security`.
+- "security", "hardening", "vulnerability", "auth", "secrets", or "CVE" -> `$rails-security`. For tenant-only isolation requests, prefer the tenant specialist below; add broader security only when requested or supported by a distinct security concern.
 - "tenant", "multi-tenant", "white-label", "cross-tenant", "customer engine", or "data leak" -> `$multi-tenant-isolation-auditor`; add `$rails-security` when broader app security is also requested.
 - "data integrity", "constraints", "foreign keys", "migrations", "state", "enums", "orphaned", or "race condition" -> `$data-integrity-auditor`.
 - "database", "queries", "N+1", "indexes", "ActiveRecord", or "slow SQL" -> `$activerecord-performance`.
