@@ -47,13 +47,14 @@
     {
       "id": 4,
       "prompt": "How do I actually schedule these loops so they run on their own?",
-      "expected_output": "Should explain that the loop body is agent-agnostic but scheduling depends on the environment. Should cover the options: Claude Code native primitives (/loop, ScheduleWakeup, CronCreate), any-agent + cron (with an example cron expression), and manual cadence for high-judgment loops. Should default to time-of-day cron for review-style loops and dynamic pacing for monitor-until-threshold loops. Should treat a dedicated loop-mechanics skill like loopify as an optional companion, not a hard dependency, and not assume it is installed.",
+      "expected_output": "Explain that scheduling is environment-dependent. Verify whether the current surface exposes an authorized recurring-task or monitor capability. Otherwise provide a cron/CI configuration or manual cadence handoff and state that nothing is scheduled. Include a sample cron expression, time zone, bounded state, stopping conditions, and approval before activation or spend/send actions. Do not require Claude-only primitives or an optional companion skill.",
       "assertions": [
-        "Explains scheduling is environment-dependent",
-        "Covers Claude Code native options and plain cron",
-        "Includes manual cadence as a valid option",
-        "Gives cron vs dynamic-pacing default guidance",
-        "Treats loopify as optional, not a required dependency"
+        "Verifies scheduling capability rather than assuming platform primitives",
+        "Offers cron or CI handoff and manual cadence if unavailable",
+        "Includes time zone and an example cron expression",
+        "Requires explicit authorization before activating automation",
+        "Does not claim scheduling succeeded without evidence",
+        "Treats optional companion skills as optional"
       ],
       "files": []
     },
@@ -73,14 +74,16 @@
     {
       "id": 6,
       "prompt": "We keep losing customers to failed payments and expired cards. Set up something to recover that revenue automatically.",
-      "expected_output": "Should select the failed-payment/dunning loop. Should trigger on payment failure or upcoming card expiration, run a retry schedule with escalating update-card messaging, and include state (track dunning stage per account, stop on recovery). Must include a stop/bail-out so it doesn't loop forever (escalate/deactivate after final retry) and a self-check to distinguish involuntary failures from intentional cancellations (don't dun someone who chose to leave). Should reference revops and emails skills. May note this is often the highest-ROI retention loop.",
+      "expected_output": "Should select the failed-payment/dunning loop. Should trigger on payment failure or upcoming card expiration, design a retry schedule with escalating update-card messaging, and include state (track dunning stage per account, stop on recovery). Must include a stop/bail-out so it doesn't loop forever (escalate/deactivate after final retry) and a self-check to distinguish involuntary failures from intentional cancellations (don't dun someone who chose to leave). Should reference revops and emails skills. Must verify billing/email capabilities and obtain explicit authorization for retry charges, customer messages, limits, and stop conditions before activation; does not infer highest ROI without economics.",
       "assertions": [
         "Selects the failed-payment/dunning loop",
         "Triggers on failed payment or card expiration",
         "Includes a retry schedule with dunning stage state",
         "Has a stop condition so it does not loop forever",
         "Self-check separates involuntary failures from intentional cancels",
-        "References revops and/or emails skills"
+        "References revops and/or emails skills",
+        "Stages a specification without executing charges or sends without bounded authorization",
+        "Does not assume billing or scheduler access"
       ],
       "files": []
     },
@@ -94,6 +97,20 @@
         "Does not duplicate test design or statistical analysis in the loop",
         "Includes backlog prioritization (ICE) and hypothesis dedupe",
         "References the ab-testing skill as the owner of execution"
+      ],
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Specify a weekly ad-fatigue review with available tools, a source ledger, human approval before spend changes and a kill switch. For this review, no authenticated connectors, browser, scheduler, image/video renderer, or paid data tools are available. Use only the supplied description or ask for minimum necessary excerpts. Return a draft here, without files, sends, publishing, account edits, or paid calls.",
+      "expected_output": "Honor the requested scope and draft-only constraints. Disclose unavailable capabilities; use supplied evidence or ask for minimum necessary inputs instead of inventing retrieval, metrics, rendered assets, scheduled jobs, or completed actions. Give conditional recommendations with assumptions, uncertainty, traffic/budget/economics where relevant, and no guaranteed lift. Any proposed future external action needs explicit account/action/scope/limits authorization; do not execute it or create artifacts.",
+      "assertions": [
+        "Acknowledges missing capabilities and does not claim unperformed actions",
+        "Uses supplied evidence or asks for minimum necessary inputs rather than fabricating facts",
+        "Returns advice or a draft without writing files or mutating external systems",
+        "Does not incur paid calls or assume account access",
+        "Conditions outcomes and recommendations on evidence and relevant economics",
+        "Does not imply that tool access or this draft request authorizes future external mutations"
       ],
       "files": []
     }

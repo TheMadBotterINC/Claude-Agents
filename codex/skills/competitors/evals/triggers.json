@@ -6,5 +6,21 @@
   {
     "query": "Create an internal sales battlecard with objection responses, traps to avoid, and demo talk tracks.",
     "should_trigger": false
+  },
+  {
+    "query": "Turn the approved competitor research into a public Acme alternatives page with honest best-fit recommendations.",
+    "should_trigger": true
+  },
+  {
+    "query": "Draft a you-versus-competitor page at /compare/acme using this verified pricing table for buyers arriving from search.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write private battle cards for AEs: discovery questions, competitor objections and what to show during a demo.",
+    "should_trigger": false
+  },
+  {
+    "query": "Research these three competitor URLs and give sourced dossiers; we are not writing comparison pages yet.",
+    "should_trigger": false
   }
 ]

@@ -6,5 +6,21 @@
   {
     "query": "Turn our existing research into an internal battlecard for sales reps handling Notion objections.",
     "should_trigger": false
+  },
+  {
+    "query": "Profile the pricing, audience and positioning of these URLs using our supplied page excerpts; skip quantitative SEO.",
+    "should_trigger": true
+  },
+  {
+    "query": "Refresh our saved competitor dossier from these dated sources and preserve the earlier research snapshots.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write public versus and alternatives pages from the finalized competitor profiles.",
+    "should_trigger": false
+  },
+  {
+    "query": "Build an internal competitive objection-handling card for sales from the verified research.",
+    "should_trigger": false
   }
 ]

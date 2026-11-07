@@ -6,5 +6,21 @@
   {
     "query": "Review https://example.com/dashboard for mobile overflow, keyboard navigation, broken dialogs and console errors.",
     "should_trigger": false
+  },
+  {
+    "query": "Review the lead-request form on /enterprise: paid visitors abandon it before submitting, and we want more qualified demos.",
+    "should_trigger": true
+  },
+  {
+    "query": "This landing page is not converting newsletter readers. Diagnose message match and CTA hierarchy, not a full UX audit.",
+    "should_trigger": true
+  },
+  {
+    "query": "Here is https://example.com. Check whether the mobile navigation works and the dialog traps keyboard focus.",
+    "should_trigger": false
+  },
+  {
+    "query": "Audit why our sales-led B2B SaaS homepage loses visitors across the entire route to first payment; recommendations only.",
+    "should_trigger": false
   }
 ]

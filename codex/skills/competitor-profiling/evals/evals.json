@@ -3,16 +3,14 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Profile these three competitors for us: https://competitor1.com, https://competitor2.com, https://competitor3.com. We need this for sales enablement and to find positioning gaps.",
-      "expected_output": "Should check for product-marketing.md first. Should run the full research process: Phase 1 site scraping (Firecrawl map + scrape of homepage, pricing, features, about, customers, integrations, changelog), Phase 2 SEO and market data (DataForSEO for backlinks, ranked keywords, traffic, competitors), Phase 3 synthesis. Should save raw data to competitor-profiles/raw/<slug>/<YYYY-MM-DD>/ with scrapes/, seo/, reviews/ subfolders before synthesizing. Should produce one markdown file per competitor following the profile template (At a Glance, Positioning & Messaging, Product & Features, Pricing, Customers & Social Proof, SEO & Content Strategy, Strengths & Weaknesses, Competitive Implications). Should produce a _summary.md after individual profiles with comparison table, positioning map, key takeaways, gaps and opportunities. Should parallelize scraping when handling multiple competitors and use consistent metrics across all three for comparability.",
+      "prompt": "Using only the supplied public-page excerpts for https://alpha.example and https://beta.example, compare pricing and positioning. No browser or SEO connector is available. Return profiles and a cross-competitor summary here; do not create files. Supplied excerpts (2026-10-01): Alpha homepage says \"incident tracking for small teams\"; pricing says Starter $20/seat/month. Beta homepage says \"enterprise incident operations\"; pricing says contact sales. These are company claims, not independently verified facts.",
+      "expected_output": "Check for existing product marketing context if available. Synthesize comparable profiles and a summary from supplied excerpts only, with dated source labels and unknowns. State live pages and quantitative SEO were not checked. Do not require Firecrawl, DataForSEO, paid calls, scraping, parallel tools, or file creation.",
       "assertions": [
-        "Checks for product-marketing.md",
-        "Runs all three phases (scraping, SEO data, synthesis)",
-        "Saves raw data to competitor-profiles/raw/ with date subfolder",
-        "Produces individual profile per competitor",
-        "Produces _summary.md after individual profiles",
-        "Uses consistent metrics across competitors",
-        "Parallelizes scraping when possible"
+        "Uses supplied excerpts without claiming live retrieval",
+        "Produces comparable individual profiles and a cross-competitor summary in the response",
+        "Marks SEO metrics unavailable instead of inventing estimates",
+        "Distinguishes sourced claims from inferences",
+        "Does not require a named provider or create files"
       ],
       "files": []
     },
@@ -32,13 +30,13 @@
     {
       "id": 3,
       "prompt": "I have an existing profile of Notion from 4 months ago. Should I update it or start fresh?",
-      "expected_output": "Should explain profile updating process from the Updating Profiles section. Should recommend updating rather than starting fresh — preserves history and enables diffing. Should explain what to re-pull: pricing page first (most volatile), SEO metrics (traffic and rankings shift monthly), changelog scan for product changes. Should update the Generated date. Should add a Change Log section at the bottom noting what changed since last profile. Should also save the new raw data to a new <YYYY-MM-DD> folder rather than overwriting prior data — supports diffing over time.",
+      "expected_output": "Recommend updating the existing profile rather than silently replacing history. Explain pricing-first review, optional authorized SEO refresh, and changelog checks. This is a consultation: do not fetch data or write files solely because the user asked whether to update. If artifact updates are later requested, preserve prior raw runs with dated collision-safe folders and record changes and observation dates.",
       "assertions": [
-        "Recommends updating over starting fresh",
-        "Lists what to re-pull (pricing, SEO, changelog)",
-        "Mentions adding Change Log section",
-        "Says to save raw data to new date folder",
-        "Says never overwrite prior date's data"
+        "Explains update rather than unnecessary restart",
+        "Prioritizes pricing, changelog, and optional available SEO refresh",
+        "Describes change log and dates for a requested update",
+        "Does not write files or claim retrieval for this consultation",
+        "Preserves prior data if a later update is authorized"
       ],
       "files": []
     },
@@ -51,33 +49,47 @@
         "Specifies what to extract from each page type",
         "Includes changelog as product direction signal",
         "Mentions optional review scraping",
-        "References Firecrawl Map then Scrape workflow"
+        "Uses capability-neutral discovery and retrieval guidance; named providers are optional"
       ],
       "files": []
     },
     {
       "id": 5,
       "prompt": "I want a profile but I don't care about SEO data — just pricing, positioning, and customer logos. Can you skip the DataForSEO calls?",
-      "expected_output": "Should accept the scoped request and skip Phase 2. Should run Phase 1 (Firecrawl scraping of homepage, pricing, customers pages) and Phase 3 synthesis only. Should explain that without SEO data, the profile won't include Domain Rank, organic traffic estimates, ranked keywords, referring domains, or top organic pages — but the positioning, pricing, and customer sections will be complete. Should produce an abbreviated profile flagging the SEO section as 'not collected per user request' rather than leaving placeholders. Should still save raw scrapes to disk for reuse.",
+      "expected_output": "Accept the narrowed scope and skip SEO-provider calls. Use available authorized public evidence for homepage, pricing, and customer claims, then synthesize the requested sections. Label unavailable or skipped SEO fields explicitly. Return the profile in the response; do not save raw scrapes or create artifacts without a request. Do not promise complete facts when pages are inaccessible.",
       "assertions": [
-        "Skips Phase 2 (DataForSEO) as requested",
-        "Runs Phase 1 and Phase 3",
-        "Explains what's missing without SEO data",
-        "Flags SEO section as skipped, not blank",
-        "Still saves raw data"
+        "Skips SEO calls as requested",
+        "Uses only available authorized evidence and synthesizes scoped sections",
+        "Labels missing SEO metrics as not collected per request",
+        "Does not assume Firecrawl or another connector is installed",
+        "Does not create files without artifact authorization"
       ],
       "files": []
     },
     {
       "id": 6,
       "prompt": "Should I trust the customer logo wall on the competitor's homepage as evidence of who their customers are?",
-      "expected_output": "Should apply the 'Facts Over Opinions' and 'Honest Assessment' principles. Should explain that customer logos are a positioning claim, not necessarily an accurate customer breakdown — companies often show their best-known logos regardless of share of revenue. Should recommend cross-referencing: check case studies for actual usage details, search for press releases naming customers, look at customer reviews on G2/Capterra/TrustRadius for company name signals, check their LinkedIn for posts about customers. Should note: if they claim '10,000 customers' but have weak traffic/backlink profile, the claim should be flagged in the profile. Should distinguish between named customers (verifiable claims) and 'industries served' (positioning statement). Always include the date the data was pulled.",
+      "expected_output": "Treat homepage logos and customer counts as company-authored claims, not independently verified customer composition. Recommend relevant corroboration such as dated case studies, explicit customer statements, or public reviews. Traffic estimates and backlinks cannot prove or disprove private customer counts. Distinguish named-logo claims from verified relationships, record sources and dates, and label uncertainty.",
       "assertions": [
-        "Treats logos as positioning claim, not customer breakdown",
-        "Recommends cross-referencing case studies and reviews",
-        "Mentions checking traffic/backlink profile against claim scale",
-        "Distinguishes verifiable named customers from claims",
-        "Notes including date pulled"
+        "Treats logos as company claims, not customer breakdown",
+        "Suggests relevant corroboration such as customer statements and case studies",
+        "Does not validate or disprove customer totals with traffic or backlinks",
+        "Distinguishes claims from independently corroborated facts",
+        "Includes source dates and uncertainty"
+      ],
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Research the pricing and positioning of https://example.com and https://example.org. Use public evidence; return profiles here without files or paid data. For this review, no authenticated connectors, browser, scheduler, image/video renderer, or paid data tools are available. Use only the supplied description or ask for minimum necessary excerpts. Return a draft here, without files, sends, publishing, account edits, or paid calls.",
+      "expected_output": "Honor the requested scope and draft-only constraints. Disclose unavailable capabilities; use supplied evidence or ask for minimum necessary inputs instead of inventing retrieval, metrics, rendered assets, scheduled jobs, or completed actions. Give conditional recommendations with assumptions, uncertainty, traffic/budget/economics where relevant, and no guaranteed lift. Any proposed future external action needs explicit account/action/scope/limits authorization; do not execute it or create artifacts.",
+      "assertions": [
+        "Acknowledges missing capabilities and does not claim unperformed actions",
+        "Uses supplied evidence or asks for minimum necessary inputs rather than fabricating facts",
+        "Returns advice or a draft without writing files or mutating external systems",
+        "Does not incur paid calls or assume account access",
+        "Conditions outcomes and recommendations on evidence and relevant economics",
+        "Does not imply that tool access or this draft request authorizes future external mutations"
       ],
       "files": []
     }

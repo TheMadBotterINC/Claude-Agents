@@ -6,5 +6,21 @@
   {
     "query": "Start from this product brief and completely rewrite the homepage positioning and narrative from scratch.",
     "should_trigger": false
+  },
+  {
+    "query": "Keep this pricing-page structure but tighten wordy paragraphs and remove unsupported superlatives.",
+    "should_trigger": true
+  },
+  {
+    "query": "Refresh dates and stale product references in this approved homepage draft, preserving the message.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a new homepage from scratch using this product brief; we have not written any copy.",
+    "should_trigger": false
+  },
+  {
+    "query": "The current messaging is wrong. Write a substantially new landing-page narrative and reposition the product.",
+    "should_trigger": false
   }
 ]

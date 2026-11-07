@@ -6,5 +6,21 @@
   {
     "query": "Profile JavaScript bundles, LCP and INP on our dashboard; I need measured web performance, not SEO analysis.",
     "should_trigger": false
+  },
+  {
+    "query": "Our Google rankings collapsed after a migration. Review crawl errors, redirects, robots and indexation evidence.",
+    "should_trigger": true
+  },
+  {
+    "query": "Audit technical SEO including Search Console mobile Core Web Vitals issues and whether important pages are indexable.",
+    "should_trigger": true
+  },
+  {
+    "query": "Measure LCP, INP, network weight and hydration cost for this Next.js dashboard. No SEO review needed.",
+    "should_trigger": false
+  },
+  {
+    "query": "We need AI assistants to cite our research pages; diagnose AI-answer visibility, not Google rankings.",
+    "should_trigger": false
   }
 ]

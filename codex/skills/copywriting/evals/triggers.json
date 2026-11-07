@@ -6,5 +6,21 @@
   {
     "query": "Proofread this finished landing-page draft for grammar and wordiness without changing its message or structure.",
     "should_trigger": false
+  },
+  {
+    "query": "Completely rethink and rewrite our homepage from this new positioning brief; the old text is attached for context only.",
+    "should_trigger": true
+  },
+  {
+    "query": "Draft hero copy and a value proposition for a new feature page; no existing draft exists.",
+    "should_trigger": true
+  },
+  {
+    "query": "Proofread the attached homepage text and shorten sentences; preserve the current positioning and structure.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review the current landing-page copy for typos and stale statements, without generating a new narrative.",
+    "should_trigger": false
   }
 ]

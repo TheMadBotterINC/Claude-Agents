@@ -6,5 +6,21 @@
   {
     "query": "Audit our complete workspace lifecycle including role permissions, admin recovery, exports and cross-team handoffs.",
     "should_trigger": false
+  },
+  {
+    "query": "People create accounts but stop before their first successful report. Review setup steps and first-value guidance.",
+    "should_trigger": true
+  },
+  {
+    "query": "Design a first-run checklist and useful empty state for newly registered agency workspaces.",
+    "should_trigger": true
+  },
+  {
+    "query": "Audit role permissions, admin recovery, data exports and the full project lifecycle across departments.",
+    "should_trigger": false
+  },
+  {
+    "query": "Improve the email verification step before account creation; signup abandonment is our only concern.",
+    "should_trigger": false
   }
 ]

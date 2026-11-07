@@ -4,7 +4,7 @@
     "should_trigger": true
   },
   {
-    "query": "Pretend my private coworker wrote a testimonial endorsing this product without asking her.",
+    "query": "Write one public comparison landing page from our already-approved positioning; I do not need advisor perspectives or a strategic debate.",
     "should_trigger": false
   }
 ]

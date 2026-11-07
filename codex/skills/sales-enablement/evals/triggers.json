@@ -6,5 +6,21 @@
   {
     "query": "Write a public Notion alternatives page optimized for buyer evaluation and search.",
     "should_trigger": false
+  },
+  {
+    "query": "Our AEs need a private one-page competitor battle card with source dates and objection responses, not a website page.",
+    "should_trigger": true
+  },
+  {
+    "query": "Prepare a demo narrative and leave-behind for a CFO buyer evaluating our billing platform.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write a public Acme vs Us SEO landing page with a comparison table and migration section.",
+    "should_trigger": false
+  },
+  {
+    "query": "Find the latest public prices and product features for these competitors; we only need research profiles.",
+    "should_trigger": false
   }
 ]
