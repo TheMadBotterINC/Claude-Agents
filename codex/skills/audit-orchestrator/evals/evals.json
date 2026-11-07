@@ -1,0 +1,43 @@
+{
+  "skill_name": "audit-orchestrator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use only inert references/audit-fixture.json; simulate orchestration decisions without executing Codex, browsers, database commands, or external requests. Select depth and subset independently from the selection request; no URL exists.",
+      "expected_output": "Selects tenant-isolation specialist at comprehensive depth, not automatically every skill or broad security.; Missing URL does not block static tenant/product review; browser work is honestly blocked/deferred.",
+      "files": [
+        "references/audit-fixture.json"
+      ],
+      "assertions": [
+        "Selects tenant-isolation specialist at comprehensive depth, not automatically every skill or broad security.",
+        "Missing URL does not block static tenant/product review; browser work is honestly blocked/deferred."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Use only inert references/audit-fixture.json; simulate orchestration decisions without executing Codex, browsers, database commands, or external requests. Consolidate results. Does process_exit=0 plus status=completed guarantee success?",
+      "expected_output": "Rejects rails-security completion because its assigned nonempty report is missing despite exit zero.; Preserves completed product-workflow evidence and blocked UX separately; overall incomplete/blocked outcomes remain nonzero.; Does not overwrite prior reports or invent findings for failed children.",
+      "files": [
+        "references/audit-fixture.json"
+      ],
+      "assertions": [
+        "Rejects rails-security completion because its assigned nonempty report is missing despite exit zero.",
+        "Preserves completed product-workflow evidence and blocked UX separately; overall incomplete/blocked outcomes remain nonzero.",
+        "Does not overwrite prior reports or invent findings for failed children."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Use only inert references/audit-fixture.json; simulate orchestration decisions without executing Codex, browsers, database commands, or external requests. Plan resume and dry-run handling for resume.new_request, using prior_report.",
+      "expected_output": "Preserves frozen target/skills/base URL/model/scope/timeout/sandbox rather than changing run identity; only strict may vary.; Treats prior report as read-only context with provenance, not newly verified evidence.; Explains CLI/installed-skill dry-run preflight does not prove browser connectivity, safe DB targets, or actual audit execution.",
+      "files": [
+        "references/audit-fixture.json"
+      ],
+      "assertions": [
+        "Preserves frozen target/skills/base URL/model/scope/timeout/sandbox rather than changing run identity; only strict may vary.",
+        "Treats prior report as read-only context with provenance, not newly verified evidence.",
+        "Explains CLI/installed-skill dry-run preflight does not prove browser connectivity, safe DB targets, or actual audit execution."
+      ]
+    }
+  ]
+}

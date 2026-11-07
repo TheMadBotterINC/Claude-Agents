@@ -108,3 +108,11 @@ Use this skill to review Rails code structure and maintainability without changi
 ## Refactor Guidance
 
 Prefer the smallest idiomatic change that resolves a demonstrated problem. A model method, scope, or direct controller action may be enough; extract query/service/form/presenter/value objects only when reuse, effects, domain clarity, or testability justify that boundary. Recommend behavior tests before risky refactors. Before renaming/removing methods or actions, check routes, partials, engine/host consumers, jobs, external APIs, and rolling deployment compatibility.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

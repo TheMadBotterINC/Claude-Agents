@@ -1,0 +1,55 @@
+{
+  "fixture_only": true,
+  "instructions": "Inert synthetic contracts for design review only. Do not execute or implement anything.",
+  "published_engine": {
+    "file": "lib/customer_portal/api.rb",
+    "code": "def customer_label(account_id); ...; end",
+    "local_callers": [],
+    "external_consumers": [
+      "host applications pin released gem versions",
+      "public API clients outside this repository"
+    ],
+    "request": "Rename customer_label to account_label and delete old alias."
+  },
+  "queued_jobs": {
+    "old_payload": {
+      "job": "SyncCustomerJob",
+      "args": [
+        "customer_id"
+      ]
+    },
+    "new_payload": {
+      "job": "SyncAccountJob",
+      "args": [
+        "account_id",
+        "tenant_id"
+      ]
+    },
+    "deployment": "Rolling deploy runs old and new workers together; old jobs remain queued."
+  },
+  "single_adapter": {
+    "interface": "BillingGateway",
+    "implementation_count": 1,
+    "purpose": "Isolate vendor SDK and enable fake billing for tests without real charges. Stable domain boundary prevents vendor DTO leakage."
+  },
+  "healthy_local": {
+    "code": "def label; name.strip; end",
+    "consumers": "Private model method, no exported contract or observed reuse. Nearby code uses direct methods.",
+    "request": "Add IServiceFactory and LabelManager across four files."
+  },
+  "one_line_security": {
+    "file": "app/controllers/invoices_controller.rb",
+    "before": "Current.account.invoices.find(params[:id])",
+    "after": "Invoice.find(params[:id])",
+    "context": "Invoice is tenant-owned. Same line count, cross-tenant boundary change."
+  },
+  "partial_action": {
+    "file": "app/controllers/orders_controller.rb",
+    "action": "refresh_summary",
+    "callers": [
+      "app/views/orders/_summary.html.erb uses refresh_summary_order_path",
+      "mounted customer engine overrides the partial"
+    ],
+    "request": "Rename action because no Ruby method callers exist."
+  }
+}

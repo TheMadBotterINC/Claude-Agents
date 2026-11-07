@@ -107,3 +107,11 @@ Use this skill to find and prove Rails database performance problems. Every repo
 ## Common Fix Patterns
 
 Prefer idiomatic Rails fixes: `includes`/`preload`/`eager_load`, `counter_cache`, scoped association preloading, `exists?`, `pluck`/`pick`/`select`, pagination/limits, and `find_each`/`in_batches`. Bulk writes can bypass validations, callbacks, timestamps, and tenant/authorization rules; verify those semantics before suggesting them. Recommend composite/unique indexes only after checking query shape, selectivity, tenant keys, existing coverage, and write cost. Sequential scans are not inherently defects.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

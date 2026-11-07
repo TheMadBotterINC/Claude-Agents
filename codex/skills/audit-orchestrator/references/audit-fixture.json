@@ -1,0 +1,68 @@
+{
+  "fixture_only": true,
+  "instructions": "Simulated artifact metadata only. Do not launch Codex, browsers, or audits.",
+  "run_dir": "/fixture/audit-run",
+  "selection": {
+    "request": "comprehensive tenant isolation review",
+    "base_url": null,
+    "available": [
+      "multi-tenant-isolation-auditor",
+      "rails-security",
+      "product-workflow-auditor",
+      "ux-tester",
+      "web-performance"
+    ]
+  },
+  "results": [
+    {
+      "skill": "rails-security",
+      "process_exit": 0,
+      "report_exists": false,
+      "sidecar": {
+        "status": "completed",
+        "report_path": "/fixture/audit-run/reports/rails-security.md",
+        "blockers": []
+      }
+    },
+    {
+      "skill": "product-workflow-auditor",
+      "process_exit": 0,
+      "report_exists": true,
+      "report_nonempty": true,
+      "sidecar": {
+        "status": "completed",
+        "report_path": "/fixture/audit-run/reports/product-workflow-auditor.md",
+        "blockers": []
+      }
+    },
+    {
+      "skill": "ux-tester",
+      "sidecar": {
+        "status": "blocked",
+        "report_path": "/fixture/audit-run/reports/ux-tester.md",
+        "blockers": [
+          "No base URL/browser capability supplied."
+        ]
+      }
+    }
+  ],
+  "resume": {
+    "frozen": {
+      "target": "/fixture/app",
+      "skills": [
+        "rails-security",
+        "product-workflow-auditor",
+        "ux-tester"
+      ],
+      "scope": "standard",
+      "timeout": 900,
+      "sandbox": "workspace-write"
+    },
+    "new_request": "resume but change target and scope"
+  },
+  "prior_report": {
+    "path": "/fixture/audit-run/reports/rails-security.md",
+    "claim": "Engine source unavailable; static risk unconfirmed.",
+    "provenance": "Earlier attempt, not a new measurement."
+  }
+}

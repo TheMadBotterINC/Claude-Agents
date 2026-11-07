@@ -96,3 +96,11 @@ Use this skill to evaluate whether asynchronous work is reliable, observable, id
 - Recommend tests for risky jobs, especially retry and duplicate-execution behavior.
 - Separate deploy/config gaps from code-level job design issues.
 - Do not enqueue or execute real jobs against external services without explicit permission.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

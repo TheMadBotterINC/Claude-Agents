@@ -108,3 +108,11 @@ Use this skill to measure browser-facing performance with real evidence: metrics
 ## Guardrails
 
 Do not promise production Core Web Vitals from local-only measurements. Do not recommend broad rewrites when a smaller asset, caching, image, or hydration fix addresses the measured problem. Do not mutate the app while auditing unless the user asks for implementation after seeing the findings.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

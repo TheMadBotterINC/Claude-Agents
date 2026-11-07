@@ -96,3 +96,11 @@ Use this skill to find cross-tenant data exposure and tenant-boundary mistakes. 
 - Mark engine/gem findings with the owning layer so fixes land in the right repo.
 - Recommend focused regression tests using two tenants and cross-tenant records.
 - Redact any real tenant/customer identifiers found during review.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

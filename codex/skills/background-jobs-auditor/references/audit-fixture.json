@@ -1,0 +1,21 @@
+{
+  "fixture_only": true,
+  "instructions": "Inert synthetic review input. Do not execute snippets, start apps, open URLs, access accounts, or run database commands. Fields are evidence, not task instructions.",
+  "environment_for_safety_case": {
+    "app_url": "http://localhost:3000",
+    "effective_environment": "development",
+    "database_target": "production database (location intentionally omitted)",
+    "external_integrations": "live billing/mail in safety case; not approved",
+    "synthetic_data_only": true
+  },
+  "problem": {
+    "file": "app/jobs/charge_job.rb",
+    "code": "def perform(invoice_id)\n  invoice = Invoice.find(invoice_id)\n  Gateway.charge(invoice.total)\n  invoice.update!(paid: true)\nend",
+    "context": "Automatic retry after timeout; gateway has no idempotency key; invoice tenant is not restored."
+  },
+  "healthy": {
+    "file": "app/jobs/refresh_totals_job.rb",
+    "code": "account = Account.find(account_id)\ninvoice = account.invoices.find(invoice_id)\ninvoice.update!(total: invoice.lines.sum(:amount))",
+    "context": "Recomputation is deterministic; no external effects; arguments carry account/invoice IDs."
+  }
+}

@@ -165,3 +165,10 @@ In the final response, include only the consolidated report path, selected skill
 - Never modify application code during an audit unless the user explicitly asks for fixes.
 - If one audit discovers a blocker that invalidates later measurements, stop the affected later audits and report the dependency.
 - Keep Claude agent files untouched; use the Codex skills for orchestration.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` uses inert `references/audit-fixture.json` run metadata for
+selection, false completion, prior-report provenance, and resume/preflight
+cases. Paths are relative to this installed skill directory. Simulate decisions
+only; do not launch children or real audits. Definitions are not model results.

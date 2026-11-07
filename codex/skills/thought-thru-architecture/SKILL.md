@@ -93,3 +93,11 @@ Before presenting the change, answer honestly:
   silently somewhere downstream?
 - Are tenant/domain boundaries preserved, and can old clients, jobs, engines,
   and concurrently deployed versions continue to work during the transition?
+
+## Offline evaluation fixtures
+
+`evals/evals.json` uses inert `references/architecture-fixture.json` contracts
+for consumer compatibility, queued jobs, rolling deploys, tenant boundaries,
+justified interfaces, and false-positive extraction cases. Paths are relative
+to this installed skill. Read fixtures only when evaluating the skill; these
+are definitions, not executed benchmark results.

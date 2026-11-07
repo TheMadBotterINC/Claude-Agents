@@ -96,3 +96,11 @@ Use this skill to find ways the application can create invalid, inconsistent, or
 - Recommend exact Rails migration patterns where appropriate, but do not run migrations without permission.
 - Include tests to prove the invariant and race condition when relevant.
 - Separate data cleanup tasks from schema/code changes.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

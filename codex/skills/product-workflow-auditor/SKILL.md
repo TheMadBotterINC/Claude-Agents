@@ -96,3 +96,11 @@ Use this skill to evaluate whether users can complete meaningful work, not just 
 - Distinguish UX polish from workflow/product gaps; route visual-only issues to `$ux-tester`.
 - Include quick wins, launch blockers, and deeper product design questions separately.
 - Note assumptions when product intent is not documented.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

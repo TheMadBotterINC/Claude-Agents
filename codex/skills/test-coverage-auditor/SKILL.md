@@ -96,3 +96,11 @@ Use this skill to identify where the test suite fails to protect important behav
 - Recommend concrete examples: request spec, model spec, policy spec, job spec, system test, component/view test, or JavaScript/browser test.
 - Separate quick regression tests from larger suite architecture improvements.
 - Include commands attempted, test runtime observations, and any suites not run.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

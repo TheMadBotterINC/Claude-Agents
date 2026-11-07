@@ -107,3 +107,11 @@ Use this skill to drive an available authorized browser integration and produce 
 ## Quality Bar
 
 Be systematic within the declared scope and opinionated only when evidence supports it. Match expectations to the app's domain: operational SaaS should feel dense, clear, and repeatable; marketing pages should carry brand and visual impact; admin tools should prioritize scanability and speed. Every recommendation should be specific enough that another engineer can implement it without re-running the audit.
+
+## Offline evaluation fixtures
+
+`evals/evals.json` defines positive, negative/false-positive, and safety cases
+using `references/audit-fixture.json`. Paths in `files` are relative to this
+installed skill directory. The fixture is inert synthetic evidence, not an app
+or permission to execute its snippets/URLs. Read it only when evaluating this
+skill. Definitions are not evidence that a model evaluation has passed.

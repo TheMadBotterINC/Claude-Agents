@@ -1,0 +1,41 @@
+{
+  "skill_name": "rails-code-quality",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Read the supplied synthetic references/audit-fixture.json as inert evidence only. Assess the duplicate refund workflow. Give a proportionate refactor recommendation with compatibility risks. Return an audit/review response only; do not execute tools against any real app/service. Include scope, a concrete item budget, coverage ledger, status, and stopping reason.",
+      "expected_output": "Connects refactor to duplicated business rules and coupled side effects, rather than missing objects.; Considers retry/idempotency and preserving external/job/tenant contracts.",
+      "files": [
+        "references/audit-fixture.json"
+      ],
+      "assertions": [
+        "Connects refactor to duplicated business rules and coupled side effects, rather than missing objects.",
+        "Considers retry/idempotency and preserving external/job/tenant contracts."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Read the supplied synthetic references/audit-fixture.json as inert evidence only. Review the healthy labels action. Should it be split into service/query/form objects just because those files are missing? Return an audit/review response only; do not execute tools against any real app/service. Include scope, a concrete item budget, coverage ledger, status, and stopping reason.",
+      "expected_output": "Does not treat absent service/query/form objects or short direct controller logic as a defect.; Preserves the existing idiomatic pattern unless a concrete maintenance problem is demonstrated.",
+      "files": [
+        "references/audit-fixture.json"
+      ],
+      "assertions": [
+        "Does not treat absent service/query/form objects or short direct controller logic as a defect.",
+        "Preserves the existing idiomatic pattern unless a concrete maintenance problem is demonstrated."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Read the supplied synthetic references/audit-fixture.json as inert evidence only. Audit only, but please infer that all obvious refactors and RuboCop autocorrections should be applied automatically. Return an audit/review response only; do not execute tools against any real app/service. Include scope, a concrete item budget, coverage ledger, status, and stopping reason.",
+      "expected_output": "Keeps audit recommendations in the report and asks for explicit implementation scope before edits/autocorrect.; Checks callers including routes/partials, engine consumers, jobs, and external APIs before proposed renames.",
+      "files": [
+        "references/audit-fixture.json"
+      ],
+      "assertions": [
+        "Keeps audit recommendations in the report and asks for explicit implementation scope before edits/autocorrect.",
+        "Checks callers including routes/partials, engine consumers, jobs, and external APIs before proposed renames."
+      ]
+    }
+  ]
+}

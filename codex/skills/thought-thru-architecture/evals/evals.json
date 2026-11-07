@@ -1,0 +1,77 @@
+{
+  "skill_name": "thought-thru-architecture",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Read references/architecture-fixture.json as inert evidence only. The local repo has no callers of published_engine.customer_label. Can the old API be deleted in this diff? Return a design review, not implementation; do not run commands or modify code.",
+      "expected_output": "Public engine compatibility: Inventories host/engine and external API consumers instead of treating local search as proof of no use.; Proposes a bounded compatibility/deprecation plan with removal conditions and consumer tests.",
+      "files": [
+        "references/architecture-fixture.json"
+      ],
+      "assertions": [
+        "Inventories host/engine and external API consumers instead of treating local search as proof of no use.",
+        "Proposes a bounded compatibility/deprecation plan with removal conditions and consumer tests."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Read references/architecture-fixture.json as inert evidence only. Design the queued_jobs rename across this rolling deploy. Return a design review, not implementation; do not run commands or modify code.",
+      "expected_output": "Queued and rolling compatibility: Preserves old job payload handling and concurrently deployed workers until queue/version migration is safe.; States a concrete retirement condition and verification/rollback strategy rather than immediate old-path deletion.",
+      "files": [
+        "references/architecture-fixture.json"
+      ],
+      "assertions": [
+        "Preserves old job payload handling and concurrently deployed workers until queue/version migration is safe.",
+        "States a concrete retirement condition and verification/rollback strategy rather than immediate old-path deletion."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Read references/architecture-fixture.json as inert evidence only. Should single_adapter lose its interface because it has only one implementation? Return a design review, not implementation; do not run commands or modify code.",
+      "expected_output": "Single implementation boundary: Accepts a justified interface for vendor isolation, dependency inversion, and safe testing despite one implementation.; Explains actual benefit instead of imposing a blanket interface ban.",
+      "files": [
+        "references/architecture-fixture.json"
+      ],
+      "assertions": [
+        "Accepts a justified interface for vendor isolation, dependency inversion, and safe testing despite one implementation.",
+        "Explains actual benefit instead of imposing a blanket interface ban."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Read references/architecture-fixture.json as inert evidence only. Review healthy_local: should adding four files force a new interface and manager layer? Return a design review, not implementation; do not run commands or modify code.",
+      "expected_output": "Negative abstraction case: Rejects speculative factories/managers without a concrete reuse or domain-boundary benefit.; Keeps the idiomatic local method or proposes the smallest justified change; does not demand architecture from file count alone.",
+      "files": [
+        "references/architecture-fixture.json"
+      ],
+      "assertions": [
+        "Rejects speculative factories/managers without a concrete reuse or domain-boundary benefit.",
+        "Keeps the idiomatic local method or proposes the smallest justified change; does not demand architecture from file count alone."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Read references/architecture-fixture.json as inert evidence only. Is one_line_security exempt from design review as a one-line fix? Return a design review, not implementation; do not run commands or modify code.",
+      "expected_output": "Single-line tenant risk: Recognizes removal of tenant scoping as a high-risk boundary change despite one line.; Requires risk-proportionate design and synthetic two-tenant regression coverage before implementation.",
+      "files": [
+        "references/architecture-fixture.json"
+      ],
+      "assertions": [
+        "Recognizes removal of tenant scoping as a high-risk boundary change despite one line.",
+        "Requires risk-proportionate design and synthetic two-tenant regression coverage before implementation."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Read references/architecture-fixture.json as inert evidence only. Can partial_action be renamed after searching only Ruby method invocations? Return a design review, not implementation; do not run commands or modify code.",
+      "expected_output": "Partial and engine callers: Checks routes, view partials, mounted-engine overrides, and external consumers before renaming controller action.; Does not implement the rename under review-only authorization; records unknown consumer risks.",
+      "files": [
+        "references/architecture-fixture.json"
+      ],
+      "assertions": [
+        "Checks routes, view partials, mounted-engine overrides, and external consumers before renaming controller action.",
+        "Does not implement the rename under review-only authorization; records unknown consumer risks."
+      ]
+    }
+  ]
+}
