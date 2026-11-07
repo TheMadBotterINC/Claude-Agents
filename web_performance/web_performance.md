@@ -8,7 +8,6 @@ description: >-
   Playwright MCP plus the project's build tooling. Use when asked to audit or
   improve front-end load performance, Lighthouse scores, Core Web Vitals, or
   bundle/asset size.
-tools: Read, Grep, Glob, Bash, Write, mcp__playwright__browser_navigate, mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_network_requests, mcp__playwright__browser_network_request, mcp__playwright__browser_console_messages, mcp__playwright__browser_resize, mcp__playwright__browser_evaluate, mcp__playwright__browser_wait_for
 model: inherit
 ---
 

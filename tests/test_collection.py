@@ -36,6 +36,15 @@ def metadata(path):
 
 
 class CollectionTests(unittest.TestCase):
+    def test_browser_agents_discover_inherited_tools(self):
+        for agent in ("ux_tester", "web_performance", "demo_recorder"):
+            path = ROOT / agent / f"{agent}.md"
+            header = path.read_text().split("---", 2)[1]
+            with self.subTest(agent=agent):
+                self.assertIn(f"name: {agent}", header)
+                self.assertNotIn("tools:", header)
+                self.assertIn("model: inherit", header)
+
     def test_skill_names_descriptions_and_interface_metadata(self):
         names = []
         for path in SKILLS:
@@ -44,6 +53,7 @@ class CollectionTests(unittest.TestCase):
                 self.assertEqual(name, path.parent.name)
                 self.assertTrue(description.strip())
                 self.assertLessEqual(len(description.split()), 85)
+                self.assertLessEqual(len(path.read_text().splitlines()), 500)
                 names.append(name)
                 interface = path.parent / "agents/openai.yaml"
                 self.assertTrue(interface.is_file())
@@ -61,6 +71,10 @@ class CollectionTests(unittest.TestCase):
 
     def test_evaluation_shapes_and_local_inputs(self):
         definitions = list((ROOT / "codex/skills").glob("*/evals/evals.json"))
+        self.assertEqual(
+            {path.parents[1] for path in definitions},
+            {path.parent for path in SKILLS},
+        )
         for path in definitions:
             with self.subTest(path=path.relative_to(ROOT)):
                 data = json.loads(path.read_text())
@@ -132,7 +146,9 @@ class CollectionTests(unittest.TestCase):
             ):
                 with self.assertRaisesRegex(ValueError, "linked"):
                     SYNC.synchronize()
-                self.assertEqual(foreign.read_text(), "keep this unrelated file")
+                self.assertEqual(
+                    foreign.read_text(), "keep this unrelated file",
+                )
                 (dest / "SKILL.md").unlink()
                 (dest / "references").symlink_to(
                     source, target_is_directory=True,
@@ -142,10 +158,22 @@ class CollectionTests(unittest.TestCase):
                 self.assertFalse((dest / "SKILL.md").exists())
 
     def test_python_helpers_parse(self):
-        for directory in (ROOT / "scripts", ROOT / "tests"):
-            for path in directory.glob("*.py"):
-                with self.subTest(file=path.name):
-                    ast.parse(path.read_text(), filename=str(path))
+        paths = [
+            *ROOT.glob("scripts/*.py"), *ROOT.glob("tests/*.py"),
+            ROOT / "codex/skills/audit-orchestrator"
+            / "scripts/run_audit_suite.py",
+        ]
+        for path in paths:
+            with self.subTest(file=path.name):
+                text = path.read_text()
+                ast.parse(text, filename=str(path))
+                for number, line in enumerate(text.splitlines(), 1):
+                    self.assertLessEqual(
+                        len(line), 79, f"{path.name}:{number}",
+                    )
+                    self.assertEqual(
+                        line, line.rstrip(), f"{path.name}:{number}",
+                    )
 
 
 if __name__ == "__main__":

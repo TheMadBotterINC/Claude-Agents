@@ -12,8 +12,11 @@ DESTINATION = ROOT / "codex/skills/thought-thru-architecture"
 
 
 def resources(directory: Path) -> dict[Path, Path]:
-    if directory.is_symlink() or directory.parent.resolve() != directory.parent:
-        raise ValueError(f"Skill resource root has linked ancestors: {directory}")
+    if (
+        directory.is_symlink()
+        or directory.parent.resolve() != directory.parent
+    ):
+        raise ValueError(f"Linked ancestors in resource root: {directory}")
     found = {}
     for path in directory.rglob("*"):
         relative = path.relative_to(directory)

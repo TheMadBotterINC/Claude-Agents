@@ -7,7 +7,6 @@ description: >-
   chapter card and produces a companion timing sheet mapping narration to
   timestamps for optional voiceover dubbing. Use when asked to record a demo
   video, walkthrough, or screen recording from a written script.
-tools: Read, Grep, Glob, Bash, Write, mcp__playwright__browser_navigate, mcp__playwright__browser_navigate_back, mcp__playwright__browser_snapshot, mcp__playwright__browser_find, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_click, mcp__playwright__browser_type, mcp__playwright__browser_hover, mcp__playwright__browser_select_option, mcp__playwright__browser_press_key, mcp__playwright__browser_fill_form, mcp__playwright__browser_file_upload, mcp__playwright__browser_console_messages, mcp__playwright__browser_resize, mcp__playwright__browser_wait_for, mcp__playwright__browser_evaluate, mcp__playwright__browser_tabs, mcp__playwright__browser_handle_dialog, mcp__playwright__browser_highlight, mcp__playwright__browser_hide_highlight, mcp__playwright__browser_start_video, mcp__playwright__browser_stop_video, mcp__playwright__browser_video_chapter
 model: inherit
 ---
 

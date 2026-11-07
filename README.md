@@ -148,11 +148,15 @@ to the target project's `.gitignore` too.
 
 `ux_tester`, `web_performance`, and `demo_recorder` prefer Chrome through the
 [Playwright MCP](https://github.com/microsoft/playwright-mcp).
-This repo includes a project-scoped `.mcp.json`, so it works out of the box when
-you run Claude Code **from this repo**. It passes `--caps=devtools` so `ux_tester`
-can highlight the flagged element before each screenshot, and `demo_recorder` can
-record/chapter video — drop that flag and those tools just won't be available.
-Preflight actual capabilities rather than assuming tool names are stable.
+This repo includes a project-scoped `.mcp.json` that registers Playwright when
+you run Claude Code **from this repo** and requests `--caps=devtools`.
+Tool names and optional highlighting/recording/chapter capabilities depend on
+the installed server/version. Preflight the advertised capabilities rather than
+assuming a configuration flag guarantees a particular tool.
+The three browser subagents inherit the parent session's configured tools rather
+than pinning a brittle MCP-name allowlist. Session permissions still apply; tool
+availability does not authorize additional actions. Narrow the parent session's
+permissions when auditing untrusted projects.
 Audit skills can report static-only coverage when browser tools are missing;
 recording requires a working recorder and cannot be replaced by a pretend take.
 

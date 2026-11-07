@@ -7,7 +7,6 @@ description: >-
   redacted evidence, and logs JS console errors. Use proactively whenever asked to
   test, review, QA, or audit a running app's UX, responsiveness, or front-end
   polish.
-tools: Read, Grep, Glob, Bash, Write, mcp__playwright__browser_navigate, mcp__playwright__browser_navigate_back, mcp__playwright__browser_snapshot, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_click, mcp__playwright__browser_type, mcp__playwright__browser_hover, mcp__playwright__browser_select_option, mcp__playwright__browser_press_key, mcp__playwright__browser_fill_form, mcp__playwright__browser_console_messages, mcp__playwright__browser_network_requests, mcp__playwright__browser_network_request, mcp__playwright__browser_resize, mcp__playwright__browser_wait_for, mcp__playwright__browser_evaluate, mcp__playwright__browser_tabs, mcp__playwright__browser_handle_dialog, mcp__playwright__browser_highlight, mcp__playwright__browser_hide_highlight
 model: inherit
 ---
 
