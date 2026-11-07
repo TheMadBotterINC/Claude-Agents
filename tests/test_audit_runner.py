@@ -1,4 +1,4 @@
-"""Exercise orchestration with a fake Codex CLI; no model or network required."""
+"""Exercise orchestration with a fake Codex CLI and no network/model."""
 
 import importlib.util
 import json
@@ -35,11 +35,11 @@ if mode == "timeout":
 if mode == "fail":
     sys.exit(7)
 if mode != "missing":
-    Path(contract["report_path"]).write_text("# Coverage\\nReviewed fixture\\n")
+    Path(contract["report_path"]).write_text("# Coverage\\nFixture\\n")
     result = {
         "status": mode if mode in {"partial", "blocked"} else "completed",
         "report_path": contract["report_path"],
-        "blockers": ["tool unavailable"] if mode in {"partial", "blocked"} else [],
+        "blockers": ["tool missing"] if mode in {"partial", "blocked"} else [],
     }
     Path(contract["result_path"]).write_text(json.dumps(result))
 Path(sys.argv[sys.argv.index("--output-last-message") + 1]).write_text("Done")
@@ -77,7 +77,9 @@ class RunnerTests(unittest.TestCase):
         if resume:
             args += ["--resume", str(self.run_dir)]
         else:
-            args += ["--target", str(self.target), "--run-dir", str(self.run_dir)]
+            args += [
+                "--target", str(self.target), "--run-dir", str(self.run_dir),
+            ]
         proc = subprocess.run(
             args + list(arguments), env={**self.env, "FAKE_MODE": mode},
             capture_output=True, text=True, timeout=20,
@@ -88,7 +90,9 @@ class RunnerTests(unittest.TestCase):
 
     def test_selection_deduplicates_and_orders(self):
         self.assertEqual(
-            RUNNER.selected_skills("rails-code-quality,rails-security,rails-security"),
+            RUNNER.selected_skills(
+                "rails-code-quality,rails-security,rails-security",
+            ),
             ["rails-security", "rails-code-quality"],
         )
         with self.assertRaises(SystemExit):
@@ -107,7 +111,9 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(manifest["status"], "completed")
 
     def test_no_artifacts_is_not_completion(self):
-        proc, manifest = self.invoke("--skills", "rails-security", mode="missing")
+        proc, manifest = self.invoke(
+            "--skills", "rails-security", mode="missing",
+        )
         self.assertEqual(proc.returncode, 1)
         self.assertEqual(manifest["runs"][0]["status"], "failed")
 
@@ -115,7 +121,9 @@ class RunnerTests(unittest.TestCase):
         for status in ("partial", "blocked"):
             with self.subTest(status=status):
                 self.run_dir = self.target / status
-                proc, manifest = self.invoke("--skills", "rails-security", mode=status)
+                proc, manifest = self.invoke(
+                    "--skills", "rails-security", mode=status,
+                )
                 self.assertEqual(proc.returncode, 1)
                 self.assertEqual(manifest["runs"][0]["status"], status)
 
@@ -179,13 +187,17 @@ class RunnerTests(unittest.TestCase):
         self.env["PATH"] = str(self.bin)
         proc, manifest = self.invoke("--skills", "rails-security", "--dry-run")
         self.assertEqual(proc.returncode, 1)
-        self.assertIn("executable not found", manifest["runs"][0]["blockers"][0])
+        self.assertIn(
+            "executable not found", manifest["runs"][0]["blockers"][0],
+        )
 
     def test_child_failure_has_durable_manifest(self):
         proc, manifest = self.invoke("--skills", "rails-security", mode="fail")
         self.assertEqual(proc.returncode, 1)
         self.assertEqual(manifest["runs"][0]["returncode"], 7)
-        self.assertEqual(manifest["runs"][0]["attempts"][0]["status"], "failed")
+        self.assertEqual(
+            manifest["runs"][0]["attempts"][0]["status"], "failed",
+        )
 
     def test_invalid_configuration_has_no_run_artifacts(self):
         for flag, value in (
@@ -195,7 +207,9 @@ class RunnerTests(unittest.TestCase):
             ("--base-url", "https://example.test?token=secret"),
         ):
             with self.subTest(flag=flag, value=value):
-                proc, manifest = self.invoke("--skills", "rails-security", flag, value)
+                proc, manifest = self.invoke(
+                    "--skills", "rails-security", flag, value,
+                )
                 self.assertNotEqual(proc.returncode, 0)
                 self.assertIsNone(manifest)
 
@@ -213,6 +227,26 @@ class RunnerTests(unittest.TestCase):
         proc, resumed = self.invoke(resume=True)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertTrue(resumed["runs"][0]["report_path"].endswith("-2.md"))
+        self.assertEqual(
+            resumed["runs"][0]["attempts"][0]["status"], "interrupted",
+        )
+
+    def test_resume_rejects_artifacts_outside_run_directory(self):
+        self.invoke("--skills", "rails-security")
+        path = self.run_dir / "manifest.json"
+        manifest = json.loads(path.read_text())
+        manifest["runs"][0]["result_path"] = str(self.target / "foreign.json")
+        path.write_text(json.dumps(manifest))
+        proc, _ = self.invoke(resume=True)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("escapes run directory", proc.stderr)
+
+    def test_resume_rejects_malformed_manifest(self):
+        self.run_dir.mkdir()
+        (self.run_dir / "manifest.json").write_text("[]")
+        proc, _ = self.invoke(resume=True)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("malformed manifest", proc.stderr)
 
     def test_rerun_upstream_invalidates_downstream_handoff(self):
         self.invoke("--skills", "rails-security,test-coverage-auditor")

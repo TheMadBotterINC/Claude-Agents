@@ -18,18 +18,18 @@ from uuid import uuid4
 
 
 SKILL_PROMPTS = {
-    "ux-tester": "$ux-tester audit {base_url} across desktop, tablet, and mobile. Write the detailed report under docs/audits/.",
-    "product-workflow-auditor": "$product-workflow-auditor audit core product workflows{url_clause}. Write the detailed report under docs/audits/.",
-    "web-performance": "$web-performance audit frontend performance for {base_url}. Write the detailed report under docs/audits/.",
-    "rails-security": "$rails-security audit this Rails app for security vulnerabilities and hardening opportunities. Write the detailed report under docs/audits/.",
-    "multi-tenant-isolation-auditor": "$multi-tenant-isolation-auditor audit tenant isolation and cross-tenant data-leak risks. Write the detailed report under docs/audits/.",
-    "data-integrity-auditor": "$data-integrity-auditor audit data integrity, constraints, and migration safety. Write the detailed report under docs/audits/.",
-    "activerecord-performance": "$activerecord-performance audit ActiveRecord query performance, N+1s, indexes, and slow SQL. Write the detailed report under docs/audits/.",
-    "background-jobs-auditor": "$background-jobs-auditor audit background jobs, queues, retries, idempotency, and scheduled work. Write the detailed report under docs/audits/.",
-    "test-coverage-auditor": "$test-coverage-auditor audit test coverage, test health, missing regression tests, and risky untested flows. Write the detailed report under docs/audits/.",
-    "observability-auditor": "$observability-auditor audit logging, metrics, tracing, error reporting, alerting, and diagnosability. Write the detailed report under docs/audits/.",
-    "deployment-readiness": "$deployment-readiness audit production deployment readiness, operations, rollback, and runtime configuration. Write the detailed report under docs/audits/.",
-    "rails-code-quality": "$rails-code-quality review this Rails app for maintainability, conventions, and refactoring opportunities. Write the detailed report under docs/audits/.",
+    "ux-tester": "audit UX for {base_url} across desktop, tablet, and mobile.",
+    "product-workflow-auditor": "audit core product workflows{url_clause}.",
+    "web-performance": "audit frontend performance for {base_url}.",
+    "rails-security": "audit Rails security and hardening opportunities.",
+    "multi-tenant-isolation-auditor": "audit tenant isolation and data leaks.",
+    "data-integrity-auditor": "audit invariants, constraints, and migrations.",
+    "activerecord-performance": "audit queries, N+1s, indexes, and slow SQL.",
+    "background-jobs-auditor": "audit queues, retries, and scheduled work.",
+    "test-coverage-auditor": "audit regression gaps and test suite health.",
+    "observability-auditor": "audit logs, metrics, tracing, and alerting.",
+    "deployment-readiness": "audit deploys, rollback, and runtime readiness.",
+    "rails-code-quality": "review maintainability and Rails conventions.",
 }
 
 
@@ -56,15 +56,15 @@ SETTING_KEYS = ("target", "base_url", "sandbox", "model", "scope", "timeout")
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", help="Project directory to audit (default: cwd).")
-    parser.add_argument("--base-url", help="Running app URL for browser-based audits.")
+    parser.add_argument("--target", help="Project to audit (default: cwd).")
+    parser.add_argument("--base-url", help="App URL for browser audits.")
     parser.add_argument(
         "--skills",
         help="Comma-separated skills to run, or 'all'.",
     )
     parser.add_argument(
         "--run-dir",
-        help="Output run directory. Defaults to docs/audits/.orchestrator-runs/<timestamp>.",
+        help="Run directory inside target (default: docs/audits/ subtree).",
     )
     parser.add_argument(
         "--sandbox",
@@ -82,12 +82,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--resume", help="Resume an existing run directory.")
     parser.add_argument(
-        "--skills-dir", help="Explicit installed skill directory for preflight.",
+        "--skills-dir", help="Explicit skill directory for preflight.",
     )
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="Stop after the first failed, partial, or blocked child run.",
+        help="Stop after the first failed, partial, or blocked run.",
     )
     parser.add_argument(
         "--dry-run",
@@ -134,9 +134,9 @@ def prompt_for(
     prior_reports: list[str], scope: str, skill_path: str | None,
 ) -> str:
     url_clause = f" for {base_url}" if base_url else ""
-    task = SKILL_PROMPTS[skill].format(
+    task = f"${skill} " + SKILL_PROMPTS[skill].format(
         base_url=base_url or "", url_clause=url_clause,
-    ).replace("Write the detailed report under docs/audits/.", "")
+    )
     contract = {
         "scope": scope,
         "report_path": str(report),
@@ -204,7 +204,7 @@ def save_manifest(path: Path, manifest: dict) -> None:
 def skill_roots(target: Path, explicit: str | None) -> list[Path]:
     if explicit:
         return [Path(explicit).expanduser().resolve()]
-    codex_home = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex")))
+    codex_home = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex"))
     return [
         target / ".agents" / "skills", target / ".codex" / "skills",
         Path.home() / ".agents" / "skills", codex_home.expanduser() / "skills",
@@ -224,7 +224,7 @@ def preflight(target: Path, skills: list[str], explicit: str | None) -> dict:
     return {
         "codex": shutil.which("codex"),
         "skills": installed,
-        "note": "Browser MCP, authentication, and environment checked by child.",
+        "note": "Browser, authentication, and environment checked by child.",
     }
 
 
@@ -296,15 +296,52 @@ def execute(entry: dict, target: Path, timeout: float) -> None:
             return
         except KeyboardInterrupt:
             stop_child(proc)
-            entry.update(status="interrupted", blockers=["Interrupted by user"])
+            entry.update(
+                status="interrupted", blockers=["Interrupted by user"],
+            )
             raise
     if entry["returncode"] != 0:
         entry.update(
             status="failed",
-            blockers=[f"Child exited with code {entry['returncode']}"],
+            blockers=[f"Child exit code: {entry['returncode']}"],
         )
     else:
         entry["status"], entry["blockers"] = validate_result(entry)
+
+
+def validate_manifest(manifest: dict, run_dir: Path) -> None:
+    if not isinstance(manifest, dict) or manifest.get("version") != 1:
+        raise SystemExit("Unsupported or malformed manifest")
+    if not all(key in manifest for key in SETTING_KEYS + ("skills", "runs")):
+        raise SystemExit("Manifest is missing run settings")
+    skills = manifest["skills"]
+    if (
+        not isinstance(skills, list) or not skills
+        or not all(isinstance(skill, str) for skill in skills)
+        or selected_skills(",".join(skills)) != skills
+    ):
+        raise SystemExit("Manifest contains invalid skill selection")
+    if not isinstance(manifest["runs"], list):
+        raise SystemExit("Manifest runs must be a list")
+    seen = set()
+    for entry in manifest["runs"]:
+        if (
+            not isinstance(entry, dict) or entry.get("skill") not in skills
+            or entry["skill"] in seen
+            or not isinstance(entry.get("attempts"), list)
+        ):
+            raise SystemExit("Manifest contains invalid child entries")
+        seen.add(entry["skill"])
+        for key in (
+            "report_path", "result_path", "final_message",
+            "stdout_log", "stderr_log",
+        ):
+            if key in entry:
+                path = Path(entry[key])
+                if not path.is_absolute() or not path.resolve().is_relative_to(
+                    run_dir,
+                ):
+                    raise SystemExit("Manifest artifact escapes run directory")
 
 
 def prepare(args: argparse.Namespace) -> tuple[Path, Path, dict]:
@@ -321,20 +358,20 @@ def prepare(args: argparse.Namespace) -> tuple[Path, Path, dict]:
             manifest = json.loads((run_dir / "manifest.json").read_text())
         except (OSError, ValueError) as error:
             raise SystemExit(f"Cannot resume manifest: {error}") from error
-        if manifest.get("version") != 1:
-            raise SystemExit("Unsupported manifest version")
+        validate_manifest(manifest, run_dir)
         for key in SETTING_KEYS:
             supplied = getattr(args, key)
             if key == "target" and supplied:
                 supplied = str(Path(supplied).expanduser().resolve())
             if supplied is not None and supplied != manifest[key]:
-                raise SystemExit(f"Cannot change --{key.replace('_', '-')} on resume")
+                flag = key.replace("_", "-")
+                raise SystemExit(f"Cannot change --{flag} on resume")
         if args.skills and selected_skills(args.skills) != manifest["skills"]:
-            raise SystemExit("Cannot change selected skills on resume")
+            raise SystemExit("Cannot change skills on resume")
         manifest.update(finished_at=None, resumed_at=iso_now())
     else:
         settings = {
-            key: getattr(args, key) if getattr(args, key) is not None else value
+            key: value if getattr(args, key) is None else getattr(args, key)
             for key, value in defaults.items()
         }
         settings["target"] = str(
@@ -356,7 +393,7 @@ def prepare(args: argparse.Namespace) -> tuple[Path, Path, dict]:
         if url.scheme not in {"http", "https"} or not url.hostname:
             raise SystemExit("--base-url must be an HTTP(S) URL")
         if url.username or url.password or url.query or url.fragment:
-            raise SystemExit("Do not put credentials/query tokens in --base-url")
+            raise SystemExit("Do not put credentials/tokens in --base-url")
     if manifest["sandbox"] == "read-only":
         raise SystemExit("Audit reports require --sandbox workspace-write")
     if not run_dir.is_relative_to(target) or run_dir == target:
@@ -375,7 +412,9 @@ def main() -> int:
     manifest["preflight"] = checks
     previous = {entry["skill"]: entry for entry in manifest["runs"]}
     manifest["runs"] = [
-        previous.get(skill, {"skill": skill, "status": "pending", "attempts": []})
+        previous.get(
+            skill, {"skill": skill, "status": "pending", "attempts": []},
+        )
         for skill in manifest["skills"]
     ]
     save_manifest(manifest_path, manifest)
@@ -392,6 +431,16 @@ def main() -> int:
                 if status == "completed":
                     prior_reports.append(entry["report_path"])
                     continue
+            if entry["status"] == "running":
+                recovered = {
+                    key: value for key, value in entry.items()
+                    if key != "attempts"
+                }
+                recovered.update(
+                    status="interrupted",
+                    blockers=["Previous process stopped before finalizing"],
+                )
+                entry["attempts"].append(recovered)
             attempt = len(entry["attempts"]) + 1
             attempt_dir = run_dir / skill / f"attempt-{attempt}"
             while attempt_dir.exists():
@@ -400,7 +449,8 @@ def main() -> int:
             attempt_dir.mkdir(parents=True, mode=0o700)
             report_dir = run_dir / "reports"
             report_dir.mkdir(mode=0o700, exist_ok=True)
-            report_name = f"{skill}.md" if attempt == 1 else f"{skill}-{attempt}.md"
+            suffix = "" if attempt == 1 else f"-{attempt}"
+            report_name = f"{skill}{suffix}.md"
             entry.update(
                 status="pending", blockers=[], returncode=None,
                 started_at=None, finished_at=None,
@@ -436,6 +486,8 @@ def main() -> int:
             try:
                 if entry["status"] == "running":
                     execute(entry, target, manifest["timeout"])
+            except OSError as error:
+                entry.update(status="failed", blockers=[str(error)])
             finally:
                 entry["finished_at"] = iso_now()
                 entry["attempts"].append({

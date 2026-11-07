@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install Claude agents/skills and Codex skills without clobbering local files."""
+"""Install Claude and Codex resources without clobbering local files."""
 
 import argparse
 import hashlib
@@ -38,7 +38,7 @@ def inventory(home: Path, codex_home: Path) -> list[tuple[Path, Path]]:
 
 
 def signature(path: Path) -> str:
-    """Hash copies without following nested links or reading unrelated targets."""
+    """Hash copies without following links to unrelated targets."""
     if path.is_symlink():
         return "link:" + os.readlink(path)
     digest = hashlib.sha256()
@@ -94,14 +94,18 @@ def remove_owned(path: Path) -> None:
 def install_item(source: Path, dest: Path, copy: bool) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     # Stage on the same filesystem, then move the old owned entry aside.
-    with tempfile.TemporaryDirectory(prefix=".skill-stage-", dir=dest.parent) as temp:
+    with tempfile.TemporaryDirectory(
+        prefix=".skill-stage-", dir=dest.parent,
+    ) as temp:
         staged = Path(temp) / dest.name
         if not copy:
             staged.symlink_to(source, target_is_directory=source.is_dir())
         elif source.is_dir():
             shutil.copytree(
                 source, staged, symlinks=True,
-                ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+                ignore=shutil.ignore_patterns(
+                    "__pycache__", "*.pyc", ".DS_Store",
+                ),
             )
         else:
             shutil.copy2(source, staged)
@@ -122,11 +126,13 @@ def install_item(source: Path, dest: Path, copy: bool) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--copy", action="store_true", help="Copy instead of symlink.")
-    mode.add_argument("--list", action="store_true", help="Inspect without writing.")
+    mode.add_argument("--copy", action="store_true", help="Copy, not symlink.")
+    mode.add_argument("--list", action="store_true", help="Inspect read-only.")
     args = parser.parse_args()
     home = Path.home()
-    codex_home = Path(os.environ.get("CODEX_HOME", str(home / ".codex"))).expanduser()
+    codex_home = Path(
+        os.environ.get("CODEX_HOME", home / ".codex"),
+    ).expanduser()
     if not codex_home.is_absolute():
         raise ValueError("CODEX_HOME must be an absolute path")
     receipt_path = home / ".claude/.claude-agents-install.json"
@@ -136,7 +142,7 @@ def main() -> int:
     if len(set(destinations)) != len(destinations):
         raise ValueError("Claude and Codex installation destinations overlap")
     if any(dest.absolute() == source for source, dest in items):
-        raise ValueError("Installation destination cannot be a source directory")
+        raise ValueError("Installation destination cannot be its own source")
     conflicts = []
     for source, dest in items:
         exists = dest.exists() or dest.is_symlink()
@@ -155,7 +161,8 @@ def main() -> int:
     if conflicts:
         raise ValueError(
             "Refusing to replace unmanaged or locally modified destinations. "
-            "Move them aside explicitly, then reinstall:\n" + "\n".join(conflicts)
+            "Move them aside explicitly, then reinstall:\n"
+            + "\n".join(conflicts)
         )
     for source, dest in items:
         install_item(source, dest, args.copy)
@@ -164,7 +171,8 @@ def main() -> int:
         }
         save_receipt(receipt_path, receipt)
         print(f"{'copied' if args.copy else 'linked'} {dest}")
-    print(f"Installed {len(items)} entries. Codex skills: {codex_home / 'skills'}")
+    print(f"Installed {len(items)} entries.")
+    print(f"Codex skills: {codex_home / 'skills'}")
     return 0
 
 

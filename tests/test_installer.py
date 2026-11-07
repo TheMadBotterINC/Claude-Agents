@@ -20,7 +20,9 @@ class InstallerTests(unittest.TestCase):
         self.repo = self.root / "repo"
         (self.repo / "scripts").mkdir(parents=True)
         shutil.copy2(ROOT / "install.sh", self.repo / "install.sh")
-        shutil.copy2(ROOT / "scripts/install.py", self.repo / "scripts/install.py")
+        shutil.copy2(
+            ROOT / "scripts/install.py", self.repo / "scripts/install.py",
+        )
         for directory, file in (
             ("reviewer", "reviewer.md"), ("shared", "audit-conventions.md"),
             ("skills/architecture", "SKILL.md"),
@@ -33,7 +35,8 @@ class InstallerTests(unittest.TestCase):
         self.codex = self.root / "custom-codex"
         self.dest = self.codex / "skills/security"
         self.env = {
-            **os.environ, "HOME": str(self.home), "CODEX_HOME": str(self.codex),
+            **os.environ,
+            "HOME": str(self.home), "CODEX_HOME": str(self.codex),
         }
 
     def invoke(self, *args):
@@ -53,8 +56,11 @@ class InstallerTests(unittest.TestCase):
             proc = self.invoke()
             self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertTrue(self.dest.is_symlink())
-        self.assertEqual(self.dest.resolve(), self.repo / "codex/skills/security")
-        self.assertTrue((self.home / ".claude/agents/reviewer.md").is_symlink())
+        self.assertEqual(
+            self.dest.resolve(), self.repo / "codex/skills/security",
+        )
+        agent = self.home / ".claude/agents/reviewer.md"
+        self.assertTrue(agent.is_symlink())
 
     def test_unmanaged_collision_aborts_before_any_writes(self):
         self.dest.mkdir(parents=True)
@@ -77,7 +83,7 @@ class InstallerTests(unittest.TestCase):
         self.assertTrue(self.dest.is_symlink())
         self.assertEqual((foreign / "mine.txt").read_text(), "preserve")
 
-    def test_legacy_repo_link_can_convert_to_copy_without_changing_source(self):
+    def test_legacy_link_converts_to_copy_without_changing_source(self):
         source = self.repo / "codex/skills/security"
         self.dest.parent.mkdir(parents=True)
         self.dest.symlink_to(source)
@@ -94,7 +100,9 @@ class InstallerTests(unittest.TestCase):
         source.write_text("new upstream text")
         proc = self.invoke("--copy")
         self.assertEqual(proc.returncode, 0, proc.stderr)
-        self.assertEqual((self.dest / "SKILL.md").read_text(), "new upstream text")
+        self.assertEqual(
+            (self.dest / "SKILL.md").read_text(), "new upstream text",
+        )
         proc = self.invoke()
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertTrue(self.dest.is_symlink())
@@ -104,7 +112,9 @@ class InstallerTests(unittest.TestCase):
         (self.dest / "SKILL.md").write_text("local customization")
         proc = self.invoke("--copy")
         self.assertEqual(proc.returncode, 1)
-        self.assertEqual((self.dest / "SKILL.md").read_text(), "local customization")
+        self.assertEqual(
+            (self.dest / "SKILL.md").read_text(), "local customization",
+        )
 
     def test_agent_file_collision_is_preserved(self):
         agent = self.home / ".claude/agents/reviewer.md"
