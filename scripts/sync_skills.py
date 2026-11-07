@@ -12,14 +12,18 @@ DESTINATION = ROOT / "codex/skills/thought-thru-architecture"
 
 
 def resources(directory: Path) -> dict[Path, Path]:
-    return {
-        path.relative_to(directory): path
-        for path in directory.rglob("*")
-        if path.is_file()
-        and path.relative_to(directory).parts[0] != "agents"
-        and "__pycache__" not in path.parts
-        and path.name != ".DS_Store"
-    }
+    if directory.is_symlink() or directory.parent.resolve() != directory.parent:
+        raise ValueError(f"Skill resource root has linked ancestors: {directory}")
+    found = {}
+    for path in directory.rglob("*"):
+        relative = path.relative_to(directory)
+        if relative.parts[0] == "agents" or "__pycache__" in relative.parts:
+            continue
+        if path.is_symlink():
+            raise ValueError(f"Refusing linked skill resource: {path}")
+        if path.is_file() and path.name != ".DS_Store":
+            found[relative] = path
+    return found
 
 
 def synchronize(check: bool = False) -> list[str]:

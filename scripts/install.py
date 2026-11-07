@@ -138,11 +138,14 @@ def main() -> int:
     receipt_path = home / ".claude/.claude-agents-install.json"
     receipt = load_receipt(receipt_path)
     items = inventory(home, codex_home)
-    destinations = [dest for _, dest in items]
+    destinations = [dest.parent.resolve() / dest.name for _, dest in items]
     if len(set(destinations)) != len(destinations):
         raise ValueError("Claude and Codex installation destinations overlap")
-    if any(dest.absolute() == source for source, dest in items):
-        raise ValueError("Installation destination cannot be its own source")
+    if any(
+        dest == ROOT or dest.is_relative_to(ROOT) or ROOT.is_relative_to(dest)
+        for dest in destinations
+    ):
+        raise ValueError("Installation destination overlaps source checkout")
     conflicts = []
     for source, dest in items:
         exists = dest.exists() or dest.is_symlink()

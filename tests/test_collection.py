@@ -97,7 +97,7 @@ class CollectionTests(unittest.TestCase):
 
     def test_sync_detects_and_repairs_drift_without_touching_metadata(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             source, dest = root / "source", root / "dest"
             source.mkdir()
             (dest / "agents").mkdir(parents=True)
@@ -116,6 +116,30 @@ class CollectionTests(unittest.TestCase):
                 SYNC.synchronize()
                 self.assertEqual(SYNC.synchronize(check=True), [])
                 self.assertEqual(interface.read_text(), "preserve interface")
+
+    def test_sync_refuses_foreign_file_and_directory_links(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            source, dest = root / "source", root / "dest"
+            source.mkdir()
+            dest.mkdir()
+            (source / "SKILL.md").write_text("canonical")
+            foreign = root / "foreign"
+            foreign.write_text("keep this unrelated file")
+            (dest / "SKILL.md").symlink_to(foreign)
+            with patch.object(SYNC, "SOURCE", source), patch.object(
+                SYNC, "DESTINATION", dest,
+            ):
+                with self.assertRaisesRegex(ValueError, "linked"):
+                    SYNC.synchronize()
+                self.assertEqual(foreign.read_text(), "keep this unrelated file")
+                (dest / "SKILL.md").unlink()
+                (dest / "references").symlink_to(
+                    source, target_is_directory=True,
+                )
+                with self.assertRaisesRegex(ValueError, "linked"):
+                    SYNC.synchronize()
+                self.assertFalse((dest / "SKILL.md").exists())
 
     def test_python_helpers_parse(self):
         for directory in (ROOT / "scripts", ROOT / "tests"):

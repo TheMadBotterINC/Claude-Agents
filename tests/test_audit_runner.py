@@ -30,6 +30,9 @@ contract = json.JSONDecoder().raw_decode(prompt.split(
     "Execution contract (these output paths override skill defaults):\\n", 1
 )[1])[0]
 mode = os.environ.get("FAKE_MODE", "completed")
+pid_file = os.environ.get("FAKE_PID_FILE")
+if pid_file:
+    Path(pid_file).write_text(str(os.getpid()))
 if mode == "timeout":
     time.sleep(10)
 if mode == "fail":
@@ -107,6 +110,11 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(first["status"], "completed")
         self.assertEqual(second["prior_reports"], [first["report_path"]])
         self.assertIn(first["report_path"], second["command"][-1])
+        self.assertIn("--ephemeral", first["command"])
+        self.assertIn(
+            str(self.skills / "rails-security/SKILL.md"),
+            first["command"][-1],
+        )
         self.assertTrue(Path(second["report_path"]).is_file())
         self.assertEqual(manifest["status"], "completed")
 
@@ -167,6 +175,22 @@ class RunnerTests(unittest.TestCase):
         proc, _ = self.invoke("--scope", "quick", resume=True)
         self.assertNotEqual(proc.returncode, 0)
         self.assertIn("Cannot change", proc.stderr)
+
+    def test_default_output_cannot_escape_through_docs_symlink(self):
+        outside = self.root / "outside"
+        outside.mkdir()
+        (self.target / "docs").symlink_to(outside, target_is_directory=True)
+        proc = subprocess.run(
+            [
+                sys.executable, str(SCRIPT), "--target", str(self.target),
+                "--skills", "rails-security", "--dry-run",
+                "--skills-dir", str(self.skills),
+            ],
+            env=self.env, capture_output=True, text=True, timeout=10,
+        )
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("inside the target workspace", proc.stderr)
+        self.assertEqual(list(outside.iterdir()), [])
 
     def test_dry_run_preflights_without_launching(self):
         proc, manifest = self.invoke(
@@ -248,6 +272,38 @@ class RunnerTests(unittest.TestCase):
         self.assertNotEqual(proc.returncode, 0)
         self.assertIn("malformed manifest", proc.stderr)
 
+    def test_invalid_sidecars_and_reports_are_rejected(self):
+        report = self.target / "report.md"
+        result = self.target / "result.json"
+        entry = {"report_path": str(report), "result_path": str(result)}
+        report.write_text("# Audited fixture")
+        for data in (
+            [], {"status": "invented"},
+            {
+                "status": "completed", "report_path": str(report),
+                "blockers": ["actually blocked"],
+            },
+            {
+                "status": "completed", "report_path": "some-other-report.md",
+                "blockers": [],
+            },
+            {
+                "status": "completed", "report_path": str(report),
+                "blockers": "not a list",
+            },
+        ):
+            with self.subTest(data=data):
+                result.write_text(json.dumps(data))
+                self.assertEqual(RUNNER.validate_result(entry)[0], "failed")
+        result.write_text(json.dumps({
+            "status": "completed", "report_path": str(report), "blockers": [],
+        }))
+        report.write_text(" ")
+        self.assertEqual(RUNNER.validate_result(entry)[0], "failed")
+        report.unlink()
+        report.symlink_to(result)
+        self.assertEqual(RUNNER.validate_result(entry)[0], "failed")
+
     def test_rerun_upstream_invalidates_downstream_handoff(self):
         self.invoke("--skills", "rails-security,test-coverage-auditor")
         path = self.run_dir / "manifest.json"
@@ -262,13 +318,23 @@ class RunnerTests(unittest.TestCase):
         )
 
     def test_interrupt_persists_state_and_stops_child(self):
+        self.assert_interruption(signal.SIGINT, 130)
+
+    def test_sigterm_persists_state_and_stops_child(self):
+        self.assert_interruption(signal.SIGTERM, 143)
+
+    def assert_interruption(self, signum, expected_code):
+        pid_file = self.root / "child.pid"
         proc = subprocess.Popen(
             [
                 sys.executable, str(SCRIPT), "--target", str(self.target),
                 "--run-dir", str(self.run_dir), "--skills", "rails-security",
                 "--skills-dir", str(self.skills),
             ],
-            env={**self.env, "FAKE_MODE": "timeout"},
+            env={
+                **self.env, "FAKE_MODE": "timeout",
+                "FAKE_PID_FILE": str(pid_file),
+            },
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
         )
         self.addCleanup(lambda: proc.kill() if proc.poll() is None else None)
@@ -277,18 +343,22 @@ class RunnerTests(unittest.TestCase):
         while time.monotonic() < deadline:
             if path.exists():
                 manifest = json.loads(path.read_text())
-                if manifest["runs"][0]["status"] == "running":
-                    time.sleep(0.1)
+                if (
+                    manifest["runs"][0]["status"] == "running"
+                    and pid_file.exists()
+                ):
                     break
             time.sleep(0.02)
         else:
             self.fail("Runner did not start")
-        proc.send_signal(signal.SIGINT)
+        proc.send_signal(signum)
         _, stderr = proc.communicate(timeout=10)
-        self.assertEqual(proc.returncode, 130, stderr)
+        self.assertEqual(proc.returncode, expected_code, stderr)
         manifest = json.loads(path.read_text())
         self.assertEqual(manifest["status"], "interrupted")
         self.assertEqual(manifest["runs"][0]["status"], "interrupted")
+        with self.assertRaises(ProcessLookupError):
+            os.kill(int(pid_file.read_text()), 0)
 
 
 if __name__ == "__main__":

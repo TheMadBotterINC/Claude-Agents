@@ -54,6 +54,15 @@ RESULT_STATUSES = {"completed", "partial", "blocked"}
 SETTING_KEYS = ("target", "base_url", "sandbox", "model", "scope", "timeout")
 
 
+class RunInterrupted(KeyboardInterrupt):
+    def __init__(self, signum: int):
+        self.exit_code = 128 + signum
+
+
+def interrupt_run(signum: int, _frame) -> None:
+    raise RunInterrupted(signum)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target", help="Project to audit (default: cwd).")
@@ -126,7 +135,7 @@ def run_directory(target: Path, explicit: str | None) -> Path:
     if explicit:
         return Path(explicit).expanduser().resolve()
     stamp = datetime.now().strftime("%Y-%m-%d-%H%M%S") + "-" + uuid4().hex[:8]
-    return target / "docs" / "audits" / ".orchestrator-runs" / stamp
+    return (target / "docs/audits/.orchestrator-runs" / stamp).resolve()
 
 
 def prompt_for(
@@ -180,6 +189,7 @@ def command_for(
     cmd = [
         "codex",
         "exec",
+        "--ephemeral",
         "-C",
         str(target),
         "--sandbox",
@@ -419,7 +429,7 @@ def main() -> int:
     ]
     save_manifest(manifest_path, manifest)
     prior_reports = []
-    interrupted = False
+    interruption = 0
     try:
         for entry in manifest["runs"]:
             skill = entry["skill"]
@@ -499,12 +509,14 @@ def main() -> int:
                 prior_reports.append(entry["report_path"])
             if args.strict and entry["status"] not in {"completed", "dry-run"}:
                 break
-    except KeyboardInterrupt:
-        interrupted = True
+    except KeyboardInterrupt as error:
+        interruption = (
+            error.exit_code if isinstance(error, RunInterrupted) else 130
+        )
     finally:
         manifest["finished_at"] = iso_now()
         manifest["status"] = (
-            "interrupted" if interrupted else
+            "interrupted" if interruption else
             "completed" if all(
                 entry["status"] == "completed" for entry in manifest["runs"]
             ) else "dry-run" if all(
@@ -514,10 +526,11 @@ def main() -> int:
         )
         save_manifest(manifest_path, manifest)
     print(manifest_path)
-    if interrupted:
-        return 130
+    if interruption:
+        return interruption
     return 0 if manifest["status"] in {"completed", "dry-run"} else 1
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGTERM, interrupt_run)
     sys.exit(main())

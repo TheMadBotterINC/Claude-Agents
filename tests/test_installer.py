@@ -3,6 +3,7 @@
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -83,6 +84,20 @@ class InstallerTests(unittest.TestCase):
         self.assertTrue(self.dest.is_symlink())
         self.assertEqual((foreign / "mine.txt").read_text(), "preserve")
 
+    def test_parent_alias_cannot_turn_managed_copy_into_source_deletion(self):
+        self.assertEqual(self.invoke("--copy").returncode, 0)
+        source = self.repo / "codex/skills/security/SKILL.md"
+        before = source.read_bytes()
+        self.dest.parent.rename(self.codex / "saved-skills")
+        self.dest.parent.symlink_to(
+            self.repo / "codex/skills", target_is_directory=True,
+        )
+        proc = self.invoke()
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("overlaps source checkout", proc.stderr)
+        self.assertEqual(source.read_bytes(), before)
+        self.assertFalse(source.parent.is_symlink())
+
     def test_legacy_link_converts_to_copy_without_changing_source(self):
         source = self.repo / "codex/skills/security"
         self.dest.parent.mkdir(parents=True)
@@ -137,6 +152,37 @@ class InstallerTests(unittest.TestCase):
             (self.home / ".claude/.claude-agents-install.json").read_text(),
         )
         self.assertEqual(len(receipt["entries"]), 4)
+
+    def test_full_collection_copy_install_is_portable(self):
+        proc = subprocess.run(
+            ["bash", str(ROOT / "install.sh"), "--copy"],
+            env=self.env, capture_output=True, text=True, timeout=30,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        installed = sorted((self.codex / "skills").glob("*/SKILL.md"))
+        source = sorted((ROOT / "codex/skills").glob("*/SKILL.md"))
+        self.assertEqual(len(installed), len(source))
+        for skill in installed:
+            with self.subTest(skill=skill.parent.name):
+                self.assertFalse(skill.parent.is_symlink())
+                for link in re.findall(
+                    r"\]\((references/[^)#]+)(?:#[^)]*)?\)",
+                    skill.read_text(),
+                ):
+                    self.assertTrue((skill.parent / link).is_file())
+                definition = skill.parent / "evals/evals.json"
+                if definition.exists():
+                    for case in json.loads(definition.read_text())["evals"]:
+                        for file in case.get("files", []):
+                            self.assertTrue((skill.parent / file).is_file())
+        canonical = self.home / ".claude/skills/thought-thru-architecture"
+        generated = self.codex / "skills/thought-thru-architecture"
+        for file in canonical.rglob("*"):
+            if file.is_file():
+                self.assertEqual(
+                    file.read_bytes(),
+                    (generated / file.relative_to(canonical)).read_bytes(),
+                )
 
 
 if __name__ == "__main__":

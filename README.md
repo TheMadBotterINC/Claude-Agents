@@ -118,6 +118,8 @@ Each run has a unique `docs/audits/.orchestrator-runs/<run-id>/` directory insid
 the target workspace, containing an atomically updated `manifest.json`,
 per-attempt logs/results, and `reports/`. Keep these artifacts private; raw child
 output may contain sensitive information despite redaction instructions.
+Children use `codex exec --ephemeral` so these isolated runs do not create
+persistent Codex sessions; the run artifacts remain available for review/resume.
 An existing run directory is never overwritten. Exit zero requires verified,
 nonempty reports and valid `completed` sidecars (or successful dry-run preflight).
 Partial, blocked, timed-out, or failed audits return nonzero; `--strict` stops
