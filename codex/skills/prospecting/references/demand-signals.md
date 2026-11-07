@@ -42,12 +42,11 @@ Search several angles, not one query repeated. Adapt wording to how the audience
 4. **Switching** — cancellation, migration, "moving off [competitor]," a missing feature, a pricing complaint, competitor frustration.
 5. **Timing** — a public launch, a new hire for the relevant function, expansion, a new workflow or regulation, an integration announcement — a *current* event that makes the product relevant now.
 
-**Use our live-recency edge.** A generic skill relies on whatever a web search surfaces; you have better:
-- **last30days** — Reddit, Hacker News, X, YouTube, and web signals from the last 30 days. This is the single highest-value tool for this branch: recency *is* the timing signal.
-- **social-fetch** — pull the full content of a specific post/thread you find, normalized.
-- **scraping** / **Firecrawl** / **Browserbase** — read the original public page (a forum thread, a GitHub issue, a review), never qualify from a search snippet alone.
-- **deep-research** — for a multi-source sweep with adversarial verification when the wedge is broad.
-- **competitor-profiling** / **customer-research** — competitor switching signals and review-mining for the pain language.
+**Verify recency and original evidence with available capabilities.** Do not assume particular tools are installed:
+- Use authorized search or supplied excerpts to establish publication dates and freshness; a recent search result is not necessarily a recent signal.
+- Retrieve the original public post, thread, or review when possible; do not qualify from snippets alone. If retrieval is unavailable, label the candidate unverified or request source excerpts.
+- Tools such as last30days, social-fetch, Firecrawl, Browserbase, or deep-research are optional integrations, not prerequisites or assumed access.
+- If installed, `competitor-profiling` or `customer-research` can help with switching signals and review language; otherwise keep the research within available evidence.
 
 ## Step 3 — Source mix (public only)
 
@@ -118,7 +117,7 @@ Lead with the most actionable evidence, in this order:
 6. **Seven-day manual outreach plan** — a low-volume validation sequence (e.g., contact the top 3 with one source-based question; share a mockup only after they confirm the pain; target three conversations and one design-partner commitment).
 7. **Limits** — what evidence is missing and what must be confirmed through real conversations.
 
-For a shareable standalone HTML version of this report, the JSON→HTML generator pattern in ad-creative's [creative-review-page.md](../../ad-creative/references/creative-review-page.md) is the model (escape every value; keep it self-contained).
+Create a standalone HTML report only when requested. Escape every supplied value, keep the output self-contained, and preserve the source ledger and uncertainty labels. An optional installed `ad-creative` skill may offer presentation guidance, but this report must not depend on another skill's relative files.
 
 ## The honesty rules (non-negotiable)
 

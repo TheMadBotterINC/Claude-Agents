@@ -9,17 +9,16 @@ metadata:
 
 ## Operating boundaries (local adaptation)
 
-Apply these boundaries throughout this skill and its references; procedural examples do not grant access or permission.
+These rules also govern references and examples:
 
-- Verify available tools, authenticated accounts, roles, and data scope before using them. Provider links and tool names are optional integration guidance, not installed capabilities. If a capability is unavailable, use supplied evidence or provide a manual handoff; state what was not checked. Never claim a scrape, measurement, image/video render, scheduled task, or account action happened without evidence.
-- Default to analysis and drafts. Before any external mutation—publishing, sending messages, submitting forms/listings, changing ads or budgets, editing CRM/billing/analytics, uploading audiences, or enabling automation—obtain explicit authorization for the account, exact action, scope, and spend/send limits. Tool access alone is not permission. Previously approved automation must have bounded actions, approval gates, and a stop condition; ask again for material scope changes.
-- Use permitted, minimum-necessary data. Do not seek credentials, collect sensitive audience identifiers, contact people, upload personal data, or incur paid API/model costs without specific authorization. Prefer supplied exports, anonymized research, and public sources.
-- Ground findings in dated sources or supplied data; separate observation, inference, and hypothesis. Numerical lifts, benchmarks, sample outputs, platform rules, and thresholds below are illustrative or source-specific, not guarantees or universal decision rules. Verify current platform requirements where relevant. Never fabricate proof, customers, testimonials, scarcity, or results.
-- Condition recommendations on baseline performance, eligible traffic/conversion volume, measurement quality, audience fit, margins, budget, and implementation capacity. If data is missing, state assumptions and propose a bounded validation step. Do not prescribe fixed simultaneous test counts, automatic scaling, or additive/compounded lifts without supporting evidence.
-- Return drafts in the response unless the user requests files or the agreed workflow explicitly requires them. Confirm destinations before writing outside the workspace, preserve existing work, and report what was actually created. Skill selection alone does not authorize artifact creation.
-- Related skills are optional handoffs, not assumed installations. Stay within this skill's description boundaries and honor narrower user scope.
+- Verify tools, accounts, roles, and data scope. Integration links are guidance, not installed capabilities. Use supplied evidence or a manual handoff when unavailable; never claim unperformed retrieval, measurement, rendering, scheduling, or actions.
+- Default to drafts. External mutations (send/publish/submit, account or budget edits, uploads, automation) require explicit authorization identifying account, action, scope, and spend/send limits. An explicit bounded user request counts; do not re-ask for approved actions or analysis. Access alone is not permission. Require renewed authorization only for material scope changes; automation needs approval gates and a stop condition.
+- Minimize personal data. Contact, audience uploads, or paid API/model costs needs specific authorization and an appropriate data-use basis. Never request credentials.
+- Cite dated evidence; distinguish observation, inference, and hypothesis. Treat benchmarks, lifts, thresholds, and platform claims as source-specific, not guarantees. Verify current requirements and condition recommendations on traffic, measurement, economics, and capacity; never invent proof or compound assumed lifts.
+- Return drafts here unless files are requested or required by the agreed workflow. Confirm out-of-workspace destinations, preserve existing work, and report actual outputs. Selection alone authorizes no files.
+- Related skills are optional handoffs; honor narrower scope.
 
-Local adaptations retain the pinned [upstream source](https://github.com/coreyhaines31/marketingskills/blob/130847d0945555c43b0b1774e2a4f99d35a32ebe/skills/ads/SKILL.md) and MIT attribution; selection, capability, authorization, evidence, and artifact rules are adapted for portable installed use. Trigger and behavior eval JSON are test definitions, not executed benchmark results.
+Adapted for portable installed use from the pinned [MIT upstream](https://github.com/coreyhaines31/marketingskills/blob/130847d0945555c43b0b1774e2a4f99d35a32ebe/skills/ads/SKILL.md). Eval JSON contains definitions, not benchmark results.
 
 Help plan, review, and improve paid campaigns using supplied exports or explicitly authorized account capabilities. Do not assume direct account access. Strategy and draft recommendations do not authorize campaign creation, budget changes, audience uploads, or launches.
 
@@ -150,7 +149,7 @@ The discipline now: **audience knowledge → creative first, targeting filters s
 
 | Platform | Audience knowledge → creative | Audience knowledge → targeting filters | Notes |
 |----------|------------------------------|-------------------------------------|-------|
-| **Meta** (post-Andromeda) | **80%+** | 20% | Algorithm rewards broad + specific creative. See [[#Modern Meta playbook (Andromeda era — 2026+)]] below for the full reframe. Interest-stacking now actively hurts. |
+| **Meta** (post-Andromeda) | **80%+** | 20% | Algorithm rewards broad + specific creative. See [Meta creative patterns](references/meta-creative-patterns.md) below for the full reframe. Interest-stacking now actively hurts. |
 | **Google Search** | 40% | **60%** | Keywords are still the dominant signal — match-types, search-intent layering, and negative keywords still drive performance. Creative (RSA headlines) matters but is downstream of the keyword. |
 | **Google Performance Max / Demand Gen** | **70%** | 30% | Audience signals are advisory, not deterministic. Creative + product feed quality dominate. |
 | **LinkedIn** | 40% | **60%** | Job-title / company / industry filters still produce real precision because LinkedIn's identity data is high-quality. Creative makes the click; firmographics make the *right person* see it. |
@@ -185,50 +184,9 @@ Trying to make up for weak creative with hyper-precise targeting. If your creati
 
 ---
 
-## Modern Meta playbook (Andromeda era — 2026+)
+## Meta creative patterns
 
-Treat the following Meta creative patterns as hypotheses from practitioner playbooks, not independently verified algorithm rules. Check current platform documentation and account evidence; do not infer a causal creative preference from an algorithm name.
-
-### Creative volume is the constraint (statics > polished video)
-- Andromeda is "a hungry panda" — it needs constant fresh creative or it fatigues
-- Compare static and video creative for this audience and objective:
-  - Static production may cost less, but delivery cost and conversion quality must be measured.
-  - Do not assume an algorithmic bias toward a format or a universal production-cost ratio.
-  - Practitioner anecdotes can generate a test idea; they are not an expected result.
-- **Dedicate 1 hour per week** to producing fresh creatives for your winning offer. Volume > polish.
-
-### Creative IS the targeting (broad audience + specific creative)
-- The old playbook: stack interests, narrow the audience, hope to find the right buyer
-- The new playbook: target broadly (just the country) and let the creative do the targeting
-- Compare long and short copy if there is enough volume; do not assume a platform context-window mechanism or universal winner.
-- A broad-versus-narrow targeting test needs an approved budget, eligibility and policy checks, a prespecified duration/sample, and qualified downstream outcomes. Seven days or a lower observed CPA alone is not proof.
-
-### The one-keyword hack (identity-trigger keywords)
-- Take your winning ad
-- Duplicate it with a niche/identity keyword inserted in the headline or body copy
-- Example: "Plan follow-ups in one workspace" → "Plan dental-practice follow-ups in one workspace." Use only supported product and audience claims; do not invent lead counts or autopilot outcomes.
-- The keyword is an **identity trigger** for the viewer AND a targeting signal for Andromeda
-- May improve relevance for a niche; test qualified acquisition cost and downstream outcomes rather than promising lower CPL.
-
-### AI variant farming (the 100-people test)
-- Take your winning ad
-- Feed to Claude/ChatGPT/Kong with the prompt:
-  > *"I want you to read this ad and be the author. If I show the next ad I'm going to ask you to write to 100 people, not 1 in 100 would be able to tell you it's written by a different person. Now write this for [demographic/niche]."*
-- The output should read essentially the same with subtle relevance shifts for the target
-- Apply in sequence: body copy → headlines → creative
-- Drop all variants in a CBO, let Meta's AI allocate spend
-
-### Zombie campaigns
-- After running a CBO, Meta will give 80% of variants no spend
-- Take the dead variants you have **high conviction** about
-- Launch them in a separate ad set ("zombie campaign")
-- Consider an isolated, budget-capped retest only when evidence suggests allocation rather than creative quality caused low delivery; no win rate is assumed.
-
-### Don't make ads look like ads
-- Hundreds of millions of people have ad blockers — the polished-ad aesthetic kills performance
-- Study what content **natively performs** in your niche on TikTok/Instagram/YouTube → produce ads that match that aesthetic
-- Review public examples or an authorized research feed for native creative patterns. Do not create accounts, follow people, or engage on the user's behalf without explicit authorization.
-- If you have an organic video with millions of views, **run that exact video as a paid ad** — proven content + paid distribution = the highest-leverage move
+For Meta-specific format, targeting, and variant hypotheses, read [Meta creative patterns](references/meta-creative-patterns.md) only when that platform is in scope. Use account evidence and the decision-system reference rather than treating practitioner anecdotes as universal rules.
 
 ## Creative Best Practices
 

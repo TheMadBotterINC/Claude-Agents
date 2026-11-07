@@ -59,6 +59,8 @@ Never overwrite an existing report. Add `-2`, `-3`, and so on before `.md`. Do n
 
 If a supplied URL proves unreachable, create a concise `Blocked` report documenting the attempt and request a reachable URL or repository root. If no valid target was supplied at all, do not create a report.
 
+Before inspection, verify the required browser or source-reading capabilities. If a valid target cannot be inspected with available capabilities, create the same concise `Blocked` report naming the missing capability and any checks actually attempted. Do not claim the URL is unreachable merely because no browser is available, invent rendered observations, or substitute a generic audit for uninspected evidence.
+
 ## Required references
 
 Read these files before inspecting the target:
