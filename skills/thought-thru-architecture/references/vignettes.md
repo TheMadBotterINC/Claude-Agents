@@ -4,6 +4,12 @@ Two before/after pairs. The "before" versions are not strawmen — they are the
 default output shape when coding without a design pass. Study the *deltas*,
 not the domains.
 
+These examples assume the consumer inventory confirms no external API, engine,
+queued job, or older deployed version needs the previous behavior. A search of
+local call sites alone does not establish that. Preserve a bounded compatibility
+path when those consumers exist. A single implementation can still merit an
+interface at an actual integration, plugin, or tenant/domain boundary.
+
 ## Vignette 1 — adding retries to an API call (Ruby)
 
 Task: `SyncCustomerJob` sometimes fails because the billing API times out.
@@ -65,7 +71,8 @@ What went wrong, item by item:
   into a `NoMethodError` three frames downstream, or worse, a silent no-op.
 - **Retries `StandardError`** — including bugs that will never succeed on
   attempt 2.
-- **Compat alias nobody asked for.** Nothing referenced `BillingApiClient`.
+- **Compat alias without a consumer.** The local and external consumer inventory
+  confirmed nothing referenced `BillingApiClient`.
 - **Ignored the platform.** This is a job; the job framework already owns
   retry.
 
@@ -133,7 +140,7 @@ export function formatDuration(ms: number): string {
 }
 ```
 
-Reading the call sites first shows every caller *wants* sub-minute durations
+Reading the call sites and consumer contracts first shows every caller *wants* sub-minute durations
 to say `"5s"` rather than `"0m"` — the variant was actually a bug fix at the
 existing altitude. No options object exists until a second caller genuinely
 diverges, and if one ever does, *that* diff is where the parameter earns its

@@ -1,6 +1,6 @@
 ---
 name: thought-thru-architecture
-description: Design-first coding discipline. Use BEFORE writing or changing product code whenever implementing a feature, refactoring, restructuring, or making any change that adds a new file, class, module, abstraction, or dependency. Skip for one-line fixes, doc edits, and mechanical renames.
+description: Design-first coding discipline for features and refactors that change boundaries, contracts, dependencies, data flow, or failure behavior. Use before implementation; scale the design pass by risk, including small security or compatibility changes. Skip purely mechanical or documentation-only edits that do not affect contracts.
 ---
 
 # Thought-Thru Architecture
@@ -26,25 +26,38 @@ before the first edit and enforced after the last one — not during.
    and be able to say why.
 4. **State the design in two sentences** — the data flow, the boundary, and
    what gets deleted. If you can't, you're not ready to code.
-5. For anything touching 3+ files or adding a layer, write the sketch down
-   first: files touched, each new concept and why it earns its place, what old
-   code dies. Then read `references/vignettes.md` for the failure modes to
-   avoid.
+5. **Scale the sketch by risk, not file count.** Write a design sketch for
+   changes to public contracts, tenant/domain boundaries, persistence, failure
+   handling, or deployment ordering, even if only one line changes. Include
+   affected consumers, each new concept's purpose, verification, and rollback.
+   Keep low-risk local changes brief. Read `references/vignettes.md` when
+   weighing abstraction or compatibility tradeoffs.
+6. **Map consumers before removing a contract.** Search routes, views/partials,
+   jobs and serialized payloads, mounted engines and host apps, public APIs,
+   plugins, and documented external consumers. Repository search alone cannot
+   prove an exported contract is unused. State unknown consumers explicitly.
+   Account for queued jobs and rolling deploys with old and new versions alive
+   together; choose a migration/deprecation window when needed.
 
 ## While coding — prohibitions
 
 - **No defensive wrapping.** Don't blanket code in try/catch or invent fallback
   values that mask errors. Let failure surface loudly at the boundary where it
   means something.
-- **No backwards-compat shims** — aliases, re-exports, deprecation paths, dual
-  code paths — unless something in this repo actually depends on the old path.
-  Migrating means deleting the old code in the same diff.
+- **Compatibility earns its keep.** Avoid unnecessary aliases and dual paths,
+  but retain a bounded shim or staged migration for external APIs, engine
+  consumers, queued jobs, or rolling deploys that still need the old contract.
+  Document ownership, removal conditions, and tests. Remove the old path in the
+  same diff only when the consumer inventory and deployment strategy allow it.
 - **No Manager/Helper/Utils/Common grab bags.** If a unit can't be named
   crisply, the boundary is wrong. A naming failure is a design signal, not a
   thesaurus problem.
 - **No flexibility on spec.** Don't add parameters, options hashes, or config
   knobs "for later." A knob is added when its second caller exists, not before.
-- **No interface or base class with one implementation.**
+- **Abstract for a real boundary, not an implementation count.** A single
+  implementation may justify an interface for an external integration,
+  dependency inversion, a stable plugin contract, or a deliberate test seam.
+  Name the concrete benefit; reject speculative abstractions without one.
 - **No narrating comments.** Comments state constraints the code can't show —
   never what the next line does, where code was moved from, or why the change
   is correct.
@@ -63,7 +76,8 @@ itself.
 - Try to delete each new concept, branch, and parameter; keep only what
   survives the attempt. Deletion is a first-class outcome, not a failure to
   contribute.
-- Confirm the old path is actually gone if this change replaces one.
+- Confirm replaced paths are gone when safe; otherwise verify the compatibility
+  window, migration tests, and explicit retirement condition.
 - Check the diff couldn't be meaningfully smaller and still correct.
 
 ## Litmus tests
@@ -77,3 +91,5 @@ Before presenting the change, answer honestly:
 - Does the code read like the codebase's original author wrote it?
 - When an assumption fails, does it break loudly at a meaningful boundary — or
   silently somewhere downstream?
+- Are tenant/domain boundaries preserved, and can old clients, jobs, engines,
+  and concurrently deployed versions continue to work during the transition?
